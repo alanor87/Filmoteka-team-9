@@ -1,16 +1,14 @@
-:root {
-  --text-color-light: #ffffff;
-  --text-color-dark: #000000;
-  --text-color-shadow: #545454;
-  --text-color-movie-info: #8c8c8c;
-  --text-color-warrning: #ff001b;
+$text-color-light: #ffffff;
+$text-color-dark: #000000;
+$text-color-shadow: #545454;
+$text-color-movie-info: #8c8c8c;
+$text-color-warrning: #ff001b;
 
-  --bg-color-main: #ffffff;
-  --bg-color-secondary: F7F7F7;
+$bg-color-main: #ffffff;
+$bg-color-secondary: F7F7F7;
 
-  --color-accent: #ff6b08;
+$color-accent: #ff6b08;
 
-  --breakpoint-desktop: 1024px;
-  --breakpoint-tablet: 768px;
-  --breakpoint-mobile: 320px;
-}
+$breakpoint-desktop: 1024px;
+$breakpoint-tablet: 768px;
+$breakpoint-mobile: 320px;
