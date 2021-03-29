@@ -1,24 +1,8 @@
 @import './scss/vars';
 @import './scss/utils';
-@import './scss/header';
 
-body {
-    font-family: 'Roboto', sans-serif;
-}
 
 img {
-  display: block;
+    display: block;
 }
 
-ul {
-    list-style: none;
-}
-
-a {
-    text-decoration: none;
-}
-
-.container {
-    max-width: 822px;
-    margin: 0 auto;
-}
