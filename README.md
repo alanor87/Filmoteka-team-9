@@ -1,101 +1,79 @@
-# Webpack starter kit &middot; [![Build Status](https://img.shields.io/travis/npm/npm/latest.svg?style=flat-square)](https://travis-ci.org/npm/npm) [![npm](https://img.shields.io/npm/v/npm.svg?style=flat-square)](https://www.npmjs.com/package/npm) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/your/your-project/blob/master/LICENSE)
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-## Developing
 
-### Prerequisites
+                                                  - fetch -
 
-Для корректной работы SASS-компилятора и других инструментов, необходимо один
-раз глобально поставить дополнительные пакеты, выполнив в терминале следующие
-команды. Пользователям MacOS ничего делать не нужно.
 
-Пользователям **Windows**, в режиме администратора.
-[Как запусттить Powershell](https://youtu.be/p2tFnxcymwk) в режиме
-администратора.
+Функции  :
+  
+ function fetchPopularMoviesList() {} - это работает по умолчанию, когда загружается главная страница
+          Формат запроса : https://api.themoviedb.org/3/trending/all/day?api_key=<<api_key>>
 
-```shell
-npm install --global --production windows-build-tools
-```
+ function fetchSearchMoviesList() {} - работает на поиске - нажатие кнопки поиска по слову
+          Формат запроса : https://api.themoviedb.org/3/search/movie?api_key=<<api_key>>&language=en-US&page=1&include_adult=false
 
-Вот как выглядит процесс успешной установки для пользователей **Windows**.
+ function fetchMovieByID() {} - работает при загрузке просмотренных и фильмов в очереди - каждый фильм загружается отдельно
+          Формат запроса : https://api.themoviedb.org/3/movie/{movie_id}?api_key=<<api_key>>&language=en-US
 
-![Установка windows-build-tools](https://user-images.githubusercontent.com/1426799/45007904-bde9f280-afb4-11e8-8a35-c77dffaffa2a.gif)
+ function fetchWatchedMoviesList() {} - при нажатии на кнопку Watched и при загрузке библиотеки пользователя
+          Формат запроса : тут нам нужно пройтись .forEach для нашего массива с ID просмотренных фильмов (см. loadWatchedMovies()) - 
+          и для каждого сделать fetchMovieByID(). Можно собрать все асинхронные запросы в Promise.all([]), чтоб отрисовалось всё вместе,
+          как только загрузятся все запрошенный ID.
 
-Пользователям **Linux**.
+ function fetchQueueMoviesList() {} - при нажатии на кнопку Queue
+          Формат запроса : то же самое, что и fetchWatchedMoviesList(), 
+          только используем другой источник наших ID - loadQueueMovies()
 
-```shell
-sudo apt-get install gcc g++ make
-```
+ function fetchModalMovie() {} - при открытии модального окна с нашим фильмом
+          Формат запроса : используем fetchMovieByID() и рисуем по результату пришедшего объекта.
 
-### Setting up Dev
 
-Для быстрого старта необходимо склонировать репозиторий.
 
-```shell
-git clone https://github.com/luxplanjay/webpack-starter-kit.git
-```
+ ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-Переименовать папку сборки именем вашего проекта.
 
-```shell
-mv webpack-starter-kit имя_проекта
-```
+                                               - localStorage -
 
-Затем перейти в папку проекта.
 
-```shell
-cd имя_проекта
-```
+  В localStorage будет два ключа : watched и queue
+  Каждый, конечно, будет в localStorage строкой, но в итоге после JSON.parse() становится массивом, 
+  элементами которого являются ID фильмов.
+       
+       const watched = []
 
-Находясь в папке проекта удалить папку `.git` связанную с репозиторием сборки
-выполнив следующую команду.
+       const queue = []
 
-```shell
-npx rimraf .git
-```
+Функции : 
 
-Установить все зависимости.
+ function loadWatchedMovies() {} - возвращает распарсеный объект из localStorage.watched 
 
-```shell
-npm install
-```
+ function loadQueueMovies() {} - возвращает распарсеный объект из localStorage.queue
 
-И запустить режим разработки.
+ function addWatchedMovies(movieId) {} - пушит новый ID в localStorage.watched
 
-```shell
-npm start
-```
+ function addQueueMovies(movieId) {} - пушит новый ID в localStorage.queue
 
-Во вкладке браузера перейти по адресу
-[http://localhost:4040](http://localhost:4040).
 
-### Building
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-Для того чтобы создать оптимизированные файлы для хостинга, необходимо выполнить
-следующую команду. В корне проекта появится папка `build` со всеми
-оптимизированными ресурсами.
+                                                  - render -
 
-```shell
-npm run build
-```
+Функции рендера (отрисовки) : 
 
-### Deploying/Publishing
+ function renderMovieCards(moviesArray) {} - отрисовка всех КОЛЛЕКЦИЙ карточек
 
-Сборка может автоматически деплоить билд на GitHub Pages удаленного (remote)
-репозитория. Для этого необходимо в файле `package.json` отредактировать поле
-`homepage`, заменив имя пользователя и репозитория на свои.
+ function renderMovie(movieObj) {} - отрисовка одного фильма со всеми требуемыми в макете полями в модальном окне
 
-```json
-"homepage": "https://имя_пользователя.github.io/имя_репозитория"
-```
 
-После чего в терминале выполнить следующую команду.
 
-```shell
-npm run deploy
-```
 
-Если нет ошибок в коде и свойство `homepage` указано верно, запустится сборка
-проекта в продакшен, после чего содержимое папки `build` будет помещено в ветку
-`gh-pages` на удаленном (remote) репозитории. Через какое-то время живую
-страницу можно будет посмотреть по адресу указанному в отредактированном
-свойстве `homepage`.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+                                           - handlebars templates -
+
+  movieCard - шаблон для карточки
+  
+  movieModal - шаблон для модального окна с информацией по фильму
+
+
+
