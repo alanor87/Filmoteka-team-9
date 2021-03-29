@@ -11,9 +11,6 @@
 }
 .movie__list-item {
   box-sizing: border-box;
-  border: 1px dotted black; //для проверки разметки
-  border-radius: 5px;
-  height: 443px;
   @media screen and (max-width: 767px) {
     //$breakpoint-tablet-1px
     width: 100%;
@@ -23,7 +20,6 @@
   }
 
   @media screen and (min-width: $breakpoint-tablet) {
-    height: 440px;
     margin: 15px;
     width: calc((100% - 2 * 30px) / 2);
   }
