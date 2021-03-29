@@ -1,0 +1,124 @@
+:root {
+  --text-color-light: #ffffff;
+  --text-color-dark: #000000;
+  --text-color-shadow: #545454;
+  --text-color-movie-info: #8c8c8c;
+  --text-color-warrning: #ff001b;
+  --bg-color-main: #ffffff;
+  --bg-color-secondary: F7F7F7;
+  --color-accent: #ff6b08;
+}
+
+/* Main font */
+.is-hidden {
+  visibility: hidden;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.container {
+  max-width: 320px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+@media screen and (min-width: 768px) {
+  .container {
+    max-width: 618px;
+    padding: 60px 0px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .container {
+    max-width: 882px;
+  }
+}
+
+.movie__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+@media screen and (min-width: 768px) {
+  .movie__list {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    margin: -15px;
+  }
+}
+
+.movie__list-item {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+@media screen and (max-width: 767px) {
+  .movie__list-item {
+    width: 100%;
+  }
+  .movie__list-item:not(:last-child) {
+    margin-bottom: 20px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .movie__list-item {
+    margin: 15px;
+    width: calc((100% - 2 * 30px) / 2);
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .movie__list-item {
+    width: calc((100% - 3 * 30px) / 3);
+  }
+}
+
+.movie-card__wrapper-img {
+  overflow: hidden;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  width: 100%;
+  height: 398px;
+}
+
+.movie-card__img {
+  width: 100%;
+  height: 100%;
+}
+
+.movie-card__name, .movie-card__description {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.33;
+}
+
+.movie-card__name {
+  color: var(--text-color-dark);
+}
+
+.movie-card__name, .movie-card__description, .movie-card__rating {
+  margin: 0;
+}
+
+.movie-card__description {
+  color: var(--color-accent);
+  display: inline-block;
+}
+
+.movie-card__rating {
+  display: inline-block;
+  padding: 1px 10px;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.16;
+  color: var(--text-color-light);
+  background: var(--color-accent);
+  border-radius: 5px;
+}
+/*# sourceMappingURL=main.css.map */
