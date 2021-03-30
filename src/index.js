@@ -5,8 +5,8 @@ import ApiService from './js/api';
 //Проверка работы запроса популярных фильмов и отрисовка галлереи карточек
 const Api = new ApiService();
 Api.resetPage();
-Api.fetchPopularMoviesList().then(moviesArray => {
-  console.log(moviesArray);
+Api.fetchPopularMoviesList().then(movies => {
+  const moviesArray = movies.results.map(movie => Api.movieAdapter(movie));
   Api.renderMovieCards(moviesArray);
 });
 //
