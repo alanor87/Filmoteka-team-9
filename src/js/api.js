@@ -8,10 +8,20 @@ import movieCard from '../templates/movieCard.hbs';
 import refs from './refs';
 
 export default class ApiService {
-  constructor() {
+    constructor() {
     this.page = 1;
     this.searchQuery = '';
   }
+    fetchSearchMoviesList() { }
+
+    fetchMovieByID(id_movie) {
+        return fetch(`${BASE_URL_MOVIEID}/${id_movie}?api_key=${API_KEY}`)
+            .then(response => {
+                if (response.status === '404') throw new Error;
+                response.json();
+            })
+    }
+
   movieAdapter({
     poster_path,
     original_title,
@@ -28,22 +38,19 @@ export default class ApiService {
       releaseDate: release_date || first_air_date,
     };
   }
+
   generatePosterPath(imageName) {
     return `${POSTER_URL}${imageName}`;
   }
+
   fetchPopularMoviesList() {
     return fetch(`${BASE_URL_TRENDING}?api_key=${API_KEY}&page=${this.page}`)
       .then(response => response.json())
       .then(movies => {
         this.incrementPage();
-        const moviesArray = movies.results.map(movie =>
-          this.movieAdapter(movie),
-        );
-        return moviesArray;
+        return movies;
       });
   }
-  fetchSearchMoviesList() {}
-  fetchMovieByID() {}
   fetchWatchedMoviesList() {}
   fetchQueueMoviesList() {}
   fetchModalMovie() {}
