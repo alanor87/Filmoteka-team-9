@@ -8,10 +8,42 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.0.0/modern-normalize.css"
     />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./main.css">
     <title>Filmoteka-team-9-library</title>
   </head>
   <body>
-    <header></header>
+    <header class="header">
+      <div class="container">
+        <div class="header-wrapper">
+          <a class="logo link " href="./index.html" lang="en">
+            <svg class="menu-btn-svg" width="25px" height="25px">
+              <use href="./images/symbol-defs.svg#icon-film"></use>
+            </svg>
+            <span class="hidden-in-mobile">Filmoteka</span></a>
+          <nav class="nav">
+            <ul class="nav-list list">
+              <li class="nav-list-item">
+                <a class="nav-list-link link " href="./index.html">Home</a>
+              </li>
+              <li class="nav-list-item">
+                <a class="nav-list-link link nav-active" href="./myLibrary.html">my library</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <div class="header-menu">
+          <ul class="header-menu-list list">
+            <li class="header-menu-item"><button class="header-btn active-btn" type="button" data-modal-watched>
+                watched
+              </button></li>
+            <li class="header-menu-item"><button class="header-btn" type="button" data-modal-queue>
+                queue
+              </button></li>
+          </ul>
+        </div>
+      </div>
+    </header>
     <main>
       <div class="container">
         <ul class="movie__list">
