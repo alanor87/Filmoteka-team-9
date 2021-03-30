@@ -1,0 +1,166 @@
+.nav-link {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.166;
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--text-color-light);
+}
+
+.nav-active {
+  position: relative;
+}
+
+.nav-active::after {
+  position: absolute;
+  left: 0;
+  content: '';
+  display: block;
+  height: 3px;
+  background-color: var(--color-accent);
+  width: 100%;
+}
+
+.header {
+  padding-top: 40px;
+  padding-bottom: 65px;
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-size: cover;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--text-color-dark);
+  background-image: linear-gradient(rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
+    url(./images/Rectangle-mobile-library.jpg);
+
+  @media screen and (min-width: 320px) {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.56)),
+      url(./images/Rectangle-mobile-library.jpg);
+    @media screen and (min-device-pixel-ratio: 2),
+      screen and (min-resolution: 192dpi),
+      screen and (min-resolution: 2dppx) {
+      background-image: linear-gradient(
+          rgba(0, 0, 0, 0.56),
+          rgba(0, 0, 0, 0.56)
+        ),
+        url(./images/Rectangle-mobile-library@2x.jpg);
+    }
+  }
+
+  @media screen and (min-width: $breakpoint-tablet) {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
+      url(./images/Rectangle-tablet-library.jpg);
+    @media screen and (min-device-pixel-ratio: 2),
+      screen and (min-resolution: 192dpi),
+      screen and (min-resolution: 2dppx) {
+      background-image: linear-gradient(
+          rgba(0, 0, 0, 0.56),
+          rgba(0, 0, 0, 0.56)
+        ),
+        url(./images/Rectangle-tablet-library@2x.jpg);
+    }
+  }
+
+  @media screen and (min-width: $breakpoint-desktop) {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
+      url(./images/Rectangle-desktop-library.jpg);
+    @media screen and (min-device-pixel-ratio: 2),
+      screen and (min-resolution: 192dpi),
+      screen and (min-resolution: 2dppx) {
+      background-image: linear-gradient(
+          rgba(0, 0, 0, 0.56),
+          rgba(0, 0, 0, 0.56)
+        ),
+        url(./images/Rectangle-desktop-library@2x.jpg);
+    }
+  }
+
+  &-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 50px;
+  }
+}
+
+.logo {
+  @media screen and (min-width: $breakpoint-tablet) {
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 1.167;
+    color: var(--text-color-light);
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    align-items: center;
+    text-align: center;
+    display: flex;
+  }
+}
+
+.menu-btn-svg {
+  margin-right: 10px;
+  fill: #818181;
+}
+
+.hidden-in-mobile {
+  @media screen and (max-width: 767px) {
+    display: none;
+  }
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+}
+
+.nav-list-item {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.16;
+  align-items: center;
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--text-color-light);
+  display: inline-flex;
+
+  &:first-child {
+    margin-right: 40px;
+  }
+}
+
+.header-btn {
+  width: 130px;
+  height: 44px;
+  border-radius: 5px;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.33;
+  align-items: center;
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--bg-color-main);
+  cursor: pointer;
+  outline: none;
+  border: 1px solid var(--bg-color-main);
+  background-color: transparent;
+  &:first-child {
+    margin-right: 20px;
+
+    @media screen and (min-width: $breakpoint-tablet) {
+      margin-right: 15px;
+      width: 136px;
+    }
+  }
+}
+.header-menu-list {
+  display: flex;
+
+  @media screen and (min-width: $breakpoint-tablet) {
+    justify-content: center;
+  }
+}
+
+// нужно вешать на кнопку и снимать при активации
+.active-btn {
+  background-color: var(--color-accent);
+  border: 1px solid var(--color-accent);
+}
