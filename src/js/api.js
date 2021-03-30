@@ -36,10 +36,7 @@ export default class ApiService {
       .then(response => response.json())
       .then(movies => {
         this.incrementPage();
-        const moviesArray = movies.results.map(movie =>
-          this.movieAdapter(movie),
-        );
-        return moviesArray;
+        return movies;
       });
   }
   fetchSearchMoviesList() {}
