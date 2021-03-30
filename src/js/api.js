@@ -14,7 +14,13 @@ export default class ApiService {
 
     fetchPopularMoviesList() { }
     fetchSearchMoviesList() { }
-    fetchMovieByID() { }
+    fetchMovieByID(id_movie) {
+        return fetch(`${BASE_URL_MOVIEID}/${id_movie}?api_key=${API_KEY}`)
+            .then(response => {
+                if (response.status === '404') throw new Error;
+                response.json();
+            })
+    }
     fetchWatchedMoviesList() { }
     fetchQueueMoviesList() { }
     fetchModalMovie() { }
