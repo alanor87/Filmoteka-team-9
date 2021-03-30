@@ -5,8 +5,10 @@ const debounce = require('lodash.debounce');
 import { pluginError } from './js/pluginOn';
 
 const Api = new ApiService();
+
 fetchPopularMoviesList();
 refs.searchInput.addEventListener('input', debounce(onSearch, 500));
+
 
 //Функция запроса популярных фильмов и отрисовка галлереи карточек - запускается при загрузке главной страницы
 function fetchPopularMoviesList() {
