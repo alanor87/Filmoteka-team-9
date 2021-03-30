@@ -21,7 +21,7 @@ export default class ApiService {
     first_air_date,
   }) {
     return {
-      //имена imgSrc,  title, rating, releaseDate СВЕРИТЬ с именами в ПРАВИЛЬНОМ шаблоне карточки
+      //имена imgSrc, title, rating, releaseDate СВЕРИТЬ с именами в ПРАВИЛЬНОМ шаблоне карточки
       imgSrc: this.generatePosterPath(poster_path),
       title: original_title || original_name,
       rating: vote_average,

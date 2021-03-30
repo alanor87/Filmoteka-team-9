@@ -1,6 +1,6 @@
 const refs = {
-  searchForm: document.querySelector(''),
-  searchBtn: document.querySelector(''),
+  searchForm: document.querySelector('.search-input'),
+  // searchBtn: document.querySelector('search-button'),
   moviesCardsGallery: document.querySelector('.movie__list'),
   movieInfoModal: document.querySelector(''),
   loadWatchedBtn: document.querySelector(''),
