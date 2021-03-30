@@ -1,0 +1,12 @@
+{{!-- Тестовый вариант для проверки работы кода --}}
+
+{{#each this}}
+<li class="movie__list-item">
+    <div class="movie-card__wrapper-img">
+        <img class="movie-card__img" src={{imgSrc}} alt=''>
+    </div>
+    <h3 class="movie-card__name">{{title}}</h3>
+    <p class="movie-card__description">{{releaseDate}}</p>
+    <p class="movie-card__rating">{{rating}}</p>
+</li>
+{{/each}}

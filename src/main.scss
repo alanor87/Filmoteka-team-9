@@ -1,8 +1,12 @@
 @import './scss/vars';
 @import './scss/utils';
+@import './scss/container';
+@import './scss/movie-list';
+@import './scss/movie-card';
+@import './scss/mainheader';
+@import './scss/footer';
 
 
 img {
-    display: block;
+  display: block;
 }
-
