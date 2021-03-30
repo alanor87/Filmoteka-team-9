@@ -11,6 +11,8 @@ export default class ApiService {
     constructor() {
     this.page = 1;
     this.searchQuery = '';
+    this._watched = [];
+    this._queue = [];
   }
     fetchSearchMoviesList() { }
 
@@ -54,9 +56,20 @@ export default class ApiService {
   fetchWatchedMoviesList() {}
   fetchQueueMoviesList() {}
   fetchModalMovie() {}
-
-  loadWatchedMovies() {}
-  loadQueueMovies() {}
+    get watched() { //для проверки
+    return this._watched;
+    }
+    loadWatchedMovies() { //после вызова функции в this._watched будет массив с localStorage
+    const watchedString = localStorage.getItem('watched');
+    this._watched = JSON.parse(watchedString);
+    }
+    get queue() { //для проверки
+        return this._queue;
+    }
+    loadQueueMovies() { //после вызова функции в this._queue будет массив с localStorage
+    const queueString = localStorage.getItem('queue');
+    this._queue = JSON.parse(queueString);
+  }
   addWatchedMovies(movieId) {}
   addQueueMovies(movieId) {}
 
