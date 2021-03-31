@@ -1,0 +1,39 @@
+<div class="modal-movie-card">
+    <div class="movie-image-wrapper">
+        <img class="movie-image" src="{{backdropPath}}" alt="{{title}}">
+    </div>
+    <div class="movie-card-info">
+        <h1 class="movie-name">{{title}}</h1>
+
+        <div class="movie-detail-wrapper">
+
+            <div class="movie-detail-item">
+                <p class="movie-detail-item-p">Vote/Votes</p>
+                <p class="movie-detail-item-p">Popularity</p>
+                <p class="movie-detail-item-p">Original Title</p>
+                <p class="movie-detail-item-p">Genre</p>
+            </div>
+
+            <div class="movie-detail-value">
+                <p class="movie-detail-value-p"><span class="movie-rating">{{voteAverage}}</span>/{{voteCount}}</p>
+                <p class="movie-detail-value-p">{{popularity}}</p>
+                <p class="movie-detail-value-p">{{originalTitle}}</p>
+                <p class="movie-detail-value-p">{{genres.name}}</p>
+            </div>
+        </div>
+
+        <h2 class="movie-about">About</h2>
+        <p class="movie-description">{{overview}}</p>
+
+        <div class="btn-wrapper">
+            <button class="btn btn-details btn-active__details first-btn" type="button">add to watched</button>
+            <button class="btn btn-details" type="button">add to queue</button>
+        </div>
+    </div>
+    <button class="modal-close-btn" type="button">
+        <svg width="14px" height="14px">
+              <use href="../images/symbol-defs.svg#icon-close"></use>
+           </svg>
+    </button>
+</div>
+

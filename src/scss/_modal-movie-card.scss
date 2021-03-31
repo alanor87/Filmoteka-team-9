@@ -1,0 +1,144 @@
+@media screen and (min-width: $breakpoint-mobile) {
+    .modal-movie-card {
+        width: 280px;
+        padding: 48px 20px 41px 20px;
+        position: relative;
+    }
+///////////////////////////////
+    .movie-image-wrapper {
+        padding-bottom: 30px;
+    }
+//////////////////////////////
+    .movie-image {
+        width: 240px;
+        height: 357px;
+        border-radius: 5px;
+    }
+
+    .movie-name {
+        font-size: 20px;
+        line-height: 1.15;
+
+        color: var(--text-color-dark);
+        margin-bottom: 20px;
+    }
+
+    .movie-detail-wrapper {
+        display: flex;
+    }
+
+    .movie-detail-item {
+        margin-right: 39px;
+    }
+
+    .movie-detail-item-p {
+        font-size: 12px;
+        line-height: 1.33;
+        color: var(--text-color-movie-info);
+    }
+
+    .movie-detail-item-p:not(:last-child) {
+        margin-bottom: 10px;
+    }
+
+    .movie-rating {
+        width: 36px;
+        height: 16px;
+        background:(--color-accent);
+        border-radius: 5px;
+
+
+        font-size: 12px;
+        line-height: 1.17;
+
+        display: flex;
+        align-items: center;
+        text-align: center;
+
+        color: var(--text-color-light);
+    }
+
+    .movie-detail-value-p {
+        font-size: 12px;
+        line-height: 1.17;
+
+        color: var(--text-color-dark);
+    }
+
+    .movie-detail-value-p:not(:last-child) {
+        margin-bottom: 10px;
+    }
+
+    .movie-detail-wrapper {
+        margin-bottom: 20px;
+    }
+
+    .movie-about {
+        font-size: 12px;
+        line-height: 1.33;
+        text-transform: uppercase;
+
+        color: var(--text-color-dark);
+        margin-bottom: 10px;
+    }
+
+    .movie-description {   
+        font-size: 12px;
+        line-height: 1.67;
+        color: var(--text-color-dark);
+        margin-bottom: 21px;
+    }
+
+    .btn-wrapper {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 30px;
+        height: 30px;
+        padding: 8px;
+    }
+}
+
+@media screen and (min-width: $breakpoint-tablet) {
+    .modal-movie-card {
+        display: flex;
+        justify-content: space-between;
+        width: 618px;
+        padding: 42px 30px 40px 28px;
+    }
+
+    .movie-image {
+        width: 240px;
+        height: 357px;
+    }
+}
+
+@media screen and (min-width: $breakpoint-desktop) {
+    .modal-movie-card {
+        width: 882px;
+        padding: 50px 30px 40px 30px;
+    }
+
+    .movie-image {
+        width: 396px;
+        height: 478px;
+    }
+
+    .movie-name {
+        font-size: 30px;
+        line-height: 1.17;
+    }
+
+    .btn-wrapper {
+        justify-content: flex-start;
+    }
+
+    .first-btn {
+        margin-right: 15px;
+    }
+}
