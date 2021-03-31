@@ -79,14 +79,14 @@ export default class ApiService {
         return this._queueFromLocalStorage;
     }
 
-  get watched() {
-    //для проверки
-    return this._watched;
-  }
-  get queue() {
-    //для проверки
-    return this._queue;
-  }
+  // get watched() {
+  //   //для проверки
+  //   return this._watched;
+  // }
+  // get queue() {
+  //   //для проверки
+  //   return this._queue;
+  // }
 
 
   loadWatchedMovies() {
