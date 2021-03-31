@@ -6,6 +6,7 @@ import { pluginError } from './js/pluginOn';
 
 const Api = new ApiService();
 
+
 window.addEventListener('load', loadPage);
 
 //Функция проверки текущей страницы
@@ -21,6 +22,7 @@ function loadPage() {
     loadWatched(); //по умолчанию, отрисовываются просмотренные фильмы
   }
 }
+
 
 //Функция запроса популярных фильмов и отрисовка галлереи карточек - запускается при загрузке главной страницы
 function fetchPopularMoviesList() {
