@@ -78,17 +78,16 @@ export default class ApiService {
     get queueFromLocalStorage() { //для проверки
         return this._queueFromLocalStorage;
     }
-    loadQueueMovies() { //после вызова функции в this._queueFromLocalStorage будет массив с localStorage
 
   get watched() {
     //для проверки
     return this._watched;
   }
-
   get queue() {
     //для проверки
     return this._queue;
   }
+
 
   loadWatchedMovies() {
     //после вызова функции в this._watched будет массив с localStorage
