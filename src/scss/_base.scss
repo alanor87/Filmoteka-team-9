@@ -2,6 +2,7 @@
   font-family: $main-font;
   font-style: normal;
   font-weight: 500;
+<<<<<<< Updated upstream
   font-size: 12px;
   line-height: 1.333;
   text-transform: uppercase;
@@ -9,4 +10,25 @@
 }
 .picture-title__home.genre-year {
   color: var(--color-accent);
+=======
+}
+
+img {
+  display: block;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+}
+
+.list {
+  list-style: none;
+}
+
+.link {
+  text-decoration: none;
+  color: var(--text-color-light);
+>>>>>>> Stashed changes
 }
