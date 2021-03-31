@@ -64,22 +64,11 @@ export default class ApiService {
   fetchWatchedMoviesList() { }
   fetchQueueMoviesList() { }
   fetchModalMovie() { }
-  
-  get watchedFromLocalStorage() { //для проверки
-    return this._watchedFromLocalStorage;
-  }
+
+
   loadWatchedMovies() { //после вызова функции в this._watchedFromLocalStorage будет массив с localStorage
     const watchedString = localStorage.getItem('watched');
     this._watchedFromLocalStorage = JSON.parse(watchedString);
-  }
-  get queueFromLocalStorage() { //для проверки
-    return this._queueFromLocalStorage;
-  }
-
-  loadWatchedMovies() {
-    //после вызова функции в this._watched будет массив с localStorage
-    const watchedString = localStorage.getItem('watched');
-    this._watched = JSON.parse(watchedString);
   }
 
   loadQueueMovies() {
@@ -87,6 +76,13 @@ export default class ApiService {
     const queueString = localStorage.getItem('queue');
     this._queueFromLocalStorage = JSON.parse(queueString);
   }
+  get watchedFromLocalStorage() { //для проверки
+    return this._watchedFromLocalStorage;
+  }
+  get queueFromLocalStorage() { //для проверки
+    return this._queueFromLocalStorage;
+  }
+
 
   addWatchedMovies(movieId) { }
   addQueueMovies(movieId) {
