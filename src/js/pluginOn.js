@@ -4,7 +4,7 @@ const { error } = require('@pnotify/core');
 const { defaults } = require('@pnotify/core');
 defaults.closer = false;
 defaults.sticker = false;
-defaults.delay = 1000;
+defaults.delay = 2000;
 defaults.shadow = true;
 
 function pluginError() {
