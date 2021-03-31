@@ -11,8 +11,10 @@ export default class ApiService {
   constructor() {
     this.page = 1;
     this.searchQuery = '';
-    this._watched = [];
-    this._queue = [];
+    this.watched = [];
+    this.queue = [];
+    this._watchedFromLocalStorage = [];
+    this._queueFromLocalStorage = [];
   }
 
   fetchMovieByID(id_movie) {
@@ -54,6 +56,30 @@ export default class ApiService {
     return `${POSTER_URL}${imageName}`;
   }
 
+
+  fetchPopularMoviesList() {
+    return fetch(`${BASE_URL_TRENDING}?api_key=${API_KEY}&page=${this.page}`)
+      .then(response => response.json())
+      .then(movies => {
+        this.incrementPage();
+        return movies;
+      });
+  }
+  fetchWatchedMoviesList() {}
+  fetchQueueMoviesList() {}
+  fetchModalMovie() {}
+    get watchedFromLocalStorage() { //для проверки
+    return this._watchedFromLocalStorage;
+    }
+    loadWatchedMovies() { //после вызова функции в this._watchedFromLocalStorage будет массив с localStorage
+    const watchedString = localStorage.getItem('watched');
+    this._watchedFromLocalStorage = JSON.parse(watchedString);
+    }
+    get queueFromLocalStorage() { //для проверки
+        return this._queueFromLocalStorage;
+    }
+    loadQueueMovies() { //после вызова функции в this._queueFromLocalStorage будет массив с localStorage
+
   get watched() {
     //для проверки
     return this._watched;
@@ -72,8 +98,15 @@ export default class ApiService {
 
   loadQueueMovies() {
     //после вызова функции в this._queue будет массив с localStorage
+
     const queueString = localStorage.getItem('queue');
-    this._queue = JSON.parse(queueString);
+    this._queueFromLocalStorage = JSON.parse(queueString);
+  }
+
+  addWatchedMovies(movieId) {}
+  addQueueMovies(movieId) {
+    this.queue.push(movieId);
+    localStorage.setItem('queue', JSON.stringify(this.queue));
   }
 
   renderMovieCards(moviesArray) {
@@ -82,10 +115,6 @@ export default class ApiService {
       movieCard(moviesArray),
     );
   }
-
-  addWatchedMovies(movieId) {}
-  addQueueMovies(movieId) {}
-  //fetchSearchMoviesList(query){}
 
   fetchWatchedMoviesList() {}
   fetchQueueMoviesList() {}
