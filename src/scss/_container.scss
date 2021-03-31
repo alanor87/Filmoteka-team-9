@@ -1,12 +1,10 @@
 .container {
-  max-width: 320px;
+  max-width: 280px;
   margin: 0 auto;
   @media screen and (min-width: $breakpoint-tablet) {
-    max-width: 688px;
+    max-width: 616px;
   }
   @media screen and (min-width: $breakpoint-desktop) {
-    max-width: 1314px;
-    padding-left: 71px;
-    padding-right: 71px;
+    max-width: 882px;
   }
 }
