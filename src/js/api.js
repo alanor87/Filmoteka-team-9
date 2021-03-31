@@ -11,7 +11,22 @@ export default class ApiService {
   constructor() {
     this.page = 1;
     this.searchQuery = '';
+    this.watched = [];
+    this.queue = [];
+    this._watchedFromLocalStorage = [];
+    this._queueFromLocalStorage = [];
   }
+
+  fetchMovieByID(id_movie) {
+    return fetch(`${BASE_URL_MOVIEID}/${id_movie}?api_key=${API_KEY}`).then(
+      response => {
+        if (response.status === '404') throw new Error();
+        response.json();
+      },
+    );
+  }
+
+
   movieAdapter({
     poster_path,
     original_title,
@@ -21,37 +36,63 @@ export default class ApiService {
     first_air_date,
   }) {
     return {
-      //имена imgSrc,  title, rating, releaseDate СВЕРИТЬ с именами в ПРАВИЛЬНОМ шаблоне карточки
+      //имена imgSrc, title, rating, releaseDate СВЕРИТЬ с именами в ПРАВИЛЬНОМ шаблоне карточки
       imgSrc: this.generatePosterPath(poster_path),
       title: original_title || original_name,
       rating: vote_average,
       releaseDate: release_date || first_air_date,
     };
   }
+
   generatePosterPath(imageName) {
     return `${POSTER_URL}${imageName}`;
   }
+
+  fetchSearchMoviesList(query) {
+    return fetch(`${BASE_URL_SEARCH}?api_key=${API_KEY}&query=${query}`)
+      .then(responce => responce.json());
+  }
+
   fetchPopularMoviesList() {
     return fetch(`${BASE_URL_TRENDING}?api_key=${API_KEY}&page=${this.page}`)
       .then(response => response.json())
       .then(movies => {
         this.incrementPage();
-        const moviesArray = movies.results.map(movie =>
-          this.movieAdapter(movie),
-        );
-        return moviesArray;
+        return movies;
       });
   }
-  fetchSearchMoviesList() {}
-  fetchMovieByID() {}
-  fetchWatchedMoviesList() {}
-  fetchQueueMoviesList() {}
-  fetchModalMovie() {}
+  fetchWatchedMoviesList() { }
+  fetchQueueMoviesList() { }
+  fetchModalMovie() { }
+  
+  get watchedFromLocalStorage() { //для проверки
+    return this._watchedFromLocalStorage;
+  }
+  loadWatchedMovies() { //после вызова функции в this._watchedFromLocalStorage будет массив с localStorage
+    const watchedString = localStorage.getItem('watched');
+    this._watchedFromLocalStorage = JSON.parse(watchedString);
+  }
+  get queueFromLocalStorage() { //для проверки
+    return this._queueFromLocalStorage;
+  }
 
-  loadWatchedMovies() {}
-  loadQueueMovies() {}
-  addWatchedMovies(movieId) {}
-  addQueueMovies(movieId) {}
+  loadWatchedMovies() {
+    //после вызова функции в this._watched будет массив с localStorage
+    const watchedString = localStorage.getItem('watched');
+    this._watched = JSON.parse(watchedString);
+  }
+
+  loadQueueMovies() {
+    //после вызова функции в this._queue будет массив с localStorage
+    const queueString = localStorage.getItem('queue');
+    this._queueFromLocalStorage = JSON.parse(queueString);
+  }
+
+  addWatchedMovies(movieId) { }
+  addQueueMovies(movieId) {
+    this.queue.push(movieId);
+    localStorage.setItem('queue', JSON.stringify(this.queue));
+  }
 
   renderMovieCards(moviesArray) {
     refs.moviesCardsGallery.insertAdjacentHTML(
@@ -59,7 +100,8 @@ export default class ApiService {
       movieCard(moviesArray),
     );
   }
-  renderMovie(movieObj) {}
+
+  renderMovie(movieObj) { }
 
   incrementPage() {
     this.page += 1;

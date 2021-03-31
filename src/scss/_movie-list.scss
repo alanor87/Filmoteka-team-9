@@ -1,19 +1,22 @@
 .movie__list {
   list-style: none;
   padding: 0;
-  margin: 0;
+  margin-top: 20px;
+  
 
   @media screen and (min-width: $breakpoint-tablet) {
     display: flex;
     flex-wrap: wrap;
-    margin: -15px;
+    margin-top: 45px;
+    margin-right: -15px;
+    margin-left: -15px;
   }
 }
 .movie__list-item {
   box-sizing: border-box;
   @media screen and (max-width: 767px) {
     //$breakpoint-tablet-1px
-    width: 100%;
+    width: 280px;
     &:not(:last-child) {
       margin-bottom: 20px;
     }
@@ -21,9 +24,9 @@
 
   @media screen and (min-width: $breakpoint-tablet) {
     margin: 15px;
-    width: calc((100% - 2 * 30px) / 2);
+    width: 293px;
   }
   @media screen and (min-width: $breakpoint-desktop) {
-    width: calc((100% - 3 * 30px) / 3);
+    width: 274px;
   }
 }

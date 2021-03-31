@@ -1,8 +1,15 @@
-.picture-title__home {
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+}
+
+body {
   font-family: $main-font;
   font-style: normal;
   font-weight: 500;
-<<<<<<< Updated upstream
+
   font-size: 12px;
   line-height: 1.333;
   text-transform: uppercase;
@@ -10,7 +17,7 @@
 }
 .picture-title__home.genre-year {
   color: var(--color-accent);
-=======
+
 }
 
 img {
@@ -30,5 +37,4 @@ h3 {
 .link {
   text-decoration: none;
   color: var(--text-color-light);
->>>>>>> Stashed changes
 }

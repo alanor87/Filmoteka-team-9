@@ -1,0 +1,10 @@
+.pnotify-container {
+  display: flex;
+  max-width: 320px;
+  position: absolute;
+  top: 20px;
+  right: 0;
+  @media screen and (min-width: $breakpoint-tablet) {
+    right: 20px;
+  }
+}
