@@ -8,7 +8,7 @@ import movieCard from '../templates/movieCard.hbs';
 import refs from './refs';
 
 export default class ApiService {
-    constructor() {
+  constructor() {
     this.page = 1;
     this.searchQuery = '';
     this.watched = [];
@@ -16,15 +16,24 @@ export default class ApiService {
     this._watchedFromLocalStorage = [];
     this._queueFromLocalStorage = [];
   }
-    fetchSearchMoviesList() { }
 
-    fetchMovieByID(id_movie) {
-        return fetch(`${BASE_URL_MOVIEID}/${id_movie}?api_key=${API_KEY}`)
-            .then(response => {
-                if (response.status === '404') throw new Error;
-                response.json();
-            })
-    }
+  fetchMovieByID(id_movie) {
+    return fetch(`${BASE_URL_MOVIEID}/${id_movie}?api_key=${API_KEY}`).then(
+      response => {
+        if (response.status === '404') throw new Error();
+        response.json();
+      },
+    );
+  }
+
+  fetchPopularMoviesList() {
+    return fetch(`${BASE_URL_TRENDING}?api_key=${API_KEY}&page=${this.page}`)
+      .then(response => response.json())
+      .then(movies => {
+        this.incrementPage();
+        return movies;
+      });
+  }
 
   movieAdapter({
     poster_path,
@@ -46,6 +55,7 @@ export default class ApiService {
   generatePosterPath(imageName) {
     return `${POSTER_URL}${imageName}`;
   }
+
 
   fetchPopularMoviesList() {
     return fetch(`${BASE_URL_TRENDING}?api_key=${API_KEY}&page=${this.page}`)
@@ -69,9 +79,30 @@ export default class ApiService {
         return this._queueFromLocalStorage;
     }
     loadQueueMovies() { //после вызова функции в this._queueFromLocalStorage будет массив с localStorage
+
+  get watched() {
+    //для проверки
+    return this._watched;
+  }
+
+  get queue() {
+    //для проверки
+    return this._queue;
+  }
+
+  loadWatchedMovies() {
+    //после вызова функции в this._watched будет массив с localStorage
+    const watchedString = localStorage.getItem('watched');
+    this._watched = JSON.parse(watchedString);
+  }
+
+  loadQueueMovies() {
+    //после вызова функции в this._queue будет массив с localStorage
+
     const queueString = localStorage.getItem('queue');
     this._queueFromLocalStorage = JSON.parse(queueString);
   }
+
   addWatchedMovies(movieId) {}
   addQueueMovies(movieId) {
     this.queue.push(movieId);
@@ -84,6 +115,10 @@ export default class ApiService {
       movieCard(moviesArray),
     );
   }
+
+  fetchWatchedMoviesList() {}
+  fetchQueueMoviesList() {}
+  fetchModalMovie() {}
   renderMovie(movieObj) {}
 
   incrementPage() {

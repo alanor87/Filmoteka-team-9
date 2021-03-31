@@ -5,7 +5,7 @@ const refs = {
   movieInfoModal: document.querySelector('.modal-movie'),
   loadWatchedBtn: document.querySelector('[data-modal-watched]'),
   loadQueueBtn: document.querySelector('[data-modal-queue]'),
-  // addWatchedBtn: document.querySelector(''),
-  // addQueueBtn: document.querySelector(''),
+  addWatchedBtn: document.querySelector('[data-add-watched]'),
+  addQueueBtn: document.querySelector('[data-add-queue]'),
 };
 export default refs;
