@@ -11,8 +11,10 @@ export default class ApiService {
     constructor() {
     this.page = 1;
     this.searchQuery = '';
-    this._watched = [];
-    this._queue = [];
+    this.watched = [];
+    this.queue = [];
+    this._watchedFromLocalStorage = [];
+    this._queueFromLocalStorage = [];
   }
     fetchSearchMoviesList() { }
 
@@ -56,22 +58,25 @@ export default class ApiService {
   fetchWatchedMoviesList() {}
   fetchQueueMoviesList() {}
   fetchModalMovie() {}
-    get watched() { //для проверки
-    return this._watched;
+    get watchedFromLocalStorage() { //для проверки
+    return this._watchedFromLocalStorage;
     }
-    loadWatchedMovies() { //после вызова функции в this._watched будет массив с localStorage
+    loadWatchedMovies() { //после вызова функции в this._watchedFromLocalStorage будет массив с localStorage
     const watchedString = localStorage.getItem('watched');
-    this._watched = JSON.parse(watchedString);
+    this._watchedFromLocalStorage = JSON.parse(watchedString);
     }
-    get queue() { //для проверки
-        return this._queue;
+    get queueFromLocalStorage() { //для проверки
+        return this._queueFromLocalStorage;
     }
-    loadQueueMovies() { //после вызова функции в this._queue будет массив с localStorage
+    loadQueueMovies() { //после вызова функции в this._queueFromLocalStorage будет массив с localStorage
     const queueString = localStorage.getItem('queue');
-    this._queue = JSON.parse(queueString);
+    this._queueFromLocalStorage = JSON.parse(queueString);
   }
   addWatchedMovies(movieId) {}
-  addQueueMovies(movieId) {}
+  addQueueMovies(movieId) {
+    this.queue.push(movieId);
+    localStorage.setItem('queue', JSON.stringify(this.queue));
+  }
 
   renderMovieCards(moviesArray) {
     refs.moviesCardsGallery.insertAdjacentHTML(
