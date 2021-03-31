@@ -26,14 +26,6 @@ export default class ApiService {
     );
   }
 
-  fetchPopularMoviesList() {
-    return fetch(`${BASE_URL_TRENDING}?api_key=${API_KEY}&page=${this.page}`)
-      .then(response => response.json())
-      .then(movies => {
-        this.incrementPage();
-        return movies;
-      });
-  }
 
   movieAdapter({
     poster_path,
@@ -65,29 +57,20 @@ export default class ApiService {
         return movies;
       });
   }
-  fetchWatchedMoviesList() {}
-  fetchQueueMoviesList() {}
-  fetchModalMovie() {}
-    get watchedFromLocalStorage() { //для проверки
+  fetchWatchedMoviesList() { }
+  fetchQueueMoviesList() { }
+  fetchModalMovie() { }
+  
+  get watchedFromLocalStorage() { //для проверки
     return this._watchedFromLocalStorage;
-    }
-    loadWatchedMovies() { //после вызова функции в this._watchedFromLocalStorage будет массив с localStorage
+  }
+  loadWatchedMovies() { //после вызова функции в this._watchedFromLocalStorage будет массив с localStorage
     const watchedString = localStorage.getItem('watched');
     this._watchedFromLocalStorage = JSON.parse(watchedString);
-    }
-    get queueFromLocalStorage() { //для проверки
-        return this._queueFromLocalStorage;
-    }
-
-  // get watched() {
-  //   //для проверки
-  //   return this._watched;
-  // }
-  // get queue() {
-  //   //для проверки
-  //   return this._queue;
-  // }
-
+  }
+  get queueFromLocalStorage() { //для проверки
+    return this._queueFromLocalStorage;
+  }
 
   loadWatchedMovies() {
     //после вызова функции в this._watched будет массив с localStorage
@@ -97,12 +80,11 @@ export default class ApiService {
 
   loadQueueMovies() {
     //после вызова функции в this._queue будет массив с localStorage
-
     const queueString = localStorage.getItem('queue');
     this._queueFromLocalStorage = JSON.parse(queueString);
   }
 
-  addWatchedMovies(movieId) {}
+  addWatchedMovies(movieId) { }
   addQueueMovies(movieId) {
     this.queue.push(movieId);
     localStorage.setItem('queue', JSON.stringify(this.queue));
@@ -115,10 +97,7 @@ export default class ApiService {
     );
   }
 
-  fetchWatchedMoviesList() {}
-  fetchQueueMoviesList() {}
-  fetchModalMovie() {}
-  renderMovie(movieObj) {}
+  renderMovie(movieObj) { }
 
   incrementPage() {
     this.page += 1;
