@@ -6,8 +6,11 @@ import { pluginError } from './js/pluginOn';
 
 const Api = new ApiService();
 
+if (refs.searchInput) {
+  refs.searchInput.addEventListener('input', debounce(onSearch, 500));
+}
+
 fetchPopularMoviesList();
-refs.searchInput.addEventListener('input', debounce(onSearch, 500));
 
 //Функция запроса популярных фильмов и отрисовка галлереи карточек - запускается при загрузке главной страницы
 function fetchPopularMoviesList() {

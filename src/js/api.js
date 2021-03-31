@@ -13,15 +13,16 @@ export default class ApiService {
     this.searchQuery = '';
     this._watched = [];
     this._queue = [];
-  };
+  }
 
   fetchMovieByID(id_movie) {
-    return fetch(`${BASE_URL_MOVIEID}/${id_movie}?api_key=${API_KEY}`)
-      .then(response => {
-        if (response.status === '404') throw new Error;
+    return fetch(`${BASE_URL_MOVIEID}/${id_movie}?api_key=${API_KEY}`).then(
+      response => {
+        if (response.status === '404') throw new Error();
         response.json();
-      })
-  };
+      },
+    );
+  }
 
   fetchPopularMoviesList() {
     return fetch(`${BASE_URL_TRENDING}?api_key=${API_KEY}&page=${this.page}`)
@@ -30,7 +31,7 @@ export default class ApiService {
         this.incrementPage();
         return movies;
       });
-  };
+  }
 
   movieAdapter({
     poster_path,
@@ -47,50 +48,55 @@ export default class ApiService {
       rating: vote_average,
       releaseDate: release_date || first_air_date,
     };
-  };
+  }
 
   generatePosterPath(imageName) {
     return `${POSTER_URL}${imageName}`;
-  };
+  }
 
-  get watched() { //для проверки
+  get watched() {
+    //для проверки
     return this._watched;
-  };
+  }
 
-  get queue() { //для проверки
+  get queue() {
+    //для проверки
     return this._queue;
-  };
+  }
 
-  loadWatchedMovies() { //после вызова функции в this._watched будет массив с localStorage
+  loadWatchedMovies() {
+    //после вызова функции в this._watched будет массив с localStorage
     const watchedString = localStorage.getItem('watched');
     this._watched = JSON.parse(watchedString);
-  };
+  }
 
-  loadQueueMovies() { //после вызова функции в this._queue будет массив с localStorage
+  loadQueueMovies() {
+    //после вызова функции в this._queue будет массив с localStorage
     const queueString = localStorage.getItem('queue');
     this._queue = JSON.parse(queueString);
-  };
+  }
 
   renderMovieCards(moviesArray) {
     refs.moviesCardsGallery.insertAdjacentHTML(
       'beforeend',
       movieCard(moviesArray),
     );
-  };
+  }
 
-  addWatchedMovies(movieId) { };
-  addQueueMovies(movieId) { };
-  fetchSearchMoviesList() { };
-  fetchWatchedMoviesList() { };
-  fetchQueueMoviesList() { };
-  fetchModalMovie() { };
-  renderMovie(movieObj) { };
+  addWatchedMovies(movieId) {}
+  addQueueMovies(movieId) {}
+  //fetchSearchMoviesList(query){}
+
+  fetchWatchedMoviesList() {}
+  fetchQueueMoviesList() {}
+  fetchModalMovie() {}
+  renderMovie(movieObj) {}
 
   incrementPage() {
     this.page += 1;
-  };
+  }
 
   resetPage() {
     this.page = 1;
-  };
+  }
 }
