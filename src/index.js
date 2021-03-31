@@ -44,3 +44,4 @@ function movieAdaptedandRender(movies) {
   const moviesArray = movies.results.map(movie => Api.movieAdapter(movie));
   return Api.renderMovieCards(moviesArray);
 }
+
