@@ -48,6 +48,10 @@ export default class ApiService {
     return `${POSTER_URL}${imageName}`;
   }
 
+  fetchSearchMoviesList(query) {
+    return fetch(`${BASE_URL_SEARCH}?api_key=${API_KEY}&query=${query}`)
+      .then(responce => responce.json());
+  }
 
   fetchPopularMoviesList() {
     return fetch(`${BASE_URL_TRENDING}?api_key=${API_KEY}&page=${this.page}`)
