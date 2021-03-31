@@ -9,7 +9,6 @@ const Api = new ApiService();
 fetchPopularMoviesList();
 refs.searchInput.addEventListener('input', debounce(onSearch, 500));
 
-
 //Функция запроса популярных фильмов и отрисовка галлереи карточек - запускается при загрузке главной страницы
 function fetchPopularMoviesList() {
   Api.resetPage();
@@ -42,3 +41,4 @@ function movieAdaptedandRender(movies) {
   const moviesArray = movies.results.map(movie => Api.movieAdapter(movie));
   return Api.renderMovieCards(moviesArray);
 }
+
