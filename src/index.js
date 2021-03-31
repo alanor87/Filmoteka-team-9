@@ -1,8 +1,10 @@
 import './main.scss';
+import './js/spinner';
 import refs from './js/refs'; /* ждём, пока у нас появятся все нужные имена классов для querySelector */
 import ApiService from './js/api';
 const debounce = require('lodash.debounce');
 import { pluginError } from './js/pluginOn';
+
 
 const Api = new ApiService();
 
