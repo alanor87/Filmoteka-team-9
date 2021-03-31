@@ -84,7 +84,10 @@ export default class ApiService {
   }
 
 
-  addWatchedMovies(movieId) { }
+  addWatchedMovies(movieId) {
+    this.watched.push(movieId);
+    localStorage.setItem('watched', JSON.stringify(this.watched));
+  }
   addQueueMovies(movieId) {
     this.queue.push(movieId);
     localStorage.setItem('queue', JSON.stringify(this.queue));
