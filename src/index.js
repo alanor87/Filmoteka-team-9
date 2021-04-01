@@ -5,6 +5,7 @@ import refs from './js/refs'; /* ждём, пока у нас появятся �
 import ApiService from './js/api';
 const debounce = require('lodash.debounce');
 import { pluginError } from './js/pluginOn';
+import './js/theme-switch';
 
 const Api = new ApiService();
 
