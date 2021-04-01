@@ -26,7 +26,6 @@ export default class ApiService {
     );
   }
 
-
   movieAdapter({
     poster_path,
     original_title,
@@ -61,8 +60,11 @@ export default class ApiService {
         return movies;
       });
   }
+  
   fetchWatchedMoviesList() { }
+
   fetchQueueMoviesList() { }
+
   fetchModalMovie() { }
 
 
@@ -76,15 +78,18 @@ export default class ApiService {
     const queueString = localStorage.getItem('queue');
     this._queueFromLocalStorage = JSON.parse(queueString);
   }
+
   get watchedFromLocalStorage() { //для проверки
     return this._watchedFromLocalStorage;
   }
+
   get queueFromLocalStorage() { //для проверки
     return this._queueFromLocalStorage;
   }
 
 
   addWatchedMovies(movieId) { }
+
   addQueueMovies(movieId) {
     this.queue.push(movieId);
     localStorage.setItem('queue', JSON.stringify(this.queue));
