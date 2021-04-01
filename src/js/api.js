@@ -30,16 +30,31 @@ export default class ApiService {
     poster_path,
     original_title,
     original_name,
+    title,
+    id,
     vote_average,
     release_date,
     first_air_date,
+    backdrop_path,
+    vote_count,
+    popularity,
+    genres,
+    overview,
+    genre_ids,
   }) {
     return {
       //имена imgSrc, title, rating, releaseDate СВЕРИТЬ с именами в ПРАВИЛЬНОМ шаблоне карточки
       imgSrc: this.generatePosterPath(poster_path),
-      title: original_title || original_name,
+      title: original_title || original_name || title,
       rating: vote_average,
       releaseDate: release_date || first_air_date,
+      backdropPath: backdrop_path,
+      voteCount: vote_count,
+      popularity: popularity,
+      genres: genres,
+      overview: overview,
+      id: id,
+      genre_ids: genre_ids,
     };
   }
 
@@ -48,17 +63,15 @@ export default class ApiService {
   }
 
   fetchSearchMoviesList(query) {
-    return fetch(`${BASE_URL_SEARCH}?api_key=${API_KEY}&query=${query}`)
-      .then(responce => responce.json());
+    return fetch(
+      `${BASE_URL_SEARCH}?api_key=${API_KEY}&query=${query}`,
+    ).then(responce => responce.json());
   }
 
   fetchPopularMoviesList() {
-    return fetch(`${BASE_URL_TRENDING}?api_key=${API_KEY}&page=${this.page}`)
-      .then(response => response.json())
-      .then(movies => {
-        this.incrementPage();
-        return movies;
-      });
+    return fetch(
+      `${BASE_URL_TRENDING}?api_key=${API_KEY}&page=${this.page}`,
+    ).then(response => response.json());
   }
   
   fetchWatchedMoviesList() { }
@@ -68,7 +81,8 @@ export default class ApiService {
   fetchModalMovie() { }
 
 
-  loadWatchedMovies() { //после вызова функции в this._watchedFromLocalStorage будет массив с localStorage
+  loadWatchedMovies() {
+    //после вызова функции в this._watchedFromLocalStorage будет массив с localStorage
     const watchedString = localStorage.getItem('watched');
     this._watchedFromLocalStorage = JSON.parse(watchedString);
   }
@@ -78,18 +92,19 @@ export default class ApiService {
     const queueString = localStorage.getItem('queue');
     this._queueFromLocalStorage = JSON.parse(queueString);
   }
-
-  get watchedFromLocalStorage() { //для проверки
+  get watchedFromLocalStorage() {
+    //для проверки
     return this._watchedFromLocalStorage;
   }
-
-  get queueFromLocalStorage() { //для проверки
+  get queueFromLocalStorage() {
+    //для проверки
     return this._queueFromLocalStorage;
   }
 
-
-  addWatchedMovies(movieId) { }
-
+  addWatchedMovies(movieId) {
+    this.watched.push(movieId);
+    localStorage.setItem('watched', JSON.stringify(this.watched));
+  }
   addQueueMovies(movieId) {
     this.queue.push(movieId);
     localStorage.setItem('queue', JSON.stringify(this.queue));
@@ -102,7 +117,7 @@ export default class ApiService {
     );
   }
 
-  renderMovie(movieObj) { }
+  renderMovie(movieObj) {}
 
   incrementPage() {
     this.page += 1;

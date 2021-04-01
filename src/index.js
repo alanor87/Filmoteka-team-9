@@ -5,7 +5,7 @@ import refs from './js/refs'; /* ждём, пока у нас появятся �
 import ApiService from './js/api';
 const debounce = require('lodash.debounce');
 import { pluginError } from './js/pluginOn';
-
+import './js/theme-switch';
 
 const Api = new ApiService();
 
@@ -56,9 +56,11 @@ function clear() {
 }
 //Функция адаптации пути img и отрисовка
 function movieAdaptedandRender(movies) {
-  console.log(movies.results);
-  const moviesArray = movies.results.map(movie => Api.movieAdapter(movie));
-  return Api.renderMovieCards(moviesArray);
+  if (movies.results) {
+    const moviesArray = movies.results.map(movie => Api.movieAdapter(movie));
+    return Api.renderMovieCards(moviesArray);
+  }
+  return Api.renderMovieCards(movies);
 }
 
 //Функция отрисовывает просмотренные фильмы пользователя
