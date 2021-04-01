@@ -88,7 +88,7 @@ export default class ApiService {
   }
 
   loadQueueMovies() {
-    //после вызова функции в this._queue будет массив с localStorage
+    //после вызова функции в this._queueFromLocalStorage будет массив с localStorage
     const queueString = localStorage.getItem('queue');
     this._queueFromLocalStorage = JSON.parse(queueString);
   }
@@ -118,7 +118,14 @@ export default class ApiService {
   }
 
   renderMovie(movieObj) {}
-
+  checkValueLocalStorage() {
+    this.loadQueueMovies();
+    if (!this.queue === []) return;
+    localStorage.setItem('queue', JSON.stringify(this.queue));
+    this.loadWatchedMovies();
+    if (!this.watched === []) return;
+    localStorage.setItem('watched', JSON.stringify(this.watched));
+  }
   incrementPage() {
     this.page += 1;
   }
