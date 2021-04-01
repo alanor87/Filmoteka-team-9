@@ -13,6 +13,7 @@ window.addEventListener('load', loadPage);
 
 //Функция проверки текущей страницы
 function loadPage() {
+  Api.checkValueLocalStorage();
   const currentPage = document.getElementsByTagName('html')[0];
   if (currentPage.classList.contains('main-page')) {
     fetchPopularMoviesList();
