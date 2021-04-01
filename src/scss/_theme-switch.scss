@@ -1,0 +1,122 @@
+body.dark-theme {
+  background-color: #333333;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  color: #fff;
+  .footer-section {
+    background-color: #191919;
+  }
+  .modal-container {
+    background: -webkit-linear-gradient(
+      45deg,
+      rgb(89, 99, 97),
+      rgb(28, 34, 34)
+    );
+
+    .modal-info__list > li {
+      color: #ff6b08;
+    }
+    .modal-meta__title,
+    .modal-meta__text,
+    .film-list-movie-title,
+    .modal-section__meta
+      .modal-meta__info
+      .modal-info__list:nth-child(2)
+      > li:not(:first-child) {
+      color: #fff;
+    }
+  }
+  .film-list-movie-title {
+    color: #ebebeb;
+  }
+  .tui-page-btn {
+    color: #ebebeb;
+  }
+  .tui-next,
+  .tui-prev {
+    background-color: #191919;
+  }
+  .footer-container {
+    padding: 0;
+  }
+}
+
+.toolbar {
+  display: flex;
+}
+
+.bottom-header {
+  margin: 0 auto;
+}
+
+.theme-switch-div {
+  display: block;
+  text-align: center;
+}
+.theme-switch__toggle {
+  font-size: 1em;
+
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 0.75em;
+  box-shadow: 0.125em 0.125em 0 0.125em rgba(0, 0, 0, 0.3) inset;
+  color: #fdea7b;
+  display: inline-flex;
+  align-items: center;
+  margin: auto;
+  padding: 0.15em;
+  width: 3em;
+  height: 1.5em;
+  transition: background-color 0.1s 0.3s ease-out, box-shadow 0.1s 0.3s ease-out;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  transform: rotate(270deg);
+}
+.theme-switch__toggle:before,
+.theme-switch__toggle:after {
+  content: '';
+  display: block;
+}
+.theme-switch__toggle:before {
+  background-color: #d7d7d7;
+  border-radius: 50%;
+  width: 1.2em;
+  height: 1.2em;
+  transition: background-color 0.1s 0.3s ease-out, transform 0.3s ease-out;
+  z-index: 1;
+}
+.theme-switch__toggle:after {
+  background: linear-gradient(transparent 50%, rgba(0, 0, 0, 0.15) 0) 0 50% /
+      50% 100%,
+    repeating-linear-gradient(90deg, #bbb 0, #bbb, #bbb 20%, #999 20%, #999 40%)
+      0 50% / 50% 100%,
+    radial-gradient(circle at 50% 50%, #888 25%, transparent 26%);
+  background-repeat: no-repeat;
+  border: 0.25em solid transparent;
+  border-left: 0.4em solid #d8d8d8;
+  border-right: 0 solid transparent;
+  transition: border-left-color 0.1s 0.3s ease-out, transform 0.3s ease-out;
+  transform: translateX(-22.5%);
+  transform-origin: 25% 50%;
+  width: 1.2em;
+  height: 1em;
+}
+/* Checked */
+.theme-switch__toggle:checked {
+  background-color: rgba(0, 0, 0, 0.45);
+  box-shadow: 0.125em 0.125em 0 0.125em rgba(0, 0, 0, 0.1) inset;
+}
+.theme-switch__toggle:checked:before {
+  background-color: currentColor;
+  transform: translateX(125%);
+}
+.theme-switch__toggle:checked:after {
+  border-left-color: currentColor;
+  transform: translateX(-2.5%) rotateY(180deg);
+}
+/* Other States */
+.theme-switch__toggle:focus {
+  outline: 0;
+}
