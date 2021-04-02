@@ -134,8 +134,8 @@
 /*------------------ search input styles-----------------------------------*/
 
 .search-wrapper {
-  display: block;
-  text-align: center;
+  display: flex;
+  // text-align: center;
 
   .search {
     display: flex;
@@ -145,7 +145,7 @@
     justify-content: center;
   }
   .search-input {
-    width: 278px;
+    width: 245px;
     height: 30px;
     padding: 4px 0;
     border-top: none;
@@ -212,4 +212,10 @@
   font-weight: 400;
   color: var(--text-color-warrning);
   padding-bottom: 27px;
+}
+
+.search-form {
+  @media screen and (min-width: $breakpoint-tablet) {
+    margin: 0 auto;
+  }
 }

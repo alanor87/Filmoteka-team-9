@@ -18,9 +18,8 @@
                 <p class="movie-detail-value-p"><span class="movie-rating">{{voteAverage}}</span>/{{voteCount}}</p>
                 <p class="movie-detail-value-p">{{popularity}}</p>
                 <p class="movie-detail-value-p">{{originalTitle}}</p>
-                {{#each genres}}
-                <p class="movie-detail-value-p">{{this.name}}</p>
-                {{/each}}
+
+                <p class="movie-detail-value-p">{{genres}}</p>
             </div>
         </div>
 
@@ -28,14 +27,15 @@
         <p class="movie-description">{{overview}}</p>
 
         <div class="btn-wrapper">
-            <button class="btn btn-details btn-active__details first-btn" type="button" data-movie-id ="{{id}}">add to watched</button>
-            <button class="btn btn-details" type="button" data-movie-id ="{{id}}">add to queue</button>
+
+            <button class="btn btn-details btn-active__details first-btn" type="button" data-add-watched=""
+                data-movie-id="{{id}}">add to watched</button>
+            <button class="btn btn-details" type="button" data-add-queue="" data-movie-id="{{id}}">add to queue</button>
         </div>
     </div>
     <button class="modal-close-btn" type="button">
         <svg width="14px" height="14px">
-              <use href="../images/symbol-defs.svg#icon-close"></use>
-           </svg>
+            <use href="../images/symbol-defs.svg#icon-close"></use>
+        </svg>
     </button>
 </div>
-
