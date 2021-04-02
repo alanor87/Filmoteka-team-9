@@ -178,6 +178,7 @@ export default class ApiService {
     if (!this.watched === []) return;
     localStorage.setItem('watched', JSON.stringify(this.watched));
   }
+  
   incrementPage() {
     this.page += 1;
   }
