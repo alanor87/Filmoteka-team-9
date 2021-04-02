@@ -160,7 +160,12 @@ export default class ApiService {
     );
   }
 
-  renderMovie(movieObj) {}
+  renderMovie(movieAdapter) {
+   refs.movieInfoModal.insertAdjacentHTML(
+      'beforeend',
+      modalMovieCard(movieAdapter),
+    );
+   }
 
   checkValueLocalStorage() {
     this.loadQueueMovies();
