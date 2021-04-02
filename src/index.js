@@ -8,17 +8,76 @@ const debounce = require('lodash.debounce');
 import { pluginError } from './js/pluginOn';
 import './js/theme-switch';
 
-const Api = new ApiService();
+const Api = new ApiService(refs.paginationControls);
 
 window.addEventListener('load', loadPage);
 
+refs.btnPrevPagination.addEventListener('click', () => {
+  Api.goToPrevPage();
+  if (!Api.searchQuery) {
+    return fetchPopularMoviesListTEST();
+  }
+  // console.log(refs.searchInput.value);
+  onSearchTEST();
+});
+refs.btnNextPagination.addEventListener('click', () => {
+  Api.goToNextPage();
+  if (!Api.searchQuery) {
+    return fetchPopularMoviesListTEST();
+  }
+  onSearchTEST(), console.log(Api.page);
+});
+refs.paginationControls.addEventListener('click', event => {
+  if (event.target.nodeName === 'BUTTON') {
+    console.log('я тут');
+    const a = Number(event.target.textContent);
+    console.log(a);
+    if (!Api.searchQuery) {
+      console.log('!Api.searchQuery');
+      Api.page = a;
+      fetchPopularMoviesListTEST();
+      return;
+    }
+    console.log('Api.searchQuery');
+    Api.page = a;
+    onSearchTEST();
+  }
+});
+refs.paginationControls.addEventListener('focusout', event => {
+  if (event.target.nodeName === 'INPUT') {
+    console.log('я тут');
+    const a = Number(event.target.value);
+    if (!Api.searchQuery) {
+      console.log('!Api.searchQuery');
+      Api.page = a;
+      fetchPopularMoviesListTEST();
+      return;
+    }
+    console.log('Api.searchQuery');
+    Api.page = a;
+    onSearchTEST();
+  }
+
+  // if (event.target.nodeName === 'INPUT') {
+  //   const a = Number(event.target.value);
+  //   goToPage(a);
+  //   if (!Api.searchQuery) {
+  //     return fetchPopularMoviesListTEST();
+  //   }
+  //   onSearchTEST();
+  // }
+});
+console.log(refs.btnNextPagination, refs.btnPrevPagination);
+//Функция проверки текущей страницы
 //Функция проверки текущей страницы
 function loadPage() {
   Api.checkValueLocalStorage();
   const currentPage = document.getElementsByTagName('html')[0];
   if (currentPage.classList.contains('main-page')) {
     fetchPopularMoviesList();
+    console.log(Api.totalPagas);
     refs.searchInput.addEventListener('input', debounce(onSearch, 500));
+    console.log(Api.selectControl);
   }
   if (currentPage.classList.contains('library-page')) {
     refs.loadWatchedBtn.addEventListener('click', loadWatched);
@@ -34,6 +93,11 @@ function fetchPopularMoviesList() {
   Api.fetchPopularMoviesList().then(movies => movieAdaptedandRender(movies));
 }
 
+function fetchPopularMoviesListTEST() {
+  clear();
+  Api.fetchPopularMoviesList().then(movies => movieAdaptedandRender(movies));
+}
+
 //Функция поиска фильмов по слову - запускается по вводу в инпуте
 function onSearch(event) {
   event.preventDefault();
@@ -44,6 +108,16 @@ function onSearch(event) {
   if (!Api.searchQuery) {
     return fetchPopularMoviesList();
   }
+  Api.fetchSearchMoviesList(Api.searchQuery).then(movies => {
+    movieAdaptedandRender(movies);
+    if (!movies.total_results) {
+      return pluginError();
+    }
+  });
+}
+function onSearchTEST() {
+  clear();
+  Api.searchQuery = refs.searchInput.value;
   Api.fetchSearchMoviesList(Api.searchQuery).then(movies => {
     movieAdaptedandRender(movies);
     if (!movies.total_results) {
