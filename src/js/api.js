@@ -12,7 +12,7 @@ import refs from './refs';
 import { spinner } from './spinner';
 
 export default class ApiService {
-  #delta = 0;
+  #delta = 2;
   constructor(selectControl) {
     this.totalPagas = 0;
     this.page = 1;
