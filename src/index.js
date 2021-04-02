@@ -1,12 +1,11 @@
 import './main.scss';
 import './js/back-to-top';
-import './js/firebase-login';
-
-import refs from './js/refs'; /* ждём, пока у нас появятся все нужные имена классов для querySelector */
+import refs from './js/refs';
 import ApiService from './js/api';
 const debounce = require('lodash.debounce');
 import { pluginError } from './js/pluginOn';
 import './js/theme-switch';
+import './js/firebase-login';
 
 
 const Api = new ApiService();

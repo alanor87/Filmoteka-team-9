@@ -117,7 +117,8 @@ export default class ApiService {
     );
   }
 
-  renderMovie(movieObj) {}
+  renderMovie(movieObj) { }
+  
   checkValueLocalStorage() {
     this.loadQueueMovies();
     if (!this.queue === []) return;
