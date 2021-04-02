@@ -7,5 +7,8 @@ const refs = {
   loadQueueBtn: document.querySelector('[data-modal-queue]'),
   addWatchedBtn: document.querySelector('[data-add-watched]'),
   addQueueBtn: document.querySelector('[data-add-queue]'),
+  openModalTeamBtn: document.querySelector('.js-openModalTeam'),
+  modalTeamOverlay: document.querySelector('.js-modalTeam__overlay'),
+  closeModalTeamBtn: document.querySelector('.js-closeModalTeam'),
 };
 export default refs;

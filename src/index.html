@@ -1,110 +1,263 @@
 <!DOCTYPE html>
 <html lang="en" class="main-page">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.0.0/modern-normalize.css"
+    />
+    <!-- <link rel="stylesheet" href="./main.css"> -->
+    <title>Filmoteka-team-9</title>
+    <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.0.0/modern-normalize.css" />
-  <title>Filmoteka-team-9</title>
-  <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
-</head>
-
-<body>
-  <header class="header header-main-background">
-    <div class="container">
-      <div class="header-wrapper">
-        <a class="logo link " href="./index.html" lang="en">
-          <svg class="menu-btn-svg" width="25px" height="25px">
-            <use href="./images/symbol-defs.svg#icon-film"></use>
-          </svg>
-          <span class="hidden-in-mobile">Filmoteka</span></a>
-        <nav class="nav">
-          <ul class="nav-list list">
-            <li class="nav-list-item">
-              <a class="nav-list-link link nav-active" href="./index.html">Home</a>
-            </li>
-            <li class="nav-list-item">
-              <a class="nav-list-link link " href="./library.html">my library</a>
-            </li>
-            <button class="logIn nav-list-item" data-action="login-lightbox">Log in/Log out</button>
-            <button class="SignUp nav-list-item" data-action="signup-lightbox">Sign Up</button>
-          </ul>
-        </nav>
-      </div>
-      <div class="search-wrapper">
-        <form class="search-form" id="search">
-          <input class="search-input" id="input" type="text" name="query" autocomplete="off" placeholder="Поиск фильмов"
-            value="" />
-          <button class="search-button" type="submit" title="Go!">
-            <svg class="search-button-icon" width="12px" height="12px">
-              <use href="./images/symbol-defs.svg#icon-search"></use>
+  <body>
+    <header class="header header-main-background">
+      <div class="container">
+        <div class="header-wrapper">
+          <a class="logo link" href="./index.html" lang="en">
+            <svg class="menu-btn-svg" width="25px" height="25px">
+              <use href="./images/symbol-defs.svg#icon-film"></use>
             </svg>
+            <span class="hidden-in-mobile">Filmoteka</span></a
+          >
+          <nav class="nav">
+            <ul class="nav-list list">
+              <li class="nav-list-item">
+                <a class="nav-list-link link nav-active" href="./index.html"
+                  >Home</a
+                >
+              </li>
+              <li class="nav-list-item">
+                <a class="nav-list-link link" href="./library.html"
+                  >my library</a
+                >
+              </li>
+              <button class="logIn nav-list-item" data-action="login-lightbox">
+                Log in/Log out
+              </button>
+              <button
+                class="SignUp nav-list-item"
+                data-action="signup-lightbox"
+              >
+                Sign Up
+              </button>
+            </ul>
+          </nav>
+        </div>
+        <div class="search-wrapper">
+          <form class="search-form" id="search">
+            <input
+              class="search-input"
+              id="input"
+              type="text"
+              name="query"
+              autocomplete="off"
+              placeholder="Поиск фильмов"
+              value=""
+            />
+            <button class="search-button" type="submit" title="Go!">
+              <svg class="search-button-icon" width="12px" height="12px">
+                <use href="./images/symbol-defs.svg#icon-search"></use>
+              </svg>
+            </button>
+          </form>
+          <div class="theme-switch-div">
+            <input
+              class="theme-switch__toggle"
+              type="checkbox"
+              name="theme"
+              id="theme-switch-toggle"
+              aria-label="switch theme"
+            />
+          </div>
+        </div>
+        <!-- Error notification -->
+        <p class="warning-notification"></p>
+      </div>
+    </header>
+    <main>
+      <div class="container">
+        <ul class="movie__list"></ul>
+      </div>
+    </main>
+    <footer>
+      <div class="footer-container">
+        <p class="copyright-text">
+          &copy; 2020 | All Rights Reserved | Developed with
+          <svg class="icon-heart" width="14px" height="13px">
+            <use href="./images/symbol-defs.svg#icon-favorite"></use>
+          </svg>
+          by
+          <button type="button" class="openModalTeam js-openModalTeam">
+            <span class="students-link">GoIT Students</span>
           </button>
-        </form>
-        <div class="theme-switch-div">
-          <input class="theme-switch__toggle" type="checkbox" name="theme" id="theme-switch-toggle" aria-label="switch theme">
+        </p>
+      </div>
+    </footer>
+    <div class="modal-movie is-hidden"></div>
+    <div class="lightbox js-lightbox">
+      <div class="lightbox__overlay"></div>
+
+      <!--Модальное окно LogIn-->
+      <div class="lightbox__content">
+        <div id="login_div" class="main-div">
+          <h3 class="title">Log in with email</h3>
+          <input type="email" placeholder="Email..." id="email_field" />
+          <input
+            type="password"
+            placeholder="Password..."
+            id="password_field"
+          />
+
+          <button type="button" data-action="logIn">Login to Account</button>
+        </div>
+        <div id="user_div" class="loggedin-div">
+          <button type="button" data-action="logOut">Logout</button>
         </div>
       </div>
-      <!-- Error notification -->
-      <p class="warning-notification"></p>
-    </div>
-  </header>
-  <main>
-    <div class="container">
-      <ul class="movie__list">        
-       
-      </ul>
-    </div>
-  </main>
-  <footer>
-    <div class="footer-container">
-      <p class="copyright-text"> &copy; 2020 | All Rights Reserved | Developed with
-        <svg class="icon-heart" width="14px" height="13px">
-          <use href="./images/symbol-defs.svg#icon-favorite"></use>
-        </svg> by <a href="#" class="students-link ">GoIT Students</a>
-      </p>
-    </div>
-  </footer>
-  <div class="modal-movie is-hidden"></div>
-  <div class="lightbox js-lightbox">
-    <div class="lightbox__overlay"></div>
-  
-    <!--Модальное окно LogIn-->
-    <div class="lightbox__content">
-      <div id="login_div" class="main-div">
-        <h3 class="title">Log in with email</h3>
-        <input type="email" placeholder="Email..." id="email_field" />
-        <input type="password" placeholder="Password..." id="password_field" />
-  
-        <button type="button" data-action="logIn">Login to Account</button>
-      </div>
-      <div id="user_div" class="loggedin-div">
-        <button type="button" data-action="logOut">Logout</button>
-      </div>
-    </div>
-  
-    <button type="button" class="lightbox__button" data-action="close-lightbox"></button>
-  </div>
-  
-  <!--Модальное окно SignUp-->
-  <div class="lightbox_2 lightbox js-lightbox">
-    <div class="lightbox__overlay_2"></div>
-  
-    <div class="lightbox__content">
-      <div id="signup_div" class="main-div">
-        <h3 class="title">Sign up with email</h3>
-        <input type="email" placeholder="Email..." id="email" />
-        <input type="password" placeholder="Password..." id="password" />
-  
-        <button type="button" data-action="signIn">Create account</button>
-      </div>
-    </div>
-  
-    <button type="button" class="lightbox__button" data-action="close-signup-lightbox"></button>
-  </div>
-</body>
 
+      <button
+        type="button"
+        class="lightbox__button"
+        data-action="close-lightbox"
+      ></button>
+    </div>
+
+    <!--Модальное окно SignUp-->
+    <div class="lightbox_2 lightbox js-lightbox">
+      <div class="lightbox__overlay_2"></div>
+
+      <div class="lightbox__content">
+        <div id="signup_div" class="main-div">
+          <h3 class="title">Sign up with email</h3>
+          <input type="email" placeholder="Email..." id="email" />
+          <input type="password" placeholder="Password..." id="password" />
+
+          <button type="button" data-action="signIn">Create account</button>
+        </div>
+      </div>
+
+      <button
+        type="button"
+        class="lightbox__button"
+        data-action="close-signup-lightbox"
+      ></button>
+    </div>
+    <!--Модалка комманды  -->
+    <div class="modalTeam__overlay js-modalTeam__overlay">
+      <div class="modalTeam">
+        <button type="button" class="closeModalTeam js-closeModalTeam">
+          X
+        </button>
+        <div class="modalTeam__container">
+          <h1 class="modalTeam__title">Our Team #27/9</h1>
+          <ul class="modalTeam__list">
+            <li class="modalTeam__item">
+              <div class="modalTeam__item-info">
+                <img
+                  class="modalTeam__item-img"
+                  src="./images/team-lead.jpg"
+                  alt="Team-lead"
+                />
+                <p class="modalTeam__item-position">Team Lead</p>
+                <p class="modalTeam__item-firstName">Yevhen</p>
+                <p class="modalTeam__item-secondName">Martianov</p>
+              </div>
+              <div class="modalTeam__item-social">
+                <!-- Вставить соц сети -->
+              </div>
+            </li>
+            <li class="modalTeam__item">
+              <img
+                class="modalTeam__item-img"
+                src="./images/scrum-master.jpg"
+                alt="Csrum-master"
+              />
+              <p class="modalTeam__item-position">Scrum master</p>
+              <p class="modalTeam__item-firstName">Nadin</p>
+              <p class="modalTeam__item-secondName">Shpileva</p>
+            </li>
+            <li class="modalTeam__item">
+              <img
+                class="modalTeam__item-img"
+                src="./images/team-1.jpg"
+                alt="Team"
+              />
+              <p class="modalTeam__item-position"></p>
+              <p class="modalTeam__item-firstName">Vadim</p>
+              <p class="modalTeam__item-secondName">Matsko</p>
+            </li>
+            <li class="modalTeam__item">
+              <img
+                class="modalTeam__item-img"
+                src="./images/team-2.jpg"
+                alt="Team"
+              />
+              <p class="modalTeam__item-position"></p>
+              <p class="modalTeam__item-firstName">Anastasiya</p>
+              <p class="modalTeam__item-secondName">Malyas</p>
+            </li>
+            <li class="modalTeam__item">
+              <img
+                class="modalTeam__item-img"
+                src="./images/team-3.jpg"
+                alt="Team"
+              />
+              <p class="modalTeam__item-position"></p>
+              <p class="modalTeam__item-firstName">Anton</p>
+              <p class="modalTeam__item-secondName">Vovk</p>
+            </li>
+            <li class="modalTeam__item">
+              <img
+                class="modalTeam__item-img"
+                src="./images/team-4.jpg"
+                alt="Team"
+              />
+              <p class="modalTeam__item-position"></p>
+              <p class="modalTeam__item-firstName">Ivanna</p>
+              <p class="modalTeam__item-secondName">Kyrij</p>
+            </li>
+            <li class="modalTeam__item">
+              <img
+                class="modalTeam__item-img"
+                src="./images/team-5.jpg"
+                alt="Team"
+              />
+              <p class="modalTeam__item-position"></p>
+              <p class="modalTeam__item-firstName">Tania</p>
+              <p class="modalTeam__item-secondName">Shastun</p>
+            </li>
+            <li class="modalTeam__item">
+              <img
+                class="modalTeam__item-img"
+                src="./images/team-6.jpg"
+                alt="Team"
+              />
+              <p class="modalTeam__item-position"></p>
+              <p class="modalTeam__item-firstName">Tetiana</p>
+              <p class="modalTeam__item-secondName">Bigunets</p>
+            </li>
+            <li class="modalTeam__item">
+              <img
+                class="modalTeam__item-img"
+                src="./images/team-7.jpg"
+                alt="Team"
+              />
+              <p class="modalTeam__item-position"></p>
+              <p class="modalTeam__item-firstName">Александр</p>
+              <p class="modalTeam__item-secondName">Полищук</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

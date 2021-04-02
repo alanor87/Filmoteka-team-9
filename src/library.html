@@ -15,30 +15,41 @@
     <header class="header">
       <div class="container">
         <div class="header-wrapper">
-          <a class="logo link " href="./index.html" lang="en">
+          <a class="logo link" href="./index.html" lang="en">
             <svg class="menu-btn-svg" width="25px" height="25px">
               <use href="./images/symbol-defs.svg#icon-film"></use>
             </svg>
-            <span class="hidden-in-mobile">Filmoteka</span></a>
+            <span class="hidden-in-mobile">Filmoteka</span></a
+          >
           <nav class="nav">
             <ul class="nav-list list">
               <li class="nav-list-item">
-                <a class="nav-list-link link " href="./index.html">Home</a>
+                <a class="nav-list-link link" href="./index.html">Home</a>
               </li>
               <li class="nav-list-item">
-                <a class="nav-list-link link nav-active" href="./library.html">my library</a>
+                <a class="nav-list-link link nav-active" href="./library.html"
+                  >my library</a
+                >
               </li>
             </ul>
           </nav>
         </div>
         <div class="header-menu">
           <ul class="header-menu-list list">
-            <li class="header-menu-item"><button class="header-btn active-btn" type="button" data-modal-watched>
+            <li class="header-menu-item">
+              <button
+                class="header-btn active-btn"
+                type="button"
+                data-modal-watched
+              >
                 watched
-              </button></li>
-            <li class="header-menu-item"><button class="header-btn" type="button" data-modal-queue>
+              </button>
+            </li>
+            <li class="header-menu-item">
+              <button class="header-btn" type="button" data-modal-queue>
                 queue
-              </button></li>
+              </button>
+            </li>
           </ul>
         </div>
       </div>
@@ -52,13 +63,126 @@
     </main>
     <footer>
       <div class="footer-container">
-        <p class="copyright-text"> &copy; 2020 | All Rights Reserved | Developed with
+        <p class="copyright-text">
+          &copy; 2020 | All Rights Reserved | Developed with
           <svg class="icon-heart" width="14px" height="13px">
             <use href="./images/symbol-defs.svg#icon-favorite"></use>
-          </svg> by <a href="#" class="students-link ">GoIT Students</a>
+          </svg>
+          by
+          <button type="button" class="openModalTeam js-openModalTeam">
+            <span class="students-link">GoIT Students</span>
+          </button>
         </p>
       </div>
     </footer>
     <div class="modal-movie is-hidden"></div>
+    <!--Модалка комманды  -->
+    <div class="modalTeam__overlay js-modalTeam__overlay">
+      <div class="modalTeam">
+        <button type="button" class="closeModalTeam js-closeModalTeam">
+          X
+        </button>
+        <div class="modalTeam__container">
+          <h1 class="modalTeam__title">Our Team #27/9</h1>
+          <ul class="modalTeam__list">
+            <li class="modalTeam__item">
+              <div class="modalTeam__item-info">
+                <img
+                  class="modalTeam__item-img"
+                  src="./images/team-lead.jpg"
+                  alt="Team-lead"
+                />
+                <p class="modalTeam__item-position">Team Lead</p>
+                <p class="modalTeam__item-firstName">Yevhen</p>
+                <p class="modalTeam__item-secondName">Martianov</p>
+              </div>
+              <div class="modalTeam__item-social">
+                <!-- Вставить соц сети -->
+              </div>
+            </li>
+            <li class="modalTeam__item">
+              <img
+                class="modalTeam__item-img"
+                src="./images/scrum-master.jpg"
+                alt="Csrum-master"
+              />
+              <p class="modalTeam__item-position">Scrum master</p>
+              <p class="modalTeam__item-firstName">Nadin</p>
+              <p class="modalTeam__item-secondName">Shpileva</p>
+            </li>
+            <li class="modalTeam__item">
+              <img
+                class="modalTeam__item-img"
+                src="./images/team-1.jpg"
+                alt="Team"
+              />
+              <p class="modalTeam__item-position"></p>
+              <p class="modalTeam__item-firstName">Vadim</p>
+              <p class="modalTeam__item-secondName">Matsko</p>
+            </li>
+            <li class="modalTeam__item">
+              <img
+                class="modalTeam__item-img"
+                src="./images/team-2.jpg"
+                alt="Team"
+              />
+              <p class="modalTeam__item-position"></p>
+              <p class="modalTeam__item-firstName">Anastasiya</p>
+              <p class="modalTeam__item-secondName">Malyas</p>
+            </li>
+            <li class="modalTeam__item">
+              <img
+                class="modalTeam__item-img"
+                src="./images/team-3.jpg"
+                alt="Team"
+              />
+              <p class="modalTeam__item-position"></p>
+              <p class="modalTeam__item-firstName">Anton</p>
+              <p class="modalTeam__item-secondName">Vovk</p>
+            </li>
+            <li class="modalTeam__item">
+              <img
+                class="modalTeam__item-img"
+                src="./images/team-4.jpg"
+                alt="Team"
+              />
+              <p class="modalTeam__item-position"></p>
+              <p class="modalTeam__item-firstName">Ivanna</p>
+              <p class="modalTeam__item-secondName">Kyrij</p>
+            </li>
+            <li class="modalTeam__item">
+              <img
+                class="modalTeam__item-img"
+                src="./images/team-5.jpg"
+                alt="Team"
+              />
+              <p class="modalTeam__item-position"></p>
+              <p class="modalTeam__item-firstName">Tania</p>
+              <p class="modalTeam__item-secondName">Shastun</p>
+            </li>
+            <li class="modalTeam__item">
+              <img
+                class="modalTeam__item-img"
+                src="./images/team-6.jpg"
+                alt="Team"
+              />
+              <p class="modalTeam__item-position"></p>
+              <p class="modalTeam__item-firstName">Tetiana</p>
+              <p class="modalTeam__item-secondName">Bigunets</p>
+            </li>
+            <li class="modalTeam__item">
+              <img
+                class="modalTeam__item-img"
+                src="./images/team-7.jpg"
+                alt="Team"
+              />
+              <p class="modalTeam__item-position"></p>
+              <p class="modalTeam__item-firstName">Александр</p>
+              <p class="modalTeam__item-secondName">Полищук</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
