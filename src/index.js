@@ -7,7 +7,7 @@ import ApiService from './js/api';
 const debounce = require('lodash.debounce');
 import { pluginError } from './js/pluginOn';
 import './js/theme-switch';
-import {spinner} from './js/spinner';
+import { spinner } from './js/spinner';
 
 const Api = new ApiService(refs.paginationControls);
 
@@ -40,7 +40,14 @@ refs.paginationControls.addEventListener('click', event => {
 });
 refs.paginationControls.addEventListener('focusout', event => {
   if (event.target.nodeName === 'INPUT') {
+    if (event.target.value === '') {
+      return;
+    }
     const a = Number(event.target.value);
+    if (a > Api.totalPagas) {
+      Api.page = Api.totalPagas;
+      console.log(Api.page);
+    }
     Api.page = a;
     if (!Api.searchQuery) {
       fetchPopularMoviesListTEST();

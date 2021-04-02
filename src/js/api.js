@@ -9,7 +9,7 @@ import movieCard from '../templates/movieCard.hbs';
 import modalMovieCard from '../templates/modal-movie-card.hbs';
 import genres from './genres';
 import refs from './refs';
-import {spinner} from './spinner';
+import { spinner } from './spinner';
 
 export default class ApiService {
   #delta = 2;
@@ -19,8 +19,8 @@ export default class ApiService {
     this.searchQuery = '';
     this.watched = [];
     this.queue = [];
-    this._watchedFromLocalStorage = [];
-    this._queueFromLocalStorage = [];
+    this.watchedFromLocalStorage = [];
+    this.queueFromLocalStorage = [];
     this.selectControl = selectControl;
   }
 
@@ -120,35 +120,35 @@ export default class ApiService {
   fetchWatchedMoviesList() {
     this.loadWatchedMovies();
     const watchedMoviesArr = this._watchedFromLocalStorage.forEach(movie => {
-      this.fetchMovieByID()
+      this.fetchMovieByID();
     });
     Promise.all(watchedMoviesArr)
-    .then(movie => console.log(movie))
-    .catch(error => console.log(error));
+      .then(movie => console.log(movie))
+      .catch(error => console.log(error));
   }
 
-  fetchQueueMoviesList() {}
+  fetchQueueMoviesList() {
+    this.loadQueueMovies();
+    const queueMoviesArr = this._queueFromLocalStorage.forEach(movie => {
+      this.fetchMovieByID();
+    });
+    Promise.all(queueMoviesArr)
+      .then(movie => console.log(movie))
+      .catch(error => console.log(error));
+  }
 
   fetchModalMovie() {}
 
   loadWatchedMovies() {
-    //после вызова функции в this._watchedFromLocalStorage будет массив с localStorage
+    //после вызова функции в this.watchedFromLocalStorage будет массив с localStorage
     const watchedString = localStorage.getItem('watched');
-    this._watchedFromLocalStorage = JSON.parse(watchedString);
+    this.watchedFromLocalStorage = JSON.parse(watchedString);
   }
 
   loadQueueMovies() {
-    //после вызова функции в this._queueFromLocalStorage будет массив с localStorage
+    //после вызова функции в this.queueFromLocalStorage будет массив с localStorage
     const queueString = localStorage.getItem('queue');
-    this._queueFromLocalStorage = JSON.parse(queueString);
-  }
-  get watchedFromLocalStorage() {
-    //для проверки
-    return this._watchedFromLocalStorage;
-  }
-  get queueFromLocalStorage() {
-    //для проверки
-    return this._queueFromLocalStorage;
+    this.queueFromLocalStorage = JSON.parse(queueString);
   }
 
   addWatchedMovies(movieId) {
@@ -168,7 +168,12 @@ export default class ApiService {
     );
   }
 
-  renderMovie(movieObj) {}
+  renderMovie(movieAdapter) {
+   refs.movieInfoModal.insertAdjacentHTML(
+      'beforeend',
+      modalMovieCard(movieAdapter),
+    );
+   }
 
   checkValueLocalStorage() {
     this.loadQueueMovies();
@@ -221,7 +226,7 @@ export default class ApiService {
   }
 
   goToNextPage() {
-    if (this.page === this.totalPagas + 1) {
+    if (this.page === this.totalPagas) {
       return;
     }
     this.page += 1;
