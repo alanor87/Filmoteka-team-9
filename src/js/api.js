@@ -3,8 +3,11 @@ const BASE_URL_TRENDING = 'https://api.themoviedb.org/3/trending/all/day';
 const BASE_URL_SEARCH = 'https://api.themoviedb.org/3/search/movie';
 const BASE_URL_MOVIEID = 'https://api.themoviedb.org/3/movie';
 const POSTER_URL = 'https://themoviedb.org/t/p/w220_and_h330_face';
+const GENRE_MOVIE_LIST = 'https://api.themoviedb.org/3/genre/movie/list';
 
 import movieCard from '../templates/movieCard.hbs';
+import modalMovieCard from '../templates/modal-movie-card.hbs';
+import genres from './genres';
 import refs from './refs';
 
 export default class ApiService {
@@ -38,10 +41,8 @@ export default class ApiService {
     vote_average,
     release_date,
     first_air_date,
-    backdrop_path,
     vote_count,
     popularity,
-    genres,
     overview,
     genre_ids,
   }) {
@@ -50,15 +51,36 @@ export default class ApiService {
       imgSrc: this.generatePosterPath(poster_path),
       title: original_title || original_name || title,
       rating: vote_average,
-      releaseDate: release_date || first_air_date,
-      backdropPath: backdrop_path,
+      releaseDate:
+        Number.parseInt(release_date) || Number.parseInt(first_air_date),
       voteCount: vote_count,
       popularity: popularity,
-      genres: genres,
       overview: overview,
       id: id,
-      genre_ids: genre_ids,
+      genre: this.changeGenresList(genre_ids),
     };
+  }
+  changeGenresList(ids) {
+    const genresIdsArr = genres.map((_el, index) => genres[index].id);
+    const newArr = ids
+      .map(el => {
+        return genresIdsArr.indexOf(el);
+      })
+      .filter(el => el !== -1)
+      .map(el => genres[el].name);
+
+    if (!newArr.length) {
+      return 'NO GЕNRE';
+    }
+    return newArr.length > 2
+      ? newArr.slice(0, 2).join(', ') + ', OTHER'
+      : newArr.join(',');
+  }
+  //Запрос базы жанров  - на будущее
+  fetchGenresMovieList() {
+    return fetch(
+      `${GENRE_MOVIE_LIST}?api_key=${API_KEY}&page=${this.page}`,
+    ).then(response => response.json());
   }
 
   generatePosterPath(imageName) {
@@ -92,6 +114,7 @@ export default class ApiService {
     }
     this.pagination(this.page, this.totalPagas);
   }
+
   fetchWatchedMoviesList() {}
 
   fetchQueueMoviesList() {}
