@@ -72,8 +72,6 @@ export default class ApiService {
       .then(responce => responce.json())
       .then(movies => {
         this.totalPagas = movies.total_pages;
-        console.log(movies);
-        console.log(this.totalPagas);
         this.testfoo();
         return movies;
       });
@@ -84,19 +82,14 @@ export default class ApiService {
       .then(response => response.json())
       .then(movies => {
         this.totalPagas = movies.total_pages;
-        console.log(movies);
-        console.log(this.totalPagas);
         this.testfoo();
         return movies;
       });
   }
   testfoo() {
     if (this.selectControl === undefined) {
-      console.log('првиет');
       return;
     }
-    console.log('Ну что пошла работать!');
-    console.log(this.totalPagas);
     this.pagination(this.page, this.totalPagas);
   }
   fetchWatchedMoviesList() {}

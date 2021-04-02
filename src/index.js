@@ -17,7 +17,6 @@ refs.btnPrevPagination.addEventListener('click', () => {
   if (!Api.searchQuery) {
     return fetchPopularMoviesListTEST();
   }
-  // console.log(refs.searchInput.value);
   onSearchTEST();
 });
 refs.btnNextPagination.addEventListener('click', () => {
@@ -25,59 +24,38 @@ refs.btnNextPagination.addEventListener('click', () => {
   if (!Api.searchQuery) {
     return fetchPopularMoviesListTEST();
   }
-  onSearchTEST(), console.log(Api.page);
+  onSearchTEST();
 });
 refs.paginationControls.addEventListener('click', event => {
   if (event.target.nodeName === 'BUTTON') {
-    console.log('я тут');
     const a = Number(event.target.textContent);
-    console.log(a);
+    Api.page = a;
     if (!Api.searchQuery) {
-      console.log('!Api.searchQuery');
-      Api.page = a;
       fetchPopularMoviesListTEST();
       return;
     }
-    console.log('Api.searchQuery');
-    Api.page = a;
     onSearchTEST();
   }
 });
 refs.paginationControls.addEventListener('focusout', event => {
   if (event.target.nodeName === 'INPUT') {
-    console.log('я тут');
     const a = Number(event.target.value);
+    Api.page = a;
     if (!Api.searchQuery) {
-      console.log('!Api.searchQuery');
-      Api.page = a;
       fetchPopularMoviesListTEST();
       return;
     }
-    console.log('Api.searchQuery');
-    Api.page = a;
     onSearchTEST();
   }
-
-  // if (event.target.nodeName === 'INPUT') {
-  //   const a = Number(event.target.value);
-  //   goToPage(a);
-  //   if (!Api.searchQuery) {
-  //     return fetchPopularMoviesListTEST();
-  //   }
-  //   onSearchTEST();
-  // }
 });
-console.log(refs.btnNextPagination, refs.btnPrevPagination);
-//Функция проверки текущей страницы
+
 //Функция проверки текущей страницы
 function loadPage() {
   Api.checkValueLocalStorage();
   const currentPage = document.getElementsByTagName('html')[0];
   if (currentPage.classList.contains('main-page')) {
     fetchPopularMoviesList();
-    console.log(Api.totalPagas);
     refs.searchInput.addEventListener('input', debounce(onSearch, 500));
-    console.log(Api.selectControl);
   }
   if (currentPage.classList.contains('library-page')) {
     refs.loadWatchedBtn.addEventListener('click', loadWatched);

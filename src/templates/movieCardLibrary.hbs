@@ -1,5 +1,3 @@
-{{!-- Тестовый вариант для проверки работы кода --}}
-
 {{#each this}}
 <li class="movie__list-item">
     <div class="movie-card__wrapper-img">
@@ -7,5 +5,6 @@
     </div>
     <h3 class="movie-card__name">{{title}}</h3>
     <p class="movie-card__description">{{genres}} <span>|</span> {{releaseDate}}</p>
+    <p class="movie-card__rating">{{rating}}</p>
 </li>
 {{/each}}
