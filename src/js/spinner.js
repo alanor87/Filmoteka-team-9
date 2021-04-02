@@ -20,7 +20,7 @@ const markup = `<div class="windows8">
 
 const spinner = basicLightbox.create(markup);
 
-export default { spinner };
+export { spinner };
 
 
 

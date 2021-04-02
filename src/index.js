@@ -2,11 +2,12 @@ import './main.scss';
 import './js/back-to-top';
 import './js/firebase-login';
 import './js/modal-team';
-import refs from './js/refs'; /* ждём, пока у нас появятся все нужные имена классов для querySelector */
+import refs from './js/refs';
 import ApiService from './js/api';
 const debounce = require('lodash.debounce');
 import { pluginError } from './js/pluginOn';
 import './js/theme-switch';
+import {spinner} from './js/spinner';
 
 const Api = new ApiService(refs.paginationControls);
 
@@ -51,6 +52,7 @@ refs.paginationControls.addEventListener('focusout', event => {
 
 //Функция проверки текущей страницы
 function loadPage() {
+  spinner.show();
   Api.checkValueLocalStorage();
   const currentPage = document.getElementsByTagName('html')[0];
   if (currentPage.classList.contains('main-page')) {

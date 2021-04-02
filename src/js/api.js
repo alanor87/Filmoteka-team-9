@@ -9,6 +9,7 @@ import movieCard from '../templates/movieCard.hbs';
 import modalMovieCard from '../templates/modal-movie-card.hbs';
 import genres from './genres';
 import refs from './refs';
+import {spinner} from './spinner';
 
 export default class ApiService {
   #delta = 2;
@@ -108,12 +109,14 @@ export default class ApiService {
         return movies;
       });
   }
+
   testfoo() {
     if (this.selectControl === undefined) {
       return;
     }
     this.pagination(this.page, this.totalPagas);
   }
+
   fetchWatchedMoviesList() {
     this.loadWatchedMovies();
     const watchedMoviesArr = this._watchedFromLocalStorage.forEach(movie => {
@@ -158,6 +161,7 @@ export default class ApiService {
   }
 
   renderMovieCards(moviesArray) {
+    spinner.close();
     refs.moviesCardsGallery.insertAdjacentHTML(
       'beforeend',
       movieCard(moviesArray),
