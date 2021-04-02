@@ -1,11 +1,13 @@
 import './main.scss';
 import './js/back-to-top';
+import './js/firebase-login';
 
 import refs from './js/refs'; /* ждём, пока у нас появятся все нужные имена классов для querySelector */
 import ApiService from './js/api';
 const debounce = require('lodash.debounce');
 import { pluginError } from './js/pluginOn';
 import './js/theme-switch';
+
 
 const Api = new ApiService();
 
@@ -82,3 +84,4 @@ function loadQueue() {
   console.log('отрисовать фильмы добавленные в очередь пользователя');
   Api.fetchQueueMoviesList().then(movies => movieAdaptedandRender(movies));
 }
+

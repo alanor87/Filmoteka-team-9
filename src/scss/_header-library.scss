@@ -114,7 +114,10 @@
 
 .nav-list-item {
   font-weight: 500;
-  font-size: 12px;
+  font-size: 10px;
+  @media screen and (min-width: $breakpoint-tablet) {
+    font-size: 12px;
+  }
   line-height: 1.16;
   align-items: center;
   text-align: center;
@@ -122,8 +125,14 @@
   color: var(--text-color-light);
   display: inline-flex;
 
-  &:first-child {
-    margin-right: 40px;
+  &:not(:last-child) {
+    margin-right: 5px;
+    @media screen and (min-width: $breakpoint-tablet) {
+      margin-right: 20px;
+    }
+    @media screen and (min-width: $breakpoint-desktop) {
+      margin-right: 30px;
+    }
   }
 }
 
