@@ -127,7 +127,15 @@ export default class ApiService {
       .catch(error => console.log(error));
   }
 
-  fetchQueueMoviesList() {}
+  fetchQueueMoviesList() {
+    this.loadQueueMovies();
+    const queueMoviesArr = this._queueFromLocalStorage.forEach(movie => {
+      this.fetchMovieByID();
+    });
+    Promise.all(queueMoviesArr)
+      .then(movie => console.log(movie))
+      .catch(error => console.log(error));
+  }
 
   fetchModalMovie() {}
 
