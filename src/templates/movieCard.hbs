@@ -3,7 +3,7 @@
 {{#each this}}
 <li class="movie__list-item">
     <div class="movie-card__wrapper-img">
-        <img class="movie-card__img" src={{imgSrc}} alt='' data-movie-id="{{id}}">
+        <img class="movie-card__img" src={{imgSrc}} alt="{{title}}" data-movie-id="{{id}}">
     </div>
     <h3 class="movie-card__name">{{title}}</h3>
     <p class="movie-detail-value-p">{{genre}}<span class="movie-card__description"> | {{releaseDate}}</span></p>

@@ -52,7 +52,6 @@ refs.paginationControls.addEventListener('focusout', event => {
 
 //Функция проверки текущей страницы
 function loadPage() {
-  spinner.show();
   Api.checkValueLocalStorage();
   const currentPage = document.getElementsByTagName('html')[0];
   if (currentPage.classList.contains('main-page')) {
@@ -80,7 +79,7 @@ function fetchPopularMoviesListTEST() {
 
 //Функция поиска фильмов по слову - запускается по вводу в инпуте
 function onSearch(event) {
-  event.preventDefault();
+  spinner.show();
   clear();
   Api.resetPage();
   Api.searchQuery = event.target.value;
