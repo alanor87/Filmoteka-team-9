@@ -9,10 +9,10 @@ import movieCard from '../templates/movieCard.hbs';
 import modalMovieCard from '../templates/modal-movie-card.hbs';
 import genres from './genres';
 import refs from './refs';
-import {spinner} from './spinner';
+import { spinner } from './spinner';
 
 export default class ApiService {
-  #delta = 2;
+  #delta = 0;
   constructor(selectControl) {
     this.totalPagas = 0;
     this.page = 1;
@@ -120,11 +120,11 @@ export default class ApiService {
   fetchWatchedMoviesList() {
     this.loadWatchedMovies();
     const watchedMoviesArr = this._watchedFromLocalStorage.forEach(movie => {
-      this.fetchMovieByID()
+      this.fetchMovieByID();
     });
     Promise.all(watchedMoviesArr)
-    .then(movie => console.log(movie))
-    .catch(error => console.log(error));
+      .then(movie => console.log(movie))
+      .catch(error => console.log(error));
   }
 
   fetchQueueMoviesList() {}
@@ -220,7 +220,7 @@ export default class ApiService {
   }
 
   goToNextPage() {
-    if (this.page === this.totalPagas + 1) {
+    if (this.page === this.totalPagas) {
       return;
     }
     this.page += 1;
