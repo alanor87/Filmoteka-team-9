@@ -61,8 +61,18 @@ export default class ApiService {
         return movies;
       });
   }
-  fetchWatchedMoviesList() { }
+  fetchWatchedMoviesList() {
+    this.loadWatchedMovies();
+    const watchedMoviesArr = this._watchedFromLocalStorage.forEach(movie => {
+      this.fetchMovieByID()
+    });
+    Promise.all(watchedMoviesArr)
+    .then(movie => console.log(movie))
+    .catch(error => console.log(error));
+  }
+
   fetchQueueMoviesList() { }
+
   fetchModalMovie() { }
 
 
