@@ -5,6 +5,8 @@ const BASE_URL_MOVIEID = 'https://api.themoviedb.org/3/movie';
 const POSTER_URL = 'https://themoviedb.org/t/p/w220_and_h330_face';
 
 import movieCard from '../templates/movieCard.hbs';
+import modalMovieCard from '../templates/modal-movie-card.hbs';
+
 import refs from './refs';
 
 export default class ApiService {
@@ -73,7 +75,7 @@ export default class ApiService {
       `${BASE_URL_TRENDING}?api_key=${API_KEY}&page=${this.page}`,
     ).then(response => response.json());
   }
-  
+
   fetchWatchedMoviesList() { }
 
   fetchQueueMoviesList() { }
@@ -118,7 +120,7 @@ export default class ApiService {
   }
 
   renderMovie(movieObj) { }
-  
+
   checkValueLocalStorage() {
     this.loadQueueMovies();
     if (!this.queue === []) return;
