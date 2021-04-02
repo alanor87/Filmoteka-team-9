@@ -11,13 +11,16 @@ import genres from './genres';
 import refs from './refs';
 
 export default class ApiService {
-  constructor() {
+  #delta = 2;
+  constructor(selectControl) {
+    this.totalPagas = 0;
     this.page = 1;
     this.searchQuery = '';
     this.watched = [];
     this.queue = [];
     this._watchedFromLocalStorage = [];
     this._queueFromLocalStorage = [];
+    this.selectControl = selectControl;
   }
 
   fetchMovieByID(id_movie) {
@@ -86,14 +89,30 @@ export default class ApiService {
 
   fetchSearchMoviesList(query) {
     return fetch(
-      `${BASE_URL_SEARCH}?api_key=${API_KEY}&query=${query}`,
-    ).then(responce => responce.json());
+      `${BASE_URL_SEARCH}?api_key=${API_KEY}&query=${query}&page=${this.page}`,
+    )
+      .then(responce => responce.json())
+      .then(movies => {
+        this.totalPagas = movies.total_pages;
+        this.testfoo();
+        return movies;
+      });
   }
 
   fetchPopularMoviesList() {
-    return fetch(
-      `${BASE_URL_TRENDING}?api_key=${API_KEY}&page=${this.page}`,
-    ).then(response => response.json());
+    return fetch(`${BASE_URL_TRENDING}?api_key=${API_KEY}&page=${this.page}`)
+      .then(response => response.json())
+      .then(movies => {
+        this.totalPagas = movies.total_pages;
+        this.testfoo();
+        return movies;
+      });
+  }
+  testfoo() {
+    if (this.selectControl === undefined) {
+      return;
+    }
+    this.pagination(this.page, this.totalPagas);
   }
   fetchWatchedMoviesList() {
     this.loadWatchedMovies();
@@ -162,4 +181,46 @@ export default class ApiService {
   resetPage() {
     this.page = 1;
   }
+
+  // сборная солянки
+  pagination(current, last) {
+    let code = this.addButtonWithIndex(1);
+
+    if (current - this.#delta > 2) code += this.addButtonInput();
+
+    for (let i = current - this.#delta; i <= current + this.#delta; i++) {
+      if (i > 1 && i < last) {
+        code += this.addButtonWithIndex(i);
+      }
+    }
+
+    if (current + this.#delta < last - 1) code += this.addButtonInput();
+
+    code += this.addButtonWithIndex(last);
+
+    this.selectControl.innerHTML = code;
+  }
+
+  addButtonWithIndex(index) {
+    return ` <li class="pagination-controls__item"><button id='pagination_${index}' class='pagination-controls__btn' type='button' >${index}</button></li>`;
+  }
+  addButtonInput() {
+    return ` <li class="pagination-controls__item"><input class="pagination-controls__input" type="number" placeholder="..." maxlength="4"/></li>`;
+  }
+
+  goToPrevPage() {
+    if (this.page === 1) {
+      return;
+    }
+    this.page -= 1;
+  }
+
+  goToNextPage() {
+    if (this.page === this.totalPagas + 1) {
+      return;
+    }
+    this.page += 1;
+  }
+
+  // конец сборная солянки
 }

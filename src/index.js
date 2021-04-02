@@ -8,9 +8,46 @@ const debounce = require('lodash.debounce');
 import { pluginError } from './js/pluginOn';
 import './js/theme-switch';
 
-const Api = new ApiService();
+const Api = new ApiService(refs.paginationControls);
 
 window.addEventListener('load', loadPage);
+
+refs.btnPrevPagination.addEventListener('click', () => {
+  Api.goToPrevPage();
+  if (!Api.searchQuery) {
+    return fetchPopularMoviesListTEST();
+  }
+  onSearchTEST();
+});
+refs.btnNextPagination.addEventListener('click', () => {
+  Api.goToNextPage();
+  if (!Api.searchQuery) {
+    return fetchPopularMoviesListTEST();
+  }
+  onSearchTEST();
+});
+refs.paginationControls.addEventListener('click', event => {
+  if (event.target.nodeName === 'BUTTON') {
+    const a = Number(event.target.textContent);
+    Api.page = a;
+    if (!Api.searchQuery) {
+      fetchPopularMoviesListTEST();
+      return;
+    }
+    onSearchTEST();
+  }
+});
+refs.paginationControls.addEventListener('focusout', event => {
+  if (event.target.nodeName === 'INPUT') {
+    const a = Number(event.target.value);
+    Api.page = a;
+    if (!Api.searchQuery) {
+      fetchPopularMoviesListTEST();
+      return;
+    }
+    onSearchTEST();
+  }
+});
 
 //Функция проверки текущей страницы
 function loadPage() {
@@ -34,6 +71,11 @@ function fetchPopularMoviesList() {
   Api.fetchPopularMoviesList().then(movies => movieAdaptedandRender(movies));
 }
 
+function fetchPopularMoviesListTEST() {
+  clear();
+  Api.fetchPopularMoviesList().then(movies => movieAdaptedandRender(movies));
+}
+
 //Функция поиска фильмов по слову - запускается по вводу в инпуте
 function onSearch(event) {
   event.preventDefault();
@@ -44,6 +86,16 @@ function onSearch(event) {
   if (!Api.searchQuery) {
     return fetchPopularMoviesList();
   }
+  Api.fetchSearchMoviesList(Api.searchQuery).then(movies => {
+    movieAdaptedandRender(movies);
+    if (!movies.total_results) {
+      return pluginError();
+    }
+  });
+}
+function onSearchTEST() {
+  clear();
+  Api.searchQuery = refs.searchInput.value;
   Api.fetchSearchMoviesList(Api.searchQuery).then(movies => {
     movieAdaptedandRender(movies);
     if (!movies.total_results) {

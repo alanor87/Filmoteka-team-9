@@ -1,0 +1,99 @@
+// .pagination-controls {
+//   &__wrapper {
+//     margin: 0 auto;
+//   }
+//   &__list {
+//     display: flex;
+//     list-style-type: none;
+//     justify-content: center;
+//     align-items: center;
+//   }
+//   &__item {
+//     font-weight: 500;
+//     font-size: 12px;
+//     line-height: 1.333;
+
+//     &:not(:last-child) {
+//       margin-right: 3px;
+//     }
+//   }
+//   &__item.active {
+//     // padding: 13px;
+//     background: #ff6b08;
+//     border-radius: 5px;
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//   }
+//   &__item.active &__btn {
+//     color: #ffffff;
+//   }
+//   &__btn {
+//     border: none;
+//     background-color: transparent;
+//     width: 40px;
+//     height: 40px;
+//   }
+// }
+
+.pagination {
+  &__list {
+    display: flex;
+    list-style-type: none;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border: none;
+  }
+  &__item {
+    &:not(:last-child) {
+      margin-right: 10px;
+    }
+  }
+  &__btn {
+    border: none;
+    background-color: transparent;
+  }
+}
+
+.pagination-controls {
+  &__list {
+    display: flex;
+    list-style-type: none;
+  }
+  &__btn {
+    border: none;
+    background-color: transparent;
+    width: 30px;
+    height: 30px;
+  }
+  &__btn.active {
+    width: 40px;
+    height: 40px;
+    background: #ff6b08;
+    background: #ff6b08;
+    border-radius: 5px;
+  }
+  &__input {
+    padding: 5px;
+    width: 45px;
+    height: 100%;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  &__item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1.333;
+
+    &:not(:last-child) {
+      margin-right: 16px;
+    }
+  }
+}
