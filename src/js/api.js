@@ -47,7 +47,23 @@ export default class ApiService {
     popularity,
     overview,
     genre_ids,
+    genres
   }) {
+    let newGenres = 0;
+    if (genres) {
+      if (genres.length > 3) {
+        newGenres = genres
+          .slice(2)
+          .map(genre => genre.name)
+          .join(', ') + ', OTHER';
+        console.log(newGenres)
+      }
+      else {
+        newGenres = genres
+          .map(genre => genre.name)
+          .join(', ');
+      }
+    }
     return {
       //имена imgSrc, title, rating, releaseDate СВЕРИТЬ с именами в ПРАВИЛЬНОМ шаблоне карточки
       imgSrc: this.generatePosterPath(poster_path),
@@ -56,10 +72,11 @@ export default class ApiService {
       releaseDate:
         Number.parseInt(release_date) || Number.parseInt(first_air_date),
       voteCount: vote_count,
-      popularity: popularity,
-      overview: overview,
-      id: id,
-      genres: this.changeGenresList(genre_ids),
+      popularity,
+      overview,
+      id,
+      genres:
+        newGenres || this.changeGenresList(genre_ids),
     };
   }
 
@@ -79,7 +96,6 @@ export default class ApiService {
       ? newArr.slice(0, 2).join(', ') + ', OTHER'
       : newArr.join(',');
   }
-
   //Запрос базы жанров  - на будущее
   fetchGenresMovieList() {
     return fetch(
@@ -231,6 +247,7 @@ export default class ApiService {
   addButtonWithIndex(index) {
     return ` <li class="pagination-controls__item"><button id='pagination_${index}' class='pagination-controls__btn' type='button' >${index}</button></li>`;
   }
+
   addButtonInput() {
     return ` <li class="pagination-controls__item"><input class="pagination-controls__input" type="number" placeholder="..." maxlength="4"/></li>`;
   }

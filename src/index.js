@@ -102,6 +102,7 @@ function onSearch(event) {
     }
   });
 }
+
 function onSearchTEST() {
   clear();
   Api.searchQuery = refs.searchInput.value;
@@ -121,10 +122,12 @@ function clear() {
 function movieAdaptedandRender(movies) {
   if (movies.results) {
     const moviesArray = movies.results.map(movie => Api.movieAdapter(movie));
+    console.log(moviesArray);
     return Api.renderMovieCards(moviesArray);
   }
   console.log(movies);
-  return Api.renderMovieCards(movies);
+  const moviesArray = movies.map(movie => Api.movieAdapter(movie));
+  return Api.renderMovieCards(moviesArray);
 }
 
 //Функция отрисовывает просмотренные фильмы пользователя
@@ -138,7 +141,7 @@ function loadWatched() {
     .then(movies => movies.map(movie => Api.fetchMovieByID(movie)))
     .then(movies => Promise.all(movies))
     .then(movieAdaptedandRender)
-    .catch(pluginError);
+    // .catch(pluginError);
 }
 //Функция отрисовывает фильмы добавленные в очередь пользователя
 function loadQueue() {
