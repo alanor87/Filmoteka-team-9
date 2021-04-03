@@ -11,7 +11,6 @@ import { spinner } from './js/spinner';
 
 const Api = new ApiService(refs.paginationControls);
 
-window.addEventListener('load', loadPage);
 
 refs.btnPrevPagination.addEventListener('click', () => {
   Api.goToPrevPage();
@@ -141,7 +140,7 @@ function loadWatched() {
     .then(movies => movies.map(movie => Api.fetchMovieByID(movie)))
     .then(movies => Promise.all(movies))
     .then(movieAdaptedandRender)
-    // .catch(pluginError);
+    .catch(pluginError);
 }
 //Функция отрисовывает фильмы добавленные в очередь пользователя
 function loadQueue() {
@@ -156,3 +155,5 @@ function loadQueue() {
     .then(movieAdaptedandRender)
     .catch(pluginError);
 }
+
+window.addEventListener('load', loadPage);

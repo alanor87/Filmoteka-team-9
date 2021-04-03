@@ -93,8 +93,7 @@ export default class ApiService {
       return 'NO GЕNRE';
     }
     return newArr.length > 2
-      ? newArr.slice(0, 2).join(', ') + ', OTHER'
-      : newArr.join(',');
+      ? newArr.slice(0, 2).join(', ') + ', OTHER' : newArr.join(',');
   }
   //Запрос базы жанров  - на будущее
   fetchGenresMovieList() {
