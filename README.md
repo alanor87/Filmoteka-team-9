@@ -1,101 +1,95 @@
-# Webpack starter kit &middot; [![Build Status](https://img.shields.io/travis/npm/npm/latest.svg?style=flat-square)](https://travis-ci.org/npm/npm) [![npm](https://img.shields.io/npm/v/npm.svg?style=flat-square)](https://www.npmjs.com/package/npm) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/your/your-project/blob/master/LICENSE)
 
-## Developing
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-### Prerequisites
 
-Для корректной работы SASS-компилятора и других инструментов, необходимо один
-раз глобально поставить дополнительные пакеты, выполнив в терминале следующие
-команды. Пользователям MacOS ничего делать не нужно.
+                                                  - onSearch -
 
-Пользователям **Windows**, в режиме администратора.
-[Как запусттить Powershell](https://youtu.be/p2tFnxcymwk) в режиме
-администратора.
+ По общему соглашению - делаем поиск по вводу в строку нашего ввода, простите за тавтологию) В дальнейшем при наличии времени - 
+добавим поиск по кнопке.
 
-```shell
-npm install --global --production windows-build-tools
-```
+Функции :
 
-Вот как выглядит процесс успешной установки для пользователей **Windows**.
+  function onSearch() {} - лежит у нас в index.js и срабатывает на ввод в input. Ссылка на input импортируется из refs - 
+                           refs.searchInput. Функция подключается как callback к событию 'input'.
+                           Обязательно нужно использовать с debounce, задержка 500ms. lodash.debounce будет уже добавлен в сборку!
 
-![Установка windows-build-tools](https://user-images.githubusercontent.com/1426799/45007904-bde9f280-afb4-11e8-8a35-c77dffaffa2a.gif)
 
-Пользователям **Linux**.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-```shell
-sudo apt-get install gcc g++ make
-```
 
-### Setting up Dev
+                                                  - fetch -
 
-Для быстрого старта необходимо склонировать репозиторий.
 
-```shell
-git clone https://github.com/luxplanjay/webpack-starter-kit.git
-```
+Функции  :
+  
+ function fetchPopularMoviesList() {} - это работает по умолчанию, когда загружается главная страница
+          Формат запроса : https://api.themoviedb.org/3/trending/all/day?api_key=<<api_key>>
 
-Переименовать папку сборки именем вашего проекта.
+ function fetchSearchMoviesList() {} - работает на поиске - нажатие кнопки поиска по слову
+          Формат запроса : https://api.themoviedb.org/3/search/movie?api_key=<<api_key>>&language=en-US&page=1&include_adult=false
 
-```shell
-mv webpack-starter-kit имя_проекта
-```
+ function fetchMovieByID() {} - работает при загрузке просмотренных и фильмов в очереди - каждый фильм загружается отдельно
+          Формат запроса : https://api.themoviedb.org/3/movie/{movie_id}?api_key=<<api_key>>&language=en-US
 
-Затем перейти в папку проекта.
+ function fetchWatchedMoviesList() {} - при нажатии на кнопку Watched и при загрузке библиотеки пользователя
+          Формат запроса : тут нам нужно пройтись .forEach для нашего массива с ID просмотренных фильмов (см. loadWatchedMovies()) - 
+          и для каждого сделать fetchMovieByID(). Можно собрать все асинхронные запросы в Promise.all([]), чтоб отрисовалось всё вместе,
+          как только загрузятся все запрошенный ID.
 
-```shell
-cd имя_проекта
-```
+ function fetchQueueMoviesList() {} - при нажатии на кнопку Queue
+          Формат запроса : то же самое, что и fetchWatchedMoviesList(), 
+          только используем другой источник наших ID - loadQueueMovies()
 
-Находясь в папке проекта удалить папку `.git` связанную с репозиторием сборки
-выполнив следующую команду.
+ function fetchModalMovie() {} - при открытии модального окна с нашим фильмом
+          Формат запроса : используем fetchMovieByID() и рисуем по результату пришедшего объекта.
 
-```shell
-npx rimraf .git
-```
 
-Установить все зависимости.
 
-```shell
-npm install
-```
+ ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-И запустить режим разработки.
 
-```shell
-npm start
-```
+                                               - localStorage -
 
-Во вкладке браузера перейти по адресу
-[http://localhost:4040](http://localhost:4040).
 
-### Building
+  В localStorage будет два ключа : watched и queue
+  Каждый, конечно, будет в localStorage строкой, но в итоге после JSON.parse() становится массивом, 
+  элементами которого являются ID фильмов.
+       
+       const watched = []
 
-Для того чтобы создать оптимизированные файлы для хостинга, необходимо выполнить
-следующую команду. В корне проекта появится папка `build` со всеми
-оптимизированными ресурсами.
+       const queue = []
 
-```shell
-npm run build
-```
+Функции : 
 
-### Deploying/Publishing
+ function loadWatchedMovies() {} - возвращает распарсеный объект из localStorage.watched 
 
-Сборка может автоматически деплоить билд на GitHub Pages удаленного (remote)
-репозитория. Для этого необходимо в файле `package.json` отредактировать поле
-`homepage`, заменив имя пользователя и репозитория на свои.
+ function loadQueueMovies() {} - возвращает распарсеный объект из localStorage.queue
 
-```json
-"homepage": "https://имя_пользователя.github.io/имя_репозитория"
-```
+ function addWatchedMovies(movieId) {} - пушит новый ID в localStorage.watched
 
-После чего в терминале выполнить следующую команду.
+ function addQueueMovies(movieId) {} - пушит новый ID в localStorage.queue
 
-```shell
-npm run deploy
-```
 
-Если нет ошибок в коде и свойство `homepage` указано верно, запустится сборка
-проекта в продакшен, после чего содержимое папки `build` будет помещено в ветку
-`gh-pages` на удаленном (remote) репозитории. Через какое-то время живую
-страницу можно будет посмотреть по адресу указанному в отредактированном
-свойстве `homepage`.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+                                                  - render -
+
+Функции рендера (отрисовки) : 
+
+ function renderMovieCards(moviesArray) {} - отрисовка всех КОЛЛЕКЦИЙ карточек
+
+ function renderMovie(movieObj) {} - отрисовка одного фильма со всеми требуемыми в макете полями в модальном окне
+
+
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+                                           - handlebars templates -
+
+  movieCard - шаблон для карточки
+  
+  movieModal - шаблон для модального окна с информацией по фильму
+
+
+
