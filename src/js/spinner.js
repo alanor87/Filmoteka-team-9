@@ -30,11 +30,11 @@ export { spinner };
 // // Как пример - спиннер пока срабатывает при вводе слов для поиска в инпут
 
 // ЭТО ПРИМЕР 
-const onInputClick = document.querySelector('.search-input');
- onInputClick.addEventListener('click', onLoadingSpinner);
-function onLoadingSpinner() {
-   spinner.show();
-};
+// const onInputClick = document.querySelector('.search-input');
+//  onInputClick.addEventListener('click', onLoadingSpinner);
+// function onLoadingSpinner() {
+//    spinner.show();
+// };
 
 // Надо будет сделать инпорт в пагинацию (import loader from './js/spinner';)
 // Вызвать в пагинации на функциях по отслеживанию кликов вправо/влево ( loader.spinner.show();)

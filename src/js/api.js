@@ -118,13 +118,8 @@ export default class ApiService {
   }
 
   fetchWatchedMoviesList() {
-    this.loadWatchedMovies();
-    const watchedMoviesArr = this._watchedFromLocalStorage.forEach(movie => {
-      this.fetchMovieByID();
-    });
-    Promise.all(watchedMoviesArr)
-      .then(movie => console.log(movie))
-      .catch(error => console.log(error));
+    if (this.watchedFromLocalStorage.length !== 0) return Promise.resolve(this.watchedFromLocalStorage);
+    return Promise.reject('List is empty');
   }
 
   fetchQueueMoviesList() {
@@ -137,24 +132,37 @@ export default class ApiService {
       .catch(error => console.log(error));
   }
 
-  fetchModalMovie() {}
+  fetchModalMovie() { }
 
   loadWatchedMovies() {
     //после вызова функции в this.watchedFromLocalStorage будет массив с localStorage
-    const watchedString = localStorage.getItem('watched');
-    this.watchedFromLocalStorage = JSON.parse(watchedString);
+    if (localStorage['watched']) {
+      const watchedString = localStorage.getItem('watched');
+      this.watchedFromLocalStorage = JSON.parse(watchedString);
+    }
+    else {
+      localStorage.setItem('watched', JSON.stringify([]));
+      this.watchedFromLocalStorage = [];
+    }
   }
 
   loadQueueMovies() {
     //после вызова функции в this.queueFromLocalStorage будет массив с localStorage
-    const queueString = localStorage.getItem('queue');
-    this.queueFromLocalStorage = JSON.parse(queueString);
+    if (localStorage['queue']) {
+      const queueString = localStorage.getItem('queue');
+      this.queueFromLocalStorage = JSON.parse(queueString);
+    }
+    else {
+      localStorage.setItem('queue', JSON.stringify([]));
+      this.queueFromLocalStorage = [];
+    }
   }
 
   addWatchedMovies(movieId) {
     this.watched.push(movieId);
     localStorage.setItem('watched', JSON.stringify(this.watched));
   }
+
   addQueueMovies(movieId) {
     this.queue.push(movieId);
     localStorage.setItem('queue', JSON.stringify(this.queue));
@@ -169,21 +177,17 @@ export default class ApiService {
   }
 
   renderMovie(movieAdapter) {
-   refs.movieInfoModal.insertAdjacentHTML(
+    refs.movieInfoModal.insertAdjacentHTML(
       'beforeend',
       modalMovieCard(movieAdapter),
     );
-   }
+  }
 
   checkValueLocalStorage() {
     this.loadQueueMovies();
-    if (!this.queue === []) return;
-    localStorage.setItem('queue', JSON.stringify(this.queue));
     this.loadWatchedMovies();
-    if (!this.watched === []) return;
-    localStorage.setItem('watched', JSON.stringify(this.watched));
   }
-  
+
   incrementPage() {
     this.page += 1;
   }

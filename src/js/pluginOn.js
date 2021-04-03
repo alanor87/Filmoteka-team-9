@@ -7,10 +7,8 @@ defaults.sticker = false;
 defaults.delay = 2000;
 defaults.shadow = true;
 
-function pluginError() {
-  return error({
-    text: 'Please enter CORRECT query',
-  });
+function pluginError(text) {
+  return error({text});
 }
 
 export { pluginError };

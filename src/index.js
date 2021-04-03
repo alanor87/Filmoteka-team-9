@@ -97,7 +97,7 @@ function onSearch(event) {
   Api.fetchSearchMoviesList(Api.searchQuery).then(movies => {
     movieAdaptedandRender(movies);
     if (!movies.total_results) {
-      return pluginError();
+      return pluginError('Please enter CORRECT query');
     }
   });
 }
@@ -107,7 +107,7 @@ function onSearchTEST() {
   Api.fetchSearchMoviesList(Api.searchQuery).then(movies => {
     movieAdaptedandRender(movies);
     if (!movies.total_results) {
-      return pluginError();
+      return pluginError('Please enter CORRECT query');
     }
   });
 }
@@ -132,7 +132,11 @@ function loadWatched() {
   refs.loadWatchedBtn.classList.add('active-btn');
   refs.loadQueueBtn.classList.remove('active-btn');
   console.log('отрисовать просмотренные фильмы');
-  Api.fetchWatchedMoviesList().then(movies => movieAdaptedandRender(movies));
+  Api.fetchWatchedMoviesList()
+    .then(movies => movies.map(movie => Api.fetchMovieByID(movie)))
+    .then(movies => Promise.all(movies))
+    .then(movieAdaptedandRender)
+    .catch(pluginError);
 }
 //Функция отрисовывает фильмы добавленные в очередь пользователя
 function loadQueue() {
@@ -143,3 +147,5 @@ function loadQueue() {
   console.log('отрисовать фильмы добавленные в очередь пользователя');
   Api.fetchQueueMoviesList().then(movies => movieAdaptedandRender(movies));
 }
+
+loadPage();
