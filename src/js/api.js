@@ -6,6 +6,7 @@ const POSTER_URL = 'https://themoviedb.org/t/p/w220_and_h330_face';
 const GENRE_MOVIE_LIST = 'https://api.themoviedb.org/3/genre/movie/list';
 
 import movieCard from '../templates/movieCard.hbs';
+import movieCardLibrary from '../templates/movieCardLibrary.hbs';
 import modalMovieCard from '../templates/modal-movie-card.hbs';
 import genres from './genres';
 import refs from './refs';
@@ -28,7 +29,7 @@ export default class ApiService {
     return fetch(`${BASE_URL_MOVIEID}/${id_movie}?api_key=${API_KEY}`).then(
       response => {
         if (response.status === '404') throw new Error();
-        response.json();
+        return response.json();
       },
     );
   }
@@ -58,9 +59,10 @@ export default class ApiService {
       popularity: popularity,
       overview: overview,
       id: id,
-      genre: this.changeGenresList(genre_ids),
+      genres: this.changeGenresList(genre_ids),
     };
   }
+
   changeGenresList(ids) {
     const genresIdsArr = genres.map((_el, index) => genres[index].id);
     const newArr = ids
@@ -77,6 +79,7 @@ export default class ApiService {
       ? newArr.slice(0, 2).join(', ') + ', OTHER'
       : newArr.join(',');
   }
+
   //Запрос базы жанров  - на будущее
   fetchGenresMovieList() {
     return fetch(
@@ -118,18 +121,18 @@ export default class ApiService {
   }
 
   fetchWatchedMoviesList() {
-    if (this.watchedFromLocalStorage.length !== 0) return Promise.resolve(this.watchedFromLocalStorage);
+    if (this.watchedFromLocalStorage.length !== 0) {
+      console.log(this.watchedFromLocalStorage);
+      return Promise.resolve(this.watchedFromLocalStorage);
+    }
     return Promise.reject('List is empty');
   }
 
   fetchQueueMoviesList() {
-    this.loadQueueMovies();
-    const queueMoviesArr = this._queueFromLocalStorage.forEach(movie => {
-      this.fetchMovieByID();
-    });
-    Promise.all(queueMoviesArr)
-      .then(movie => console.log(movie))
-      .catch(error => console.log(error));
+    if (this.queueFromLocalStorage.length !== 0) {
+      return Promise.resolve(this.queueFromLocalStorage);
+    }
+    return Promise.reject('List is empty');
   }
 
   fetchModalMovie() { }
@@ -169,11 +172,21 @@ export default class ApiService {
   }
 
   renderMovieCards(moviesArray) {
+    const currentPage = document.getElementsByTagName('html')[0];
     spinner.close();
-    refs.moviesCardsGallery.insertAdjacentHTML(
-      'beforeend',
-      movieCard(moviesArray),
-    );
+    if (currentPage.classList.contains('main-page')) {
+      refs.moviesCardsGallery.insertAdjacentHTML(
+        'beforeend',
+        movieCard(moviesArray),
+      );
+    }
+    if (currentPage.classList.contains('library-page')) {
+      refs.moviesCardsGallery.insertAdjacentHTML(
+        'beforeend',
+        movieCardLibrary(moviesArray),
+      );
+    }
+
   }
 
   renderMovie(movieAdapter) {

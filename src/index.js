@@ -68,7 +68,8 @@ function loadPage() {
   if (currentPage.classList.contains('library-page')) {
     refs.loadWatchedBtn.addEventListener('click', loadWatched);
     refs.loadQueueBtn.addEventListener('click', loadQueue);
-    loadWatched(); //по умолчанию, отрисовываются просмотренные фильмы
+    loadWatched();
+    console.log('Library') //по умолчанию, отрисовываются просмотренные фильмы
   }
 }
 
@@ -122,6 +123,7 @@ function movieAdaptedandRender(movies) {
     const moviesArray = movies.results.map(movie => Api.movieAdapter(movie));
     return Api.renderMovieCards(moviesArray);
   }
+  console.log(movies);
   return Api.renderMovieCards(movies);
 }
 
@@ -145,7 +147,9 @@ function loadQueue() {
   refs.loadWatchedBtn.classList.remove('active-btn');
   refs.loadQueueBtn.classList.add('active-btn');
   console.log('отрисовать фильмы добавленные в очередь пользователя');
-  Api.fetchQueueMoviesList().then(movies => movieAdaptedandRender(movies));
+  Api.fetchQueueMoviesList()
+    .then(movies => movies.map(movie => Api.fetchMovieByID(movie)))
+    .then(movies => Promise.all(movies))
+    .then(movieAdaptedandRender)
+    .catch(pluginError);
 }
-
-loadPage();
