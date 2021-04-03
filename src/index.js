@@ -11,7 +11,6 @@ import { spinner } from './js/spinner';
 
 const Api = new ApiService(refs.paginationControls);
 
-
 refs.btnPrevPagination.addEventListener('click', () => {
   Api.goToPrevPage();
   if (!Api.searchQuery) {
@@ -68,7 +67,7 @@ function loadPage() {
     refs.loadWatchedBtn.addEventListener('click', loadWatched);
     refs.loadQueueBtn.addEventListener('click', loadQueue);
     loadWatched();
-    console.log('Library') //по умолчанию, отрисовываются просмотренные фильмы
+    console.log('Library'); //по умолчанию, отрисовываются просмотренные фильмы
   }
 }
 
@@ -157,3 +156,40 @@ function loadQueue() {
 }
 
 window.addEventListener('load', loadPage);
+
+// Start of Modal Movie window
+function openModalMovie(event) {
+  if (!event.target.classList.contains('movie-card__img')) return;
+
+  const movieId = event.target.dataset.movieId;
+
+  Api.fetchMovieByID(movieId)
+    .then(Api.movieAdapter)
+    .then(Api.renderMovie)
+    .then(() => {
+      refs.movieInfoModal.classList.toggle('is-hidden');
+    })
+    .then(() => {
+      refs.addWatchedBtn.addEventListener(
+        'click',
+        Api.addWatchedMovies(movieId),
+      );
+      refs.addQueueBtn.addEventListener('click', Api.addQueueMovies(movieId));
+      refs.closeModalMovieBtn.addEventListener('click', closeModalMovie);
+    });
+  //.catch(error => console.log(error));
+}
+
+function closeModalMovie() {
+  refs.movieInfoModal.classList.toggle('is-hidden');
+  refs.addWatchedBtn.removeEventListener(
+    'click',
+    Api.addWatchedMovies(movieId),
+  );
+  refs.addQueueBtn.removeEventListener('click', Api.addQueueMovies(movieId));
+  refs.closeModalMovieBtn.removeEventListener('click', closeModalMovie);
+  refs.movieInfoModal.removeChild();
+}
+
+refs.moviesCardsGallery.addEventListener('click', openModalMovie);
+// End of Modal Movie window

@@ -2,6 +2,7 @@ const refs = {
   searchInput: document.querySelector('.search-input'),
   moviesCardsGallery: document.querySelector('.movie__list'),
   movieInfoModal: document.querySelector('.modal-movie'),
+  closeModalMovieBtn: document.querySelector('.modal-close-btn'),
   loadWatchedBtn: document.querySelector('[data-modal-watched]'),
   loadQueueBtn: document.querySelector('[data-modal-queue]'),
   addWatchedBtn: document.querySelector('[data-add-watched]'),

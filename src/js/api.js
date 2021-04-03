@@ -47,21 +47,19 @@ export default class ApiService {
     popularity,
     overview,
     genre_ids,
-    genres
+    genres,
   }) {
     let newGenres = 0;
     if (genres) {
       if (genres.length > 3) {
-        newGenres = genres
-          .slice(2)
-          .map(genre => genre.name)
-          .join(', ') + ', OTHER';
-        console.log(newGenres)
-      }
-      else {
-        newGenres = genres
-          .map(genre => genre.name)
-          .join(', ');
+        newGenres =
+          genres
+            .slice(2)
+            .map(genre => genre.name)
+            .join(', ') + ', OTHER';
+        console.log(newGenres);
+      } else {
+        newGenres = genres.map(genre => genre.name).join(', ');
       }
     }
     return {
@@ -75,8 +73,7 @@ export default class ApiService {
       popularity,
       overview,
       id,
-      genres:
-        newGenres || this.changeGenresList(genre_ids),
+      genres: newGenres || this.changeGenresList(genre_ids),
     };
   }
 
@@ -93,7 +90,8 @@ export default class ApiService {
       return 'NO GЕNRE';
     }
     return newArr.length > 2
-      ? newArr.slice(0, 2).join(', ') + ', OTHER' : newArr.join(',');
+      ? newArr.slice(0, 2).join(', ') + ', OTHER'
+      : newArr.join(',');
   }
   //Запрос базы жанров  - на будущее
   fetchGenresMovieList() {
@@ -150,15 +148,14 @@ export default class ApiService {
     return Promise.reject('List is empty');
   }
 
-  fetchModalMovie() { }
+  fetchModalMovie() {}
 
   loadWatchedMovies() {
     //после вызова функции в this.watchedFromLocalStorage будет массив с localStorage
     if (localStorage['watched']) {
       const watchedString = localStorage.getItem('watched');
       this.watchedFromLocalStorage = JSON.parse(watchedString);
-    }
-    else {
+    } else {
       localStorage.setItem('watched', JSON.stringify([]));
       this.watchedFromLocalStorage = [];
     }
@@ -169,8 +166,7 @@ export default class ApiService {
     if (localStorage['queue']) {
       const queueString = localStorage.getItem('queue');
       this.queueFromLocalStorage = JSON.parse(queueString);
-    }
-    else {
+    } else {
       localStorage.setItem('queue', JSON.stringify([]));
       this.queueFromLocalStorage = [];
     }
@@ -201,7 +197,6 @@ export default class ApiService {
         movieCardLibrary(moviesArray),
       );
     }
-
   }
 
   renderMovie(movieAdapter) {
