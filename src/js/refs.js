@@ -12,5 +12,6 @@ const refs = {
   btnNextPagination: document.querySelector('[data-next-pagination]'),
   btnPrevPagination: document.querySelector('[data-prev-pagination]'),
   paginationControls: document.querySelector('[data-pagination-controls-list]'),
+  modalTeam: document.querySelector('.modalTeam'),
 };
 export default refs;

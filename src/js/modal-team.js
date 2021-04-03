@@ -24,3 +24,24 @@ function onPressEscape(event) {
     onCloseModalTeam();
   }
 }
+refs.modalTeam.addEventListener('click', event => {
+  let location;
+  let myWindow;
+  if (event.target.nodeName === 'I') {
+    location = event.target.parentNode.getAttribute('href');
+    if (location !== '#') {
+      if (!myWindow) {
+        myWindow = window.open(location, '', 'scrollbars=1');
+      }
+    }
+  }
+
+  if (event.target.nodeName === 'A') {
+    location = event.target.getAttribute('href');
+    if (location !== '#') {
+      if (!myWindow) {
+        myWindow = window.open(location, '', 'scrollbars=1');
+      }
+    }
+  }
+});
