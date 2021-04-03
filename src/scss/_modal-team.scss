@@ -26,15 +26,17 @@
   pointer-events: none;
   opacity: 0;
 }
-
+.modalTeam__header {
+  background-color: var(--bg-color-border-social);
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
 .modalTeam {
-  min-height: 70%;
+  min-height: 70vh;
   max-height: 100%;
   min-width: 300px;
   max-width: 100%;
-  padding: 10px 0;
-  text-align: center;
-  background-color: white;
+  background-color: var(--bg-color-main);
   position: absolute;
   top: 50%;
   left: 50%;
@@ -43,7 +45,12 @@
   overflow: auto;
   @media screen and (min-width: $breakpoint-tablet) {
     min-width: 70%;
+    overflow-x: hidden;
   }
+}
+.modalTeam__container {
+  padding: 10px;
+  text-align: center;
 }
 .closeModalTeam {
   background: var(--text-color-movie-info);
@@ -69,7 +76,6 @@
 .modalTeam__title {
   color: var(--color-accent);
   text-align: center;
-  margin-bottom: 30px;
 }
 .modalTeam__list {
   list-style: none;
@@ -86,12 +92,17 @@
   position: relative;
   margin-left: auto;
   margin-right: auto;
-  &:not(:last-child) {
-    margin-bottom: 40px;
+  @media screen and (max-width: 767px) {
+    &:not(:last-child) {
+      margin-bottom: 70px;
+    }
   }
   @media screen and (min-width: $breakpoint-tablet) {
-    margin: 20px;
+    margin: 20px 50px;
   }
+}
+.modalTeam__item-info {
+  position: relative;
 }
 .modalTeam__item-img {
   margin: 0 auto;
@@ -104,16 +115,103 @@
   }
 }
 .modalTeam__item-firstName {
+  display: inline-block;
+  background-color: var(--bg-color-main);
+  border-radius: 5px;
+  font-size: 12px;
   position: absolute;
   left: -20px;
-  top: -20px;
+  top: 10px;
+  @media screen and (min-width: $breakpoint-tablet) {
+    left: -60px;
+  }
 }
 .modalTeam__item-secondName {
+  display: inline-block;
+  background-color: var(--bg-color-main);
+  border-radius: 5px;
+  font-size: 12px;
   position: absolute;
   left: -20px;
-  top: 0;
+  top: 30px;
+  @media screen and (min-width: $breakpoint-tablet) {
+    left: -60px;
+  }
 }
 .modalTeam__item-position {
+  position: absolute;
+  left: -20px;
+  top: 50px;
   margin-bottom: 10px;
   color: var(--color-accent);
+  @media screen and (min-width: $breakpoint-tablet) {
+    left: -60px;
+  }
+}
+.modalTeam__item-position.second {
+  position: absolute;
+  left: -20px;
+  top: 70px;
+  @media screen and (min-width: $breakpoint-tablet) {
+    left: -60px;
+  }
+}
+// Блок соц сетей
+@import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css);
+.social a {
+  display: block;
+  text-align: center;
+  width: 30px;
+  height: 30px;
+  background: var(--bg-color-main);
+  border: 1px solid var(--bg-color-border-social);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15), inset 0 0 50px rgba(0, 0, 0, 0.1);
+  border-radius: 24px;
+  margin: 0 10px 10px 0;
+  padding: 6px;
+  color: var(--text-color-dark);
+}
+.fa-2x {
+  font-size: 1.2em;
+}
+.social.github {
+  position: absolute;
+  right: 120px;
+  bottom: -40px;
+  & a:hover {
+    background: var(--bg-color-social-github);
+    color: var(--text-color-light);
+  }
+  @media screen and (min-width: $breakpoint-tablet) {
+    right: 100px;
+    bottom: -20px;
+  }
+}
+
+.social.linkedin {
+  position: absolute;
+  right: 70px;
+  bottom: -50px;
+  & a:hover {
+    background: var(--bg-color-social-linkedin);
+    color: var(--text-color-light);
+  }
+  @media screen and (min-width: $breakpoint-tablet) {
+    right: 50px;
+    bottom: -30px;
+  }
+}
+
+.social.telegram {
+  position: absolute;
+  right: 20px;
+  bottom: -40px;
+  & a:hover {
+    background: var(--bg-color-social-telegram);
+    color: var(--text-color-light);
+  }
+  @media screen and (min-width: $breakpoint-tablet) {
+    right: 0;
+    bottom: -20px;
+  }
 }
