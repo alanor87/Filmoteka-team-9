@@ -75,7 +75,8 @@ function loadPage() {
 function fetchPopularMoviesList() {
   clear();
   Api.resetPage();
-  Api.fetchPopularMoviesList().then(movies => movieAdaptedandRender(movies));
+  Api.fetchPopularMoviesList()
+    .then(movies => movieAdaptedandRender(movies));
 }
 
 function fetchPopularMoviesListTEST() {
@@ -120,10 +121,8 @@ function clear() {
 function movieAdaptedandRender(movies) {
   if (movies.results) {
     const moviesArray = movies.results.map(movie => Api.movieAdapter(movie));
-    console.log(moviesArray);
     return Api.renderMovieCards(moviesArray);
   }
-  console.log(movies);
   const moviesArray = movies.map(movie => Api.movieAdapter(movie));
   return Api.renderMovieCards(moviesArray);
 }
@@ -155,30 +154,32 @@ function loadQueue() {
     .catch(pluginError);
 }
 
-window.addEventListener('load', loadPage);
-
 // Start of Modal Movie window
 function openModalMovie(event) {
   if (!event.target.classList.contains('movie-card__img')) return;
-
   const movieId = event.target.dataset.movieId;
-
   Api.fetchMovieByID(movieId)
-    .then(Api.movieAdapter)
     .then(Api.renderMovie)
     .then(() => {
       refs.movieInfoModal.classList.toggle('is-hidden');
+      modalListenersOn();
     })
-    .then(() => {
-      refs.addWatchedBtn.addEventListener(
-        'click',
-        Api.addWatchedMovies(movieId),
-      );
-      refs.addQueueBtn.addEventListener('click', Api.addQueueMovies(movieId));
-      refs.closeModalMovieBtn.addEventListener('click', closeModalMovie);
-    });
-  //.catch(error => console.log(error));
+  // .catch(error => console.log(error));
 }
+
+function modalListenersOn() {
+  document.querySelector('[data-add-watched]').addEventListener('click', Api.addWatchedMovies);
+  document.querySelector('[data-add-queue]').addEventListener('click', Api.addQueueMovies);
+  document.querySelector('.modal-close-btn').addEventListener('click', closeModalMovie);
+  // window.addEventListener('keydown', escCloseModal);
+}
+
+function modalListenersOff() {
+  document.querySelector('[data-add-watched]').removeEventListener('click', Api.addWatchedMovies);
+  document.querySelector('[data-add-queue]').removeEventListener('click', Api.addQueueMovies);
+  window.removeEventListener('keydown', escCloseModal);
+}
+
 
 function closeModalMovie() {
   refs.movieInfoModal.classList.toggle('is-hidden');
@@ -192,4 +193,5 @@ function closeModalMovie() {
 }
 
 refs.moviesCardsGallery.addEventListener('click', openModalMovie);
+window.addEventListener('load', loadPage);
 // End of Modal Movie window

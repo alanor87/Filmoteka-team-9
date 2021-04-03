@@ -199,11 +199,9 @@ export default class ApiService {
     }
   }
 
-  renderMovie(movieAdapter) {
-    refs.movieInfoModal.insertAdjacentHTML(
-      'beforeend',
-      modalMovieCard(movieAdapter),
-    );
+  renderMovie(modalMovie) {
+    const modalMarkup = modalMovieCard(modalMovie);
+    refs.movieInfoModal.insertAdjacentHTML('beforeend', modalMarkup);
   }
 
   checkValueLocalStorage() {
