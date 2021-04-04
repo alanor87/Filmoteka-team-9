@@ -8,6 +8,9 @@ html {
   scroll-behavior: smooth
 }
 
+button {
+  cursor: pointer;
+}
 body {
   font-family: $main-font;
   font-style: normal;
