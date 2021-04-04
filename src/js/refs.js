@@ -12,5 +12,6 @@ const refs = {
   paginationControls: document.querySelector('[data-pagination-controls-list]'),
   modalTeam: document.querySelector('.modalTeam'),
   modalTeamList: document.querySelector('.modalTeam__list'),
+  warningNotificationRef: document.querySelector('.warning-notification'),
 };
 export default refs;
