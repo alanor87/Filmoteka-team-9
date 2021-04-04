@@ -137,7 +137,7 @@
 }
 
 .header-btn {
-  width: 130px;
+  width: 110px;
   height: 44px;
   border-radius: 5px;
   font-weight: 500;
@@ -160,12 +160,14 @@
     }
   }
 }
+
+.header-menu {
+  display: flex;
+}
+
 .header-menu-list {
   display: flex;
-
-  @media screen and (min-width: $breakpoint-tablet) {
-    justify-content: center;
-  }
+  margin: 0 auto;
 }
 
 // нужно вешать на кнопку и снимать при активации

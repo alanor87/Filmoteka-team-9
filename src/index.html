@@ -40,15 +40,14 @@
                   >my library</a
                 >
               </li>
-              <button class="logIn nav-list-item" data-action="login-lightbox">
-                Log in/Log out
-              </button>
-              <button
-                class="SignUp nav-list-item"
-                data-action="signup-lightbox"
-              >
-                Sign Up
-              </button>
+              <li class="nav-list-item">
+                <button class="logIn nav-list-item" data-action="login-lightbox">
+                  Log in/Log out
+                </button>
+                <button class="SignUp nav-list-item" data-action="signup-lightbox">
+                  Sign Up
+                </button>
+              </li>
             </ul>
           </nav>
         </div>
@@ -142,15 +141,12 @@
 
           <button type="button" data-action="logIn">Login to Account</button>
         </div>
+        <button type="button" class="lightbox__button" data-action="close-lightbox"></button>
         <div id="user_div" class="loggedin-div">
           <button type="button" data-action="logOut">Logout</button>
         </div>
       </div>
-      <button
-        type="button"
-        class="lightbox__button"
-        data-action="close-lightbox"
-      ></button>
+      
     </div>
 
     <!--Модальное окно SignUp-->
@@ -165,13 +161,8 @@
 
           <button type="button" data-action="signIn">Create account</button>
         </div>
+        <button type="button" class="lightbox__button" data-action="close-signup-lightbox"></button>
       </div>
-
-      <button
-        type="button"
-        class="lightbox__button"
-        data-action="close-signup-lightbox"
-      ></button>
     </div>
 
     <!--Модалка комманды  -->
