@@ -38,3 +38,15 @@ export { spinner };
 
 // Надо будет сделать инпорт в пагинацию (import loader from './js/spinner';)
 // Вызвать в пагинации на функциях по отслеживанию кликов вправо/влево ( loader.spinner.show();)
+
+
+
+ //PROGRESS BAR 
+
+window.onload = function () {
+    document.body.classList.add('loaded_hiding');
+    window.setTimeout(function () {
+      document.body.classList.add('loaded');
+      document.body.classList.remove('loaded_hiding');
+    }, 1000);
+  }
