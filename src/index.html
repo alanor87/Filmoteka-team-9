@@ -19,6 +19,13 @@
   </head>
 
   <body>
+    <div class="preloader">
+      <svg class="preloader__image" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+        <path fill="currentColor"
+          d="M304 48c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48 48 21.49 48 48zm-48 368c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm208-208c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zM96 256c0-26.51-21.49-48-48-48S0 229.49 0 256s21.49 48 48 48 48-21.49 48-48zm12.922 99.078c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.491-48-48-48zm294.156 0c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.49-48-48-48zM108.922 60.922c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.491-48-48-48z">
+        </path>
+      </svg>
+    </div>
     <header class="header header-main-background">
       <div class="container">
         <div class="header-wrapper">
@@ -40,15 +47,20 @@
                   >my library</a
                 >
               </li>
-              <button class="logIn nav-list-item" data-action="login-lightbox">
-                Log in/Log out
-              </button>
-              <button
-                class="SignUp nav-list-item"
-                data-action="signup-lightbox"
-              >
-                Sign Up
-              </button>
+              <li class="nav-list-item">
+                <button
+                  class="logIn nav-list-item"
+                  data-action="login-lightbox"
+                >
+                  Log in/Log out
+                </button>
+                <button
+                  class="SignUp nav-list-item"
+                  data-action="signup-lightbox"
+                >
+                  Sign Up
+                </button>
+              </li>
             </ul>
           </nav>
         </div>
@@ -142,15 +154,15 @@
 
           <button type="button" data-action="logIn">Login to Account</button>
         </div>
+        <button
+          type="button"
+          class="lightbox__button"
+          data-action="close-lightbox"
+        ></button>
         <div id="user_div" class="loggedin-div">
           <button type="button" data-action="logOut">Logout</button>
         </div>
       </div>
-      <button
-        type="button"
-        class="lightbox__button"
-        data-action="close-lightbox"
-      ></button>
     </div>
 
     <!--Модальное окно SignUp-->
@@ -165,13 +177,12 @@
 
           <button type="button" data-action="signIn">Create account</button>
         </div>
+        <button
+          type="button"
+          class="lightbox__button"
+          data-action="close-signup-lightbox"
+        ></button>
       </div>
-
-      <button
-        type="button"
-        class="lightbox__button"
-        data-action="close-signup-lightbox"
-      ></button>
     </div>
 
     <!--Модалка комманды  -->
@@ -185,276 +196,10 @@
           <h1 class="modalTeam__title">Our Team #27/9</h1>
         </div>
         <div class="modalTeam__container">
-          <ul class="modalTeam__list">
-            <li class="modalTeam__item">
-              <div class="modalTeam__item-info">
-                <img
-                  class="modalTeam__item-img lazyload"
-                  data-src="./images/team-lead.jpg"
-                  alt="Team-lead"
-                />
-                <p class="modalTeam__item-position">(Team Lead)</p>
-                <p class="modalTeam__item-firstName">Yevhen</p>
-                <p class="modalTeam__item-secondName">Martianov</p>
-              </div>
-              <!-- Блок соц сетей -->
-              <div class="modalTeam__item-social">
-                <div class="social github">
-                  <a
-                    href="https://github.com/alanor87?tab=repositories"
-                    target="_blank"
-                    ><i class="fa fa-github fa-2x"></i
-                  ></a>
-                </div>
-                <div class="social linkedin">
-                  <a href="#" target="_blank"
-                    ><i class="fa fa-linkedin fa-2x"></i
-                  ></a>
-                </div>
-                <div class="social telegram">
-                  <a href="#" target="_blank"
-                    ><i class="fa fa-paper-plane fa-2x"></i
-                  ></a>
-                </div>
-              </div>
-              <!--  -->
-            </li>
-            <li class="modalTeam__item">
-              <img
-                class="modalTeam__item-img lazyload"
-                data-src="./images/scrum-master.jpg"
-                alt="Csrum-master"
-              />
-              <p class="modalTeam__item-position">(Scrum</p>
-              <p class="modalTeam__item-position second">master)</p>
-              <p class="modalTeam__item-firstName">Nadin</p>
-              <p class="modalTeam__item-secondName">Shpileva</p>
-              <!-- Блок соц сетей -->
-              <div class="modalTeam__item-social">
-                <div class="social github">
-                  <a href="#" target="_blank"
-                    ><i class="fa fa-github fa-2x"></i
-                  ></a>
-                </div>
-                <div class="social linkedin">
-                  <a href="#" target="_blank"
-                    ><i class="fa fa-linkedin fa-2x"></i
-                  ></a>
-                </div>
-                <div class="social telegram">
-                  <a href="#" target="_blank"
-                    ><i class="fa fa-paper-plane fa-2x"></i
-                  ></a>
-                </div>
-              </div>
-              <!--  -->
-            </li>
-            <li class="modalTeam__item">
-              <img
-                class="modalTeam__item-img lazyload"
-                data-src="./images/team-1.jpg"
-                alt="Team"
-              />
-              <p class="modalTeam__item-position"></p>
-              <p class="modalTeam__item-firstName">Vadim</p>
-              <p class="modalTeam__item-secondName">Matsko</p>
-              <!-- Блок соц сетей -->
-              <div class="modalTeam__item-social">
-                <div class="social github">
-                  <a href="#" target="_blank"
-                    ><i class="fa fa-github fa-2x"></i
-                  ></a>
-                </div>
-                <div class="social linkedin">
-                  <a href="#" target="_blank"
-                    ><i class="fa fa-linkedin fa-2x"></i
-                  ></a>
-                </div>
-                <div class="social telegram">
-                  <a href="#" target="_blank"
-                    ><i class="fa fa-paper-plane fa-2x"></i
-                  ></a>
-                </div>
-              </div>
-              <!--  -->
-            </li>
-            <li class="modalTeam__item">
-              <img
-                class="modalTeam__item-img lazyload"
-                data-src="./images/team-2.jpg"
-                alt="Team"
-              />
-              <p class="modalTeam__item-position"></p>
-              <p class="modalTeam__item-firstName">Anastasiya</p>
-              <p class="modalTeam__item-secondName">Malyas</p>
-              <!-- Блок соц сетей -->
-              <div class="modalTeam__item-social">
-                <div class="social github">
-                  <a href="#" target="_blank"
-                    ><i class="fa fa-github fa-2x"></i
-                  ></a>
-                </div>
-                <div class="social linkedin">
-                  <a href="#" target="_blank"
-                    ><i class="fa fa-linkedin fa-2x"></i
-                  ></a>
-                </div>
-                <div class="social telegram">
-                  <a href="#" target="_blank"
-                    ><i class="fa fa-paper-plane fa-2x"></i
-                  ></a>
-                </div>
-              </div>
-              <!--  -->
-            </li>
-            <li class="modalTeam__item">
-              <img
-                class="modalTeam__item-img lazyload"
-                data-src="./images/team-3.jpg"
-                alt="Team"
-              />
-              <p class="modalTeam__item-position"></p>
-              <p class="modalTeam__item-firstName">Anton</p>
-              <p class="modalTeam__item-secondName">Vovk</p>
-              <!-- Блок соц сетей -->
-              <div class="modalTeam__item-social">
-                <div class="social github">
-                  <a href="#" target="_blank"
-                    ><i class="fa fa-github fa-2x"></i
-                  ></a>
-                </div>
-                <div class="social linkedin">
-                  <a href="#" target="_blank"
-                    ><i class="fa fa-linkedin fa-2x"></i
-                  ></a>
-                </div>
-                <div class="social telegram">
-                  <a href="#" target="_blank"
-                    ><i class="fa fa-paper-plane fa-2x"></i
-                  ></a>
-                </div>
-              </div>
-              <!--  -->
-            </li>
-            <li class="modalTeam__item">
-              <img
-                class="modalTeam__item-img lazyload"
-                data-src="./images/team-4.jpg"
-                alt="Team"
-              />
-              <p class="modalTeam__item-position"></p>
-              <p class="modalTeam__item-firstName">Ivanna</p>
-              <p class="modalTeam__item-secondName">Kyrij</p>
-              <!-- Блок соц сетей -->
-              <div class="modalTeam__item-social">
-                <div class="social github">
-                  <a href="#" target="_blank"
-                    ><i class="fa fa-github fa-2x"></i
-                  ></a>
-                </div>
-                <div class="social linkedin">
-                  <a href="#" target="_blank"
-                    ><i class="fa fa-linkedin fa-2x"></i
-                  ></a>
-                </div>
-                <div class="social telegram">
-                  <a href="#" target="_blank"
-                    ><i class="fa fa-paper-plane fa-2x"></i
-                  ></a>
-                </div>
-              </div>
-              <!--  -->
-            </li>
-            <li class="modalTeam__item">
-              <img
-                class="modalTeam__item-img lazyload"
-                data-src="./images/team-5.jpg"
-                alt="Team"
-              />
-              <p class="modalTeam__item-position"></p>
-              <p class="modalTeam__item-firstName">Tania</p>
-              <p class="modalTeam__item-secondName">Shastun</p>
-              <!-- Блок соц сетей -->
-              <div class="modalTeam__item-social">
-                <div class="social github">
-                  <a href="#" target="_blank"
-                    ><i class="fa fa-github fa-2x"></i
-                  ></a>
-                </div>
-                <div class="social linkedin">
-                  <a href="#" target="_blank"
-                    ><i class="fa fa-linkedin fa-2x"></i
-                  ></a>
-                </div>
-                <div class="social telegram">
-                  <a href="#" target="_blank"
-                    ><i class="fa fa-paper-plane fa-2x"></i
-                  ></a>
-                </div>
-              </div>
-              <!--  -->
-            </li>
-            <li class="modalTeam__item">
-              <img
-                class="modalTeam__item-img lazyload"
-                data-src="./images/team-6.jpg"
-                alt="Team"
-              />
-              <p class="modalTeam__item-position"></p>
-              <p class="modalTeam__item-firstName">Tetiana</p>
-              <p class="modalTeam__item-secondName">Bigunets</p>
-              <!-- Блок соц сетей -->
-              <div class="modalTeam__item-social">
-                <div class="social github">
-                  <a
-                    href="https://github.com/BigunetsT?tab=projects"
-                    target="_blank"
-                    ><i class="fa fa-github fa-2x"></i
-                  ></a>
-                </div>
-                <div class="social linkedin">
-                  <a href="#" target="_blank"
-                    ><i class="fa fa-linkedin fa-2x"></i
-                  ></a>
-                </div>
-                <div class="social telegram">
-                  <a href="tg://resolve?domain=Tetyana_Bigunets" target="_blank"
-                    ><i class="fa fa-paper-plane fa-2x"></i
-                  ></a>
-                </div>
-              </div>
-              <!--  -->
-            </li>
-            <li class="modalTeam__item">
-              <img
-                class="modalTeam__item-img lazyload"
-                data-src="./images/team-7.jpg"
-                alt="Team"
-              />
-              <p class="modalTeam__item-position"></p>
-              <p class="modalTeam__item-firstName">Alex</p>
-              <p class="modalTeam__item-secondName">Polischuk</p>
-              <!-- Блок соц сетей -->
-              <div class="modalTeam__item-social">
-                <div class="social github">
-                  <a href="#" target="_blank"
-                    ><i class="fa fa-github fa-2x"></i
-                  ></a>
-                </div>
-                <div class="social linkedin">
-                  <a href="#" target="_blank"
-                    ><i class="fa fa-linkedin fa-2x"></i
-                  ></a>
-                </div>
-                <div class="social telegram">
-                  <a href="#" target="_blank"
-                    ><i class="fa fa-paper-plane fa-2x"></i
-                  ></a>
-                </div>
-              </div>
-            </li>
-          </ul>
+
+          <ul class="modalTeam__list"></ul>
         </div>
+        <div class="modalTeam__footer">GoIt-2021</div>
       </div>
     </div>
     <!--  -->

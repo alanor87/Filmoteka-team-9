@@ -1,0 +1,24 @@
+{{#each this}}
+<li class="modalTeam__item">
+    <div class="modalTeam__item-info">
+        <img class="modalTeam__item-img" src={{team-img}} alt={{team-img-alt}} />
+        <p class="modalTeam__item-position">{{team-position}}</p>
+        <p class="modalTeam__item-position second">{{team-position-second}}</p>
+        <p class="modalTeam__item-firstName">{{team-firstName}}</p>
+        <p class="modalTeam__item-secondName">{{team-secondName}}</p>
+    </div>
+    <!-- Блок соц сетей -->
+    <div class="modalTeam__item-social">
+        <div class="social github">
+            <a href={{team-github}} target="_blank"><i class="fa fa-github fa-2x"></i></a>
+        </div>
+        <div class="social linkedin">
+            <a href={{team-linkedin}} target="_blank"><i class="fa fa-linkedin fa-2x"></i></a>
+        </div>
+        <div class="social telegram">
+            <a href={{team-telegram}} target="_blank"><i class="fa fa-paper-plane fa-2x"></i></a>
+        </div>
+    </div>
+    <!--  -->
+</li>
+{{/each}}
