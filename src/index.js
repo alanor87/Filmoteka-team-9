@@ -10,57 +10,14 @@ import './js/theme-switch';
 import { spinner } from './js/spinner';
 
 const Api = new ApiService(refs.paginationControls);
-
-refs.btnPrevPagination.addEventListener('click', () => {
-  Api.goToPrevPage();
-  if (!Api.searchQuery) {
-    return fetchPopularMoviesListTEST();
-  }
-  onSearchTEST();
-});
-refs.btnNextPagination.addEventListener('click', () => {
-  Api.goToNextPage();
-  if (!Api.searchQuery) {
-    return fetchPopularMoviesListTEST();
-  }
-  onSearchTEST();
-});
-refs.paginationControls.addEventListener('click', event => {
-  if (event.target.nodeName === 'BUTTON') {
-    const a = Number(event.target.textContent);
-    Api.page = a;
-    if (!Api.searchQuery) {
-      fetchPopularMoviesListTEST();
-      return;
-    }
-    onSearchTEST();
-  }
-});
-refs.paginationControls.addEventListener('focusout', event => {
-  if (event.target.nodeName === 'INPUT') {
-    if (event.target.value === '') {
-      return;
-    }
-    const a = Number(event.target.value);
-    if (a > Api.totalPagas) {
-      Api.page = Api.totalPagas;
-      console.log(Api.page);
-    }
-    Api.page = a;
-    if (!Api.searchQuery) {
-      fetchPopularMoviesListTEST();
-      return;
-    }
-    onSearchTEST();
-  }
-});
-
+const TIME_OUT = 1000;
 //Функция проверки текущей страницы
 function loadPage() {
   Api.loadWatchedMovies();
   Api.loadQueueMovies();
   const currentPage = document.getElementsByTagName('html')[0];
   if (currentPage.classList.contains('main-page')) {
+    Api.resetPage();
     fetchPopularMoviesList();
     refs.searchInput.addEventListener('input', debounce(onSearch, 500));
   }
@@ -75,28 +32,14 @@ function loadPage() {
 //Функция запроса популярных фильмов и отрисовка галлереи карточек - запускается при загрузке главной страницы
 function fetchPopularMoviesList() {
   clear();
-  Api.resetPage();
-  Api.fetchPopularMoviesList()
-    .then(movies => movieAdaptedandRender(movies));
-}
-
-function fetchPopularMoviesListTEST() {
-  clear();
   Api.fetchPopularMoviesList()
     .then(movies => movieAdaptedandRender(movies))
     .catch(pluginError);
 }
 
 //Функция поиска фильмов по слову - запускается по вводу в инпуте
-function onSearch(event) {
-  spinner.show();
+function onSearchApi() {
   clear();
-  Api.resetPage();
-  Api.searchQuery = event.target.value;
-  console.log('Api.searchQuery:', Api.searchQuery); //что ищем???
-  if (!Api.searchQuery) {
-    return fetchPopularMoviesList();
-  }
   Api.fetchSearchMoviesList(Api.searchQuery).then(movies => {
     movieAdaptedandRender(movies);
     if (!movies.total_results) {
@@ -104,16 +47,19 @@ function onSearch(event) {
     }
   });
 }
-
-function onSearchTEST() {
-  clear();
+function onSearch(event) {
+  spinner.show();
+  Api.resetPage();
+  Api.searchQuery = event.target.value;
+  console.log('Api.searchQuery:', Api.searchQuery); //что ищем???
+  if (!Api.searchQuery) {
+    return fetchPopularMoviesList();
+  }
+  onSearchApi();
+}
+function onSearchToPagination() {
   Api.searchQuery = refs.searchInput.value;
-  Api.fetchSearchMoviesList(Api.searchQuery).then(movies => {
-    movieAdaptedandRender(movies);
-    if (!movies.total_results) {
-      return pluginError('Please enter CORRECT query');
-    }
-  });
+  onSearchApi();
 }
 
 //Функция очистки галлереи фильмов
@@ -171,24 +117,92 @@ function openModalMovie(event) {
       refs.movieInfoModal.classList.toggle('is-hidden');
       modalListenersOn();
     })
-  .catch(pluginError);
+    .catch(pluginError);
 }
 
 function modalListenersOn() {
-  document.querySelector('[data-add-watched]').addEventListener('click', Api.addWatchedMovies);
-  document.querySelector('[data-add-queue]').addEventListener('click', Api.addQueueMovies);
-  document.querySelector('.modal-close-btn').addEventListener('click', closeModalMovie);
+  document
+    .querySelector('[data-add-watched]')
+    .addEventListener('click', Api.addWatchedMovies);
+  document
+    .querySelector('[data-add-queue]')
+    .addEventListener('click', Api.addQueueMovies);
+  document
+    .querySelector('.modal-close-btn')
+    .addEventListener('click', closeModalMovie);
   // window.addEventListener('keydown', escCloseModal);
 }
 
 function closeModalMovie() {
   refs.movieInfoModal.classList.toggle('is-hidden');
-  document.querySelector('[data-add-watched]').removeEventListener('click', Api.addWatchedMovies);
-  document.querySelector('[data-add-queue]').removeEventListener('click', Api.addQueueMovies);
-  document.querySelector('.modal-close-btn').removeEventListener('click', closeModalMovie);
+  document
+    .querySelector('[data-add-watched]')
+    .removeEventListener('click', Api.addWatchedMovies);
+  document
+    .querySelector('[data-add-queue]')
+    .removeEventListener('click', Api.addQueueMovies);
+  document
+    .querySelector('.modal-close-btn')
+    .removeEventListener('click', closeModalMovie);
   refs.movieInfoModal.innerHTML = '';
+}
+
+function goToPrevPage() {
+  Api.goToPrevPage();
+  if (!Api.searchQuery) {
+    return fetchPopularMoviesList();
+  }
+  onSearchToPagination();
+}
+
+function goToNextPage() {
+  Api.goToNextPage();
+  if (!Api.searchQuery) {
+    return fetchPopularMoviesList();
+  }
+  onSearchToPagination();
+}
+
+function goToPage(number) {
+  Api.page = Number(number);
+  if (!Api.searchQuery) {
+    fetchPopularMoviesList();
+    return;
+  }
+  onSearchToPagination();
+}
+function CheckingPafe(number) {
+  if (number > Api.totalPagas) {
+    number = Api.totalPagas;
+  }
+  return number;
+}
+function paginationByinput(event) {
+  {
+    if (event.target.nodeName === 'INPUT') {
+      if (event.target.value === '') {
+        return;
+      }
+
+      goToPage(CheckingPafe(event.target.value));
+    }
+  }
+}
+function paginationByBtn(event) {
+  if (event.target.nodeName === 'BUTTON') {
+    goToPage(event.target.textContent);
+  }
 }
 
 refs.moviesCardsGallery.addEventListener('click', openModalMovie);
 window.addEventListener('load', loadPage);
 // End of Modal Movie window
+
+refs.btnPrevPagination.addEventListener('click', goToPrevPage);
+refs.btnNextPagination.addEventListener('click', goToNextPage);
+refs.paginationControls.addEventListener('click', paginationByBtn);
+
+refs.paginationControls.addEventListener(
+  'click',
+  debounce(paginationByinput, 1000),
+);
