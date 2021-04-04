@@ -30,7 +30,7 @@ export default class ApiService {
         if (!response.ok) return Promise.reject('Server error!');
         return response.json();
       },
-    )
+      )
   }
 
   fetchSearchMoviesList(query) {
@@ -186,9 +186,8 @@ export default class ApiService {
       imgSrc: this.generatePosterPath(poster_path),
       title: original_title || original_name || title,
       rating: vote_average,
-      releaseDate:
-        Number.parseInt(release_date) || Number.parseInt(first_air_date),
-      voteCount: vote_count,
+      releaseDate: Number.parseInt(release_date) || Number.parseInt(first_air_date),
+      voteСount: vote_count,
       popularity,
       overview,
       id,
