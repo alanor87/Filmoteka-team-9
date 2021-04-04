@@ -4,6 +4,8 @@ const BASE_URL_SEARCH = 'https://api.themoviedb.org/3/search/movie';
 const BASE_URL_MOVIEID = 'https://api.themoviedb.org/3/movie';
 const POSTER_URL = 'https://themoviedb.org/t/p/w220_and_h330_face';
 const GENRE_MOVIE_LIST = 'https://api.themoviedb.org/3/genre/movie/list';
+const watchedFromLocalStorage = [];
+const queueFromLocalStorage = [];
 
 import movieCard from '../templates/movieCard.hbs';
 import movieCardLibrary from '../templates/movieCardLibrary.hbs';
@@ -18,10 +20,6 @@ export default class ApiService {
     this.totalPagas = 0;
     this.page = 1;
     this.searchQuery = '';
-    this.watched = [];
-    this.queue = [];
-    this.watchedFromLocalStorage = [];
-    this.queueFromLocalStorage = [];
     this.selectControl = selectControl;
   }
 
@@ -57,17 +55,14 @@ export default class ApiService {
   }
 
   fetchWatchedMoviesList() {
-    if (this.watchedFromLocalStorage.length !== 0) {
-      console.log(this.watchedFromLocalStorage);
-      return Promise.resolve(this.watchedFromLocalStorage);
-    }
+    if (watchedFromLocalStorage.length !== 0)
+      return Promise.resolve(watchedFromLocalStorage);
     return Promise.reject('List is empty');
   }
 
   fetchQueueMoviesList() {
-    if (this.queueFromLocalStorage.length !== 0) {
-      return Promise.resolve(this.queueFromLocalStorage);
-    }
+    if (queueFromLocalStorage.length !== 0)
+      return Promise.resolve(queueFromLocalStorage);
     return Promise.reject('List is empty');
   }
 
@@ -98,10 +93,10 @@ export default class ApiService {
     //после вызова функции в this.watchedFromLocalStorage будет массив с localStorage
     if (localStorage['watched']) {
       const watchedString = localStorage.getItem('watched');
-      this.watchedFromLocalStorage = JSON.parse(watchedString);
+      watchedFromLocalStorage.push(...JSON.parse(watchedString));
+      console.log(watchedFromLocalStorage.length);
     } else {
       localStorage.setItem('watched', JSON.stringify([]));
-      this.watchedFromLocalStorage = [];
     }
   }
 
@@ -109,21 +104,27 @@ export default class ApiService {
     //после вызова функции в this.queueFromLocalStorage будет массив с localStorage
     if (localStorage['queue']) {
       const queueString = localStorage.getItem('queue');
-      this.queueFromLocalStorage = JSON.parse(queueString);
+      queueFromLocalStorage.push(...JSON.parse(queueString));
     } else {
       localStorage.setItem('queue', JSON.stringify([]));
-      this.queueFromLocalStorage = [];
+      queueFromLocalStorage = [];
     }
   }
 
-  addWatchedMovies(movieId) {
-    this.watched.push(movieId);
-    localStorage.setItem('watched', JSON.stringify(this.watched));
+  addWatchedMovies(event) {
+    const movieId = event.target.dataset.movieId;
+    if (!watchedFromLocalStorage.includes(movieId)) {
+      watchedFromLocalStorage.push(movieId);
+      localStorage.setItem('watched', JSON.stringify(watchedFromLocalStorage));
+    }
   }
 
-  addQueueMovies(movieId) {
-    this.queue.push(movieId);
-    localStorage.setItem('queue', JSON.stringify(this.queue));
+  addQueueMovies(event) {
+    const movieId = event.target.dataset.movieId;
+    if (!queueFromLocalStorage.includes(movieId)) {
+      queueFromLocalStorage.push(movieId);
+      localStorage.setItem('queue', JSON.stringify(queueFromLocalStorage));
+    }
   }
 
   renderMovieCards(moviesArray) {
@@ -202,10 +203,6 @@ export default class ApiService {
     this.pagination(this.page, this.totalPagas);
   }
 
-  checkValueLocalStorage() {
-    this.loadQueueMovies();
-    this.loadWatchedMovies();
-  }
 
   incrementPage() {
     this.page += 1;

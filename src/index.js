@@ -57,7 +57,8 @@ refs.paginationControls.addEventListener('focusout', event => {
 
 //Функция проверки текущей страницы
 function loadPage() {
-  Api.checkValueLocalStorage();
+  Api.loadWatchedMovies();
+  Api.loadQueueMovies();
   const currentPage = document.getElementsByTagName('html')[0];
   if (currentPage.classList.contains('main-page')) {
     fetchPopularMoviesList();
@@ -156,6 +157,7 @@ function loadQueue() {
 
 // Start of Modal Movie window
 function openModalMovie(event) {
+  refs.movieInfoModal.innerHTML = '';
   if (!event.target.classList.contains('movie-card__img')) return;
   const movieId = event.target.dataset.movieId;
   Api.fetchMovieByID(movieId)
@@ -179,13 +181,10 @@ function modalListenersOn() {
 
 function closeModalMovie() {
   refs.movieInfoModal.classList.toggle('is-hidden');
-  refs.addWatchedBtn.removeEventListener(
-    'click',
-    Api.addWatchedMovies(movieId),
-  );
-  refs.addQueueBtn.removeEventListener('click', Api.addQueueMovies(movieId));
-  refs.closeModalMovieBtn.removeEventListener('click', closeModalMovie);
-  refs.movieInfoModal.removeChild();
+  document.querySelector('[data-add-watched]').removeEventListener('click', Api.addWatchedMovies);
+  document.querySelector('[data-add-queue]').removeEventListener('click', Api.addQueueMovies);
+  document.querySelector('.modal-close-btn').removeEventListener('click', closeModalMovie);
+  refs.movieInfoModal.innerHTML = '';
 }
 
 refs.moviesCardsGallery.addEventListener('click', openModalMovie);
