@@ -43,6 +43,7 @@
         url(./images/Rectangle-desktop@2x.jpg);
     }
   }
+
   .header-wrapper {
     padding-bottom: 37px;
   }
@@ -135,6 +136,7 @@
 
 .search-wrapper {
   display: flex;
+  margin-bottom: 22px;
   // text-align: center;
 
   .search {
@@ -205,13 +207,16 @@
   }
 }
 .warning-notification {
-  width: 280px;
+  max-width: 280px;
   margin: 0 auto;
+  text-transform: none;
   font-size: 14px;
   line-height: 1.17;
   font-weight: 400;
   color: var(--text-color-warrning);
-  padding-bottom: 27px;
+  @media screen and (min-width: $breakpoint-tablet) {
+    min-width: 450px;
+  }
 }
 
 .search-form {

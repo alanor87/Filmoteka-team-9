@@ -76,8 +76,7 @@ function loadPage() {
 function fetchPopularMoviesList() {
   clear();
   Api.resetPage();
-  Api.fetchPopularMoviesList()
-    .then(movies => movieAdaptedandRender(movies));
+  Api.fetchPopularMoviesList().then(movies => movieAdaptedandRender(movies));
 }
 
 function fetchPopularMoviesListTEST() {
@@ -95,12 +94,14 @@ function onSearch(event) {
   Api.searchQuery = event.target.value;
   console.log('Api.searchQuery:', Api.searchQuery); //что ищем???
   if (!Api.searchQuery) {
+    refs.warningNotificationRef.textContent = '';
     return fetchPopularMoviesList();
   }
   Api.fetchSearchMoviesList(Api.searchQuery).then(movies => {
     movieAdaptedandRender(movies);
     if (!movies.total_results) {
-      return pluginError('Please enter CORRECT query');
+      refs.warningNotificationRef.textContent =
+        'Search result not successful. Enter the correct movie name and try again';
     }
   });
 }
@@ -171,21 +172,33 @@ function openModalMovie(event) {
       refs.movieInfoModal.classList.toggle('is-hidden');
       modalListenersOn();
     })
-  .catch(pluginError);
+    .catch(pluginError);
 }
 
 function modalListenersOn() {
-  document.querySelector('[data-add-watched]').addEventListener('click', Api.addWatchedMovies);
-  document.querySelector('[data-add-queue]').addEventListener('click', Api.addQueueMovies);
-  document.querySelector('.modal-close-btn').addEventListener('click', closeModalMovie);
+  document
+    .querySelector('[data-add-watched]')
+    .addEventListener('click', Api.addWatchedMovies);
+  document
+    .querySelector('[data-add-queue]')
+    .addEventListener('click', Api.addQueueMovies);
+  document
+    .querySelector('.modal-close-btn')
+    .addEventListener('click', closeModalMovie);
   // window.addEventListener('keydown', escCloseModal);
 }
 
 function closeModalMovie() {
   refs.movieInfoModal.classList.toggle('is-hidden');
-  document.querySelector('[data-add-watched]').removeEventListener('click', Api.addWatchedMovies);
-  document.querySelector('[data-add-queue]').removeEventListener('click', Api.addQueueMovies);
-  document.querySelector('.modal-close-btn').removeEventListener('click', closeModalMovie);
+  document
+    .querySelector('[data-add-watched]')
+    .removeEventListener('click', Api.addWatchedMovies);
+  document
+    .querySelector('[data-add-queue]')
+    .removeEventListener('click', Api.addQueueMovies);
+  document
+    .querySelector('.modal-close-btn')
+    .removeEventListener('click', closeModalMovie);
   refs.movieInfoModal.innerHTML = '';
 }
 
