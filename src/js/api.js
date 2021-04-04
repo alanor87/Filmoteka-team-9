@@ -15,7 +15,7 @@ import refs from './refs';
 import { spinner } from './spinner';
 import 'lazysizes';
 import 'lazysizes/plugins/parent-fit/ls.parent-fit';
-import { pluginError } from './pluginOn';
+import { pluginError, pluginNotice } from './pluginOn';
 
 export default class ApiService {
   #delta = 2;
@@ -117,6 +117,7 @@ export default class ApiService {
     if (!watchedFromLocalStorage.includes(movieId)) {
       watchedFromLocalStorage.push(movieId);
       localStorage.setItem('watched', JSON.stringify(watchedFromLocalStorage));
+      pluginNotice('Added to watched list!');
       return;
     }
     pluginError('Already in the list!');
@@ -127,6 +128,7 @@ export default class ApiService {
     if (!queueFromLocalStorage.includes(movieId)) {
       queueFromLocalStorage.push(movieId);
       localStorage.setItem('queue', JSON.stringify(queueFromLocalStorage));
+      pluginNotice('Added to queue list!');
       return;
     }
     pluginError('Already in the list!');
