@@ -6,6 +6,7 @@ defaults.closer = false;
 defaults.sticker = false;
 defaults.delay = 2000;
 defaults.shadow = true;
+defaults.delay = 2000;
 
 function pluginError(text) {
   return error({text});
