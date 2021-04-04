@@ -191,4 +191,5 @@ function closeModalMovie() {
 
 refs.moviesCardsGallery.addEventListener('click', openModalMovie);
 window.addEventListener('load', loadPage);
+
 // End of Modal Movie window
