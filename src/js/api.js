@@ -107,7 +107,6 @@ export default class ApiService {
       queueFromLocalStorage.push(...JSON.parse(queueString));
     } else {
       localStorage.setItem('queue', JSON.stringify([]));
-      queueFromLocalStorage = [];
     }
   }
 
