@@ -26,10 +26,15 @@
   pointer-events: none;
   opacity: 0;
 }
-.modalTeam__header {
+.modalTeam__header,
+.modalTeam__footer {
   background-color: var(--bg-color-border-social);
   padding-top: 10px;
   padding-bottom: 10px;
+}
+.modalTeam__footer {
+  text-align: center;
+  text-transform: none;
 }
 .modalTeam {
   min-height: 70vh;
@@ -93,9 +98,7 @@
   margin-left: auto;
   margin-right: auto;
   @media screen and (max-width: 767px) {
-    &:not(:last-child) {
-      margin-bottom: 70px;
-    }
+    margin-bottom: 70px;
   }
   @media screen and (min-width: $breakpoint-tablet) {
     margin: 20px 50px;
@@ -108,8 +111,8 @@
   margin: 0 auto;
   max-width: 150px;
   border-radius: 120px;
-
   margin-bottom: 15px;
+  transition: transform 1s ease-out;
   &:hover {
     transform: scale(1.2);
   }
