@@ -1,4 +1,14 @@
 
+.movie__list-item:hover,
+.movie__list-item:focus
+{ 
+  transform: scale(1.1);
+}
+.movie__list-item{
+  cursor: pointer;
+  transform: scale(1);
+  transition: transform 250ms linear;
+}
 .movie-card {
   &__wrapper-img {
     overflow: hidden;
