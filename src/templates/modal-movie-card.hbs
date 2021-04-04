@@ -5,23 +5,24 @@
     <div class="movie-card-info">
         <h1 class="movie-name">{{title}}</h1>
 
-        <div class="movie-detail-wrapper">
-
-            <div class="movie-detail-item">
-                <p class="movie-detail-item-p">Vote/Votes</p>
-                <p class="movie-detail-item-p">Popularity</p>
-                <p class="movie-detail-item-p">Original Title</p>
-                <p class="movie-detail-item-p">Genre</p>
+            <div class="movie-detail-wrapper">
+                <div class="movie-info-field">
+                    <span class="info-field-name">Vote/Votes</span>
+                    <span class="info-field-value"><span class="movie-card__rating">{{rating}}</span> / {{totalVotes}}</span>
+                </div>
+                <div class="movie-info-field">
+                    <span class="info-field-name">Popularity</span>
+                    <span class="info-field-value">{{popularity}}</span>
+                </div>
+                <div class="movie-info-field">
+                    <span class="info-field-name">Original Title</span>
+                    <span class="info-field-value-title">{{title}}</span>
+                </div>
+                <div class="movie-info-field">
+                    <span class="info-field-name">Genre</span>
+                    <span class="info-field-value-genre">{{genres}}</span>
+                </div>
             </div>
-
-            <div class="movie-detail-value">
-                <p class="movie-detail-value-p"><span class="movie-rating">{{voteAverage}}</span>/<span class="movie-vote-rating">{{voteCount}}</span></p>
-                <p class="movie-detail-value-p">{{popularity}}</p>
-                <p class="movie-detail-value-p">{{originalTitle}}</p>
-
-                <p class="movie-detail-value-p">{{genres}}</p>
-            </div>
-        </div>
 
         <h2 class="movie-about">About</h2>
         <p class="movie-description">{{overview}}</p>

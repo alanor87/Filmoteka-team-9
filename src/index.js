@@ -82,7 +82,9 @@ function fetchPopularMoviesList() {
 
 function fetchPopularMoviesListTEST() {
   clear();
-  Api.fetchPopularMoviesList().then(movies => movieAdaptedandRender(movies));
+  Api.fetchPopularMoviesList()
+    .then(movies => movieAdaptedandRender(movies))
+    .catch(pluginError);
 }
 
 //Функция поиска фильмов по слову - запускается по вводу в инпуте
@@ -169,7 +171,7 @@ function openModalMovie(event) {
       refs.movieInfoModal.classList.toggle('is-hidden');
       modalListenersOn();
     })
-  // .catch(error => console.log(error));
+  .catch(pluginError);
 }
 
 function modalListenersOn() {

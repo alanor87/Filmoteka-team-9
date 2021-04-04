@@ -13,6 +13,7 @@ import modalMovieCard from '../templates/modal-movie-card.hbs';
 import genres from './genres';
 import refs from './refs';
 import { spinner } from './spinner';
+import { pluginError } from './pluginOn';
 
 export default class ApiService {
   #delta = 2;
@@ -24,12 +25,12 @@ export default class ApiService {
   }
 
   fetchMovieByID(id_movie) {
-    return fetch(`${BASE_URL_MOVIEID}/${id_movie}?api_key=${API_KEY}`).then(
-      response => {
-        if (response.status === '404') throw new Error();
+    return fetch(`${BASE_URL_MOVIEID}/${id_movie}?api_key=${API_KEY}`)
+      .then(response => {
+        if (!response.ok) return Promise.reject('Server error!');
         return response.json();
       },
-    );
+    )
   }
 
   fetchSearchMoviesList(query) {
@@ -101,7 +102,6 @@ export default class ApiService {
   }
 
   loadQueueMovies() {
-    //после вызова функции в this.queueFromLocalStorage будет массив с localStorage
     if (localStorage['queue']) {
       const queueString = localStorage.getItem('queue');
       queueFromLocalStorage.push(...JSON.parse(queueString));
@@ -115,7 +115,9 @@ export default class ApiService {
     if (!watchedFromLocalStorage.includes(movieId)) {
       watchedFromLocalStorage.push(movieId);
       localStorage.setItem('watched', JSON.stringify(watchedFromLocalStorage));
+      return;
     }
+    pluginError('Already in the list!');
   }
 
   addQueueMovies(event) {
@@ -123,7 +125,10 @@ export default class ApiService {
     if (!queueFromLocalStorage.includes(movieId)) {
       queueFromLocalStorage.push(movieId);
       localStorage.setItem('queue', JSON.stringify(queueFromLocalStorage));
+      return;
     }
+    pluginError('Already in the list!');
+
   }
 
   renderMovieCards(moviesArray) {

@@ -88,10 +88,10 @@
 .info-field-value {
   width: 50%;
   color: var(--text-color-dark);
-  &.title {
+  &-title {
     text-transform: uppercase;
   }
-  &.genre {
+  &-genre {
     display: flex;
     flex-direction: column;
   }
