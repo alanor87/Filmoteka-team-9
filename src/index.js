@@ -159,6 +159,9 @@ function openModalMovie(event) {
   if (!event.target.classList.contains('movie-card__img')) return;
   const movieId = event.target.dataset.movieId;
   Api.fetchMovieByID(movieId)
+    .then(responce => {
+      return Api.movieAdapter(responce);
+    })
     .then(Api.renderMovie)
     .then(() => {
       refs.movieInfoModal.classList.toggle('is-hidden');
@@ -173,13 +176,6 @@ function modalListenersOn() {
   document.querySelector('.modal-close-btn').addEventListener('click', closeModalMovie);
   // window.addEventListener('keydown', escCloseModal);
 }
-
-function modalListenersOff() {
-  document.querySelector('[data-add-watched]').removeEventListener('click', Api.addWatchedMovies);
-  document.querySelector('[data-add-queue]').removeEventListener('click', Api.addQueueMovies);
-  window.removeEventListener('keydown', escCloseModal);
-}
-
 
 function closeModalMovie() {
   refs.movieInfoModal.classList.toggle('is-hidden');

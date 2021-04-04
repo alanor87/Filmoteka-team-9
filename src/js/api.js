@@ -34,47 +34,41 @@ export default class ApiService {
     );
   }
 
-  movieAdapter({
-    poster_path,
-    original_title,
-    original_name,
-    title,
-    id,
-    vote_average,
-    release_date,
-    first_air_date,
-    vote_count,
-    popularity,
-    overview,
-    genre_ids,
-    genres,
-  }) {
-    let newGenres = 0;
-    if (genres) {
-      if (genres.length > 3) {
-        newGenres =
-          genres
-            .slice(2)
-            .map(genre => genre.name)
-            .join(', ') + ', OTHER';
-        console.log(newGenres);
-      } else {
-        newGenres = genres.map(genre => genre.name).join(', ');
-      }
+  fetchSearchMoviesList(query) {
+    return fetch(
+      `${BASE_URL_SEARCH}?api_key=${API_KEY}&query=${query}&page=${this.page}`,
+    )
+      .then(responce => responce.json())
+      .then(movies => {
+        this.totalPagas = movies.total_pages;
+        this.testfoo();
+        return movies;
+      });
+  }
+
+  fetchPopularMoviesList() {
+    return fetch(`${BASE_URL_TRENDING}?api_key=${API_KEY}&page=${this.page}`)
+      .then(response => response.json())
+      .then(movies => {
+        this.totalPagas = movies.total_pages;
+        this.testfoo();
+        return movies;
+      });
+  }
+
+  fetchWatchedMoviesList() {
+    if (this.watchedFromLocalStorage.length !== 0) {
+      console.log(this.watchedFromLocalStorage);
+      return Promise.resolve(this.watchedFromLocalStorage);
     }
-    return {
-      //имена imgSrc, title, rating, releaseDate СВЕРИТЬ с именами в ПРАВИЛЬНОМ шаблоне карточки
-      imgSrc: this.generatePosterPath(poster_path),
-      title: original_title || original_name || title,
-      rating: vote_average,
-      releaseDate:
-        Number.parseInt(release_date) || Number.parseInt(first_air_date),
-      voteCount: vote_count,
-      popularity,
-      overview,
-      id,
-      genres: newGenres || this.changeGenresList(genre_ids),
-    };
+    return Promise.reject('List is empty');
+  }
+
+  fetchQueueMoviesList() {
+    if (this.queueFromLocalStorage.length !== 0) {
+      return Promise.resolve(this.queueFromLocalStorage);
+    }
+    return Promise.reject('List is empty');
   }
 
   changeGenresList(ids) {
@@ -99,56 +93,6 @@ export default class ApiService {
       `${GENRE_MOVIE_LIST}?api_key=${API_KEY}&page=${this.page}`,
     ).then(response => response.json());
   }
-
-  generatePosterPath(imageName) {
-    return `${POSTER_URL}${imageName}`;
-  }
-
-  fetchSearchMoviesList(query) {
-    return fetch(
-      `${BASE_URL_SEARCH}?api_key=${API_KEY}&query=${query}&page=${this.page}`,
-    )
-      .then(responce => responce.json())
-      .then(movies => {
-        this.totalPagas = movies.total_pages;
-        this.testfoo();
-        return movies;
-      });
-  }
-
-  fetchPopularMoviesList() {
-    return fetch(`${BASE_URL_TRENDING}?api_key=${API_KEY}&page=${this.page}`)
-      .then(response => response.json())
-      .then(movies => {
-        this.totalPagas = movies.total_pages;
-        this.testfoo();
-        return movies;
-      });
-  }
-
-  testfoo() {
-    if (this.selectControl === undefined) {
-      return;
-    }
-    this.pagination(this.page, this.totalPagas);
-  }
-
-  fetchWatchedMoviesList() {
-    if (this.watchedFromLocalStorage.length !== 0) {
-      console.log(this.watchedFromLocalStorage);
-      return Promise.resolve(this.watchedFromLocalStorage);
-    }
-    return Promise.reject('List is empty');
-  }
-
-  fetchQueueMoviesList() {
-    if (this.queueFromLocalStorage.length !== 0) {
-      return Promise.resolve(this.queueFromLocalStorage);
-    }
-    return Promise.reject('List is empty');
-  }
-
-  fetchModalMovie() {}
 
   loadWatchedMovies() {
     //после вызова функции в this.watchedFromLocalStorage будет массив с localStorage
@@ -202,6 +146,60 @@ export default class ApiService {
   renderMovie(modalMovie) {
     const modalMarkup = modalMovieCard(modalMovie);
     refs.movieInfoModal.insertAdjacentHTML('beforeend', modalMarkup);
+  }
+
+  movieAdapter({
+    poster_path,
+    original_title,
+    original_name,
+    title,
+    id,
+    vote_average,
+    release_date,
+    first_air_date,
+    vote_count,
+    popularity,
+    overview,
+    genre_ids,
+    genres,
+  }) {
+    let newGenres = 0;
+    if (genres) {
+      if (genres.length > 3) {
+        newGenres =
+          genres
+            .slice(2)
+            .map(genre => genre.name)
+            .join(', ') + ', OTHER';
+        console.log(newGenres);
+      } else {
+        newGenres = genres.map(genre => genre.name).join(', ');
+      }
+    }
+    return {
+      //имена imgSrc, title, rating, releaseDate СВЕРИТЬ с именами в ПРАВИЛЬНОМ шаблоне карточки
+      imgSrc: this.generatePosterPath(poster_path),
+      title: original_title || original_name || title,
+      rating: vote_average,
+      releaseDate:
+        Number.parseInt(release_date) || Number.parseInt(first_air_date),
+      voteCount: vote_count,
+      popularity,
+      overview,
+      id,
+      genres: newGenres || this.changeGenresList(genre_ids),
+    };
+  }
+
+  generatePosterPath(imageName) {
+    return `${POSTER_URL}${imageName}`;
+  }
+
+  testfoo() {
+    if (this.selectControl === undefined) {
+      return;
+    }
+    this.pagination(this.page, this.totalPagas);
   }
 
   checkValueLocalStorage() {
