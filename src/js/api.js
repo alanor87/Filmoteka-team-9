@@ -27,12 +27,12 @@ export default class ApiService {
   }
 
   fetchMovieByID(id_movie) {
-    return fetch(`${BASE_URL_MOVIEID}/${id_movie}?api_key=${API_KEY}`)
-      .then(response => {
+    return fetch(`${BASE_URL_MOVIEID}/${id_movie}?api_key=${API_KEY}`).then(
+      response => {
         if (!response.ok) return Promise.reject('Server error!');
         return response.json();
       },
-      )
+    );
   }
 
   fetchSearchMoviesList(query) {
@@ -114,6 +114,13 @@ export default class ApiService {
 
   addWatchedMovies(event) {
     const movieId = event.target.dataset.movieId;
+    document
+      .querySelector('[data-add-queue]')
+      .classList.remove('btn-active__details');
+    document
+      .querySelector('[data-add-watched]')
+      .classList.add('btn-active__details');
+
     if (!watchedFromLocalStorage.includes(movieId)) {
       watchedFromLocalStorage.push(movieId);
       localStorage.setItem('watched', JSON.stringify(watchedFromLocalStorage));
@@ -124,13 +131,18 @@ export default class ApiService {
 
   addQueueMovies(event) {
     const movieId = event.target.dataset.movieId;
+    document
+      .querySelector('[data-add-watched]')
+      .classList.remove('btn-active__details');
+    document
+      .querySelector('[data-add-queue]')
+      .classList.add('btn-active__details');
     if (!queueFromLocalStorage.includes(movieId)) {
       queueFromLocalStorage.push(movieId);
       localStorage.setItem('queue', JSON.stringify(queueFromLocalStorage));
       return;
     }
     pluginError('Already in the list!');
-
   }
 
   renderMovieCards(moviesArray) {
@@ -188,7 +200,8 @@ export default class ApiService {
       imgSrc: this.generatePosterPath(poster_path),
       title: original_title || original_name || title,
       rating: vote_average,
-      releaseDate: Number.parseInt(release_date) || Number.parseInt(first_air_date),
+      releaseDate:
+        Number.parseInt(release_date) || Number.parseInt(first_air_date),
       voteСount: vote_count,
       popularity,
       overview,
@@ -207,7 +220,6 @@ export default class ApiService {
     }
     this.pagination(this.page, this.totalPagas);
   }
-
 
   incrementPage() {
     this.page += 1;

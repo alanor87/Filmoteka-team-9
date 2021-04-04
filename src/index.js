@@ -76,8 +76,7 @@ function loadPage() {
 function fetchPopularMoviesList() {
   clear();
   Api.resetPage();
-  Api.fetchPopularMoviesList()
-    .then(movies => movieAdaptedandRender(movies));
+  Api.fetchPopularMoviesList().then(movies => movieAdaptedandRender(movies));
 }
 
 function fetchPopularMoviesListTEST() {
@@ -171,22 +170,50 @@ function openModalMovie(event) {
       refs.movieInfoModal.classList.toggle('is-hidden');
       modalListenersOn();
     })
-  .catch(pluginError);
+    .catch(error => console.log(error));
 }
 
 function modalListenersOn() {
-  document.querySelector('[data-add-watched]').addEventListener('click', Api.addWatchedMovies);
-  document.querySelector('[data-add-queue]').addEventListener('click', Api.addQueueMovies);
-  document.querySelector('.modal-close-btn').addEventListener('click', closeModalMovie);
-  // window.addEventListener('keydown', escCloseModal);
+  document
+    .querySelector('[data-add-watched]')
+    .addEventListener('click', Api.addWatchedMovies);
+  document
+    .querySelector('[data-add-queue]')
+    .addEventListener('click', Api.addQueueMovies);
+  document
+    .querySelector('.modal-close-btn')
+    .addEventListener('click', closeModalMovie);
+  window.addEventListener('keydown', escCloseModal);
+  refs.movieInfoModal.addEventListener('ckick', clickModalMovie);
 }
 
 function closeModalMovie() {
   refs.movieInfoModal.classList.toggle('is-hidden');
-  document.querySelector('[data-add-watched]').removeEventListener('click', Api.addWatchedMovies);
-  document.querySelector('[data-add-queue]').removeEventListener('click', Api.addQueueMovies);
-  document.querySelector('.modal-close-btn').removeEventListener('click', closeModalMovie);
+  document
+    .querySelector('[data-add-watched]')
+    .removeEventListener('click', Api.addWatchedMovies);
+  document
+    .querySelector('[data-add-queue]')
+    .removeEventListener('click', Api.addQueueMovies);
+  document
+    .querySelector('.modal-close-btn')
+    .removeEventListener('click', closeModalMovie);
+  window.removeEventListener('keydown', escCloseModal);
+  refs.movieInfoModal.removeEventListener('ckick', clickModalMovie);
   refs.movieInfoModal.innerHTML = '';
+}
+
+function escCloseModal(event) {
+  if (event.code === 'Escape') {
+    closeModalMovie();
+  }
+}
+
+function clickModalMovie(event) {
+  event.preventDefault();
+  if (event.target === event.currentTarget) {
+    closeModalMovie();
+  }
 }
 
 refs.moviesCardsGallery.addEventListener('click', openModalMovie);
