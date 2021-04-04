@@ -11,6 +11,8 @@ import modalMovieCard from '../templates/modal-movie-card.hbs';
 import genres from './genres';
 import refs from './refs';
 import { spinner } from './spinner';
+import 'lazysizes';
+import 'lazysizes/plugins/parent-fit/ls.parent-fit';
 
 export default class ApiService {
   #delta = 2;

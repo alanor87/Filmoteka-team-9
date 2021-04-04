@@ -1,6 +1,6 @@
 <div class="modal-movie-card">
     <div class="movie-image-wrapper">
-        <img class="movie-image" src="{{backdropPath}}" alt="{{title}}" data-movie-id ="{{id}}">
+        <img class="movie-image lazyload" data-src="{{backdropPath}}" alt="{{title}}" data-movie-id="{{id}}">
     </div>
     <div class="movie-card-info">
         <h1 class="movie-name">{{title}}</h1>
@@ -15,7 +15,8 @@
             </div>
 
             <div class="movie-detail-value">
-                <p class="movie-detail-value-p"><span class="movie-rating">{{voteAverage}}</span>/<span class="movie-vote-rating">{{voteCount}}</span></p>
+                <p class="movie-detail-value-p"><span class="movie-rating">{{voteAverage}}</span>/<span
+                        class="movie-vote-rating">{{voteCount}}</span></p>
                 <p class="movie-detail-value-p">{{popularity}}</p>
                 <p class="movie-detail-value-p">{{originalTitle}}</p>
 
