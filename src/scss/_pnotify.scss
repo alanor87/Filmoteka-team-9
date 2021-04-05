@@ -4,10 +4,6 @@
   right: 20px;
 }
 .pnotify-container {
-  display: flex;
-  flex-direction: row-reverse;
   max-width: 300px;
-}
-.pnotify-closer {
-  margin-left: 30px;
+  display: flex;
 }
