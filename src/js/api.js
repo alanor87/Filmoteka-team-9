@@ -119,9 +119,6 @@ export default class ApiService {
 
   addWatchedMovies(event) {
     const movieId = event.target.dataset.movieId;
-    document
-      .querySelector('[data-add-queue]')
-      .classList.remove('btn-active__details');
     if (!watchedFromLocalStorage.includes(movieId)) {
       document
         .querySelector('[data-add-watched]')
@@ -131,17 +128,11 @@ export default class ApiService {
       pluginNotice('Added to watched list');
       return;
     }
-    document
-      .querySelector('[data-add-watched]')
-      .classList.remove('btn-active__details');
     pluginError('Already in the list!');
   }
 
   addQueueMovies(event) {
     const movieId = event.target.dataset.movieId;
-    document
-      .querySelector('[data-add-watched]')
-      .classList.remove('btn-active__details');
     if (!queueFromLocalStorage.includes(movieId)) {
       document
         .querySelector('[data-add-queue]')
@@ -151,9 +142,6 @@ export default class ApiService {
       pluginNotice('Added to queue list');
       return;
     }
-    document
-      .querySelector('[data-add-queue]')
-      .classList.remove('btn-active__details');
     pluginError('Already in the list!');
   }
 
