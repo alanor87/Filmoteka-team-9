@@ -119,6 +119,13 @@ export default class ApiService {
 
   addWatchedMovies(event) {
     const movieId = event.target.dataset.movieId;
+    document
+      .querySelector('[data-add-queue]')
+      .classList.remove('btn-active__details');
+    document
+      .querySelector('[data-add-watched]')
+      .classList.add('btn-active__details');
+
     if (!watchedFromLocalStorage.includes(movieId)) {
       watchedFromLocalStorage.push(movieId);
       localStorage.setItem('watched', JSON.stringify(watchedFromLocalStorage));
@@ -130,6 +137,12 @@ export default class ApiService {
 
   addQueueMovies(event) {
     const movieId = event.target.dataset.movieId;
+    document
+      .querySelector('[data-add-watched]')
+      .classList.remove('btn-active__details');
+    document
+      .querySelector('[data-add-queue]')
+      .classList.add('btn-active__details');
     if (!queueFromLocalStorage.includes(movieId)) {
       queueFromLocalStorage.push(movieId);
       localStorage.setItem('queue', JSON.stringify(queueFromLocalStorage));
@@ -234,13 +247,16 @@ export default class ApiService {
     }
   }
 
-  getWatchedMovies() {
-    return watchedFromLocalStorage;
-  }
+  incrementPage() {
+    this.page += 1;
+    
+//   getWatchedMovies() {
+//     return watchedFromLocalStorage;
+//   }
 
-  getQueuedMovies() {
-    return queueFromLocalStorage;
-  }
+//   getQueuedMovies() {
+//     return queueFromLocalStorage;
+//   }
 
   resetPage() {
     this.page = 1;

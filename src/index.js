@@ -35,6 +35,9 @@ function loadPage() {
 //Функция запроса популярных фильмов и отрисовка галлереи карточек - запускается при загрузке главной страницы
 function fetchPopularMoviesList() {
   clear();
+  Api.resetPage();
+  Api.fetchPopularMoviesList().then(movies => movieAdaptedandRender(movies));
+}
   
 // resolve conflict
 //   Api.resetPage();
@@ -168,7 +171,8 @@ function modalListenersOn() {
   document
     .querySelector('.modal-close-btn')
     .addEventListener('click', closeModalMovie);
-  // window.addEventListener('keydown', escCloseModal);
+  window.addEventListener('keydown', escCloseModal);
+  refs.movieInfoModal.addEventListener('ckick', clickModalMovie);
 }
 
 function closeModalMovie() {
@@ -182,53 +186,70 @@ function closeModalMovie() {
   document
     .querySelector('.modal-close-btn')
     .removeEventListener('click', closeModalMovie);
+  window.removeEventListener('keydown', escCloseModal);
+  refs.movieInfoModal.removeEventListener('ckick', clickModalMovie);
   refs.movieInfoModal.innerHTML = '';
 }
 
-function goToPage(number) {
-  const currentPage = document.getElementsByTagName('html')[0];
-  if (currentPage.classList.contains('main-page')) {
-    Api.page = clamp(Number(number), 1, Api.totalPages);
-    if (!Api.searchQuery) {
-      fetchPopularMoviesList();
-      return;
-    }
-    onSearchToPagination();
-  }
-  if (currentPage.classList.contains('library-page')) {
-    let libPage = getLibraryPage();
-
-    Api.page = clamp(
-      Number(number),
-      1,
-      libPage === LibraryPage.WATCHED
-        ? Math.ceil(Api.getWatchedMovies().length / Api.moviesPerPage)
-        : Math.ceil(Api.getQueuedMovies().length / Api.moviesPerPage),
-    );
-
-    loadLibrary();
+function escCloseModal(event) {
+  if (event.code === 'Escape') {
+    closeModalMovie();
   }
 }
 
-function paginationByInput(event) {
-  if (event.target.nodeName === 'INPUT') {
-    if (event.target.value === '') {
-      return;
-    }
-
-    goToPage(event.target.value);
+function clickModalMovie(event) {
+  event.preventDefault();
+  if (event.target === event.currentTarget) {
+    closeModalMovie();
   }
 }
 
-function paginationByBtn(event) {
-  if (event.target.nodeName === 'BUTTON') {
-    goToPage(event.target.textContent);
-  }
 }
 
-function clamp(number, min, max) {
-  return Math.min(Math.max(number, min), max);
-}
+// function goToPage(number) {
+//   const currentPage = document.getElementsByTagName('html')[0];
+//   if (currentPage.classList.contains('main-page')) {
+//     Api.page = clamp(Number(number), 1, Api.totalPages);
+//     if (!Api.searchQuery) {
+//       fetchPopularMoviesList();
+//       return;
+//     }
+//     onSearchToPagination();
+//   }
+//   if (currentPage.classList.contains('library-page')) {
+//     let libPage = getLibraryPage();
+
+//     Api.page = clamp(
+//       Number(number),
+//       1,
+//       libPage === LibraryPage.WATCHED
+//         ? Math.ceil(Api.getWatchedMovies().length / Api.moviesPerPage)
+//         : Math.ceil(Api.getQueuedMovies().length / Api.moviesPerPage),
+//     );
+
+//     loadLibrary();
+//   }
+// }
+
+// function paginationByInput(event) {
+//   if (event.target.nodeName === 'INPUT') {
+//     if (event.target.value === '') {
+//       return;
+//     }
+
+//     goToPage(event.target.value);
+//   }
+// }
+
+// function paginationByBtn(event) {
+//   if (event.target.nodeName === 'BUTTON') {
+//     goToPage(event.target.textContent);
+//   }
+// }
+
+// function clamp(number, min, max) {
+//   return Math.min(Math.max(number, min), max);
+// }
 
 refs.moviesCardsGallery.addEventListener('click', openModalMovie);
 window.addEventListener('load', loadPage);
