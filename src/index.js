@@ -35,6 +35,7 @@ function loadPage() {
 //Функция запроса популярных фильмов и отрисовка галлереи карточек - запускается при загрузке главной страницы
 function fetchPopularMoviesList() {
   clear();
+  refs.warningNotificationRef.textContent = '';
   Api.fetchPopularMoviesList()
     .then(movies => movieAdaptedandRender(movies))
     .catch(pluginError);
@@ -46,7 +47,8 @@ function onSearchApi() {
   Api.fetchSearchMoviesList(Api.searchQuery).then(movies => {
     movieAdaptedandRender(movies);
     if (!movies.total_results) {
-      return pluginError('Please enter CORRECT query');
+      refs.warningNotificationRef.textContent =
+        'Search result not successful. Enter the correct movie name and try again';
     }
   });
 }
@@ -100,7 +102,7 @@ function loadLibrary() {
       movies.slice(
         (Api.page - 1) * Api.moviesPerPage,
         Api.page * Api.moviesPerPage,
-      )
+      ),
     )
     .then(movies => movies.map(movie => Api.fetchMovieByID(movie)))
     .then(movies => Promise.all(movies))
