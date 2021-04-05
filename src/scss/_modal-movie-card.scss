@@ -110,11 +110,6 @@
   line-height: 20px;
   color: var(--text-color-dark);
   margin-bottom: 21px;
-  text-transform: lowercase;
-
-  &::first-letter {
-    text-transform: uppercase;
-  }
 }
 
 .btn-wrapper {
