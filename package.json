@@ -53,6 +53,7 @@
   "dependencies": {
     "basiclightbox": "^5.0.4",
     "core-js": "^3.6.5",
+    "firebase": "^8.3.2",
     "handlebars": "^4.7.6",
     "lazysizes": "^5.3.2",
     "vanilla-back-to-top": "^7.2.1"

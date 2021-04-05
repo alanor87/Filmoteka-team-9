@@ -1,14 +1,18 @@
 import '@pnotify/core/dist/BrightTheme.css';
 
-const { error } = require('@pnotify/core');
+const { error, notice } = require('@pnotify/core');
 const { defaults } = require('@pnotify/core');
-defaults.closer = false;
+
 defaults.sticker = false;
-defaults.delay = 2000;
+defaults.icon = false;
+defaults.delay = 1000;
 defaults.shadow = true;
 
 function pluginError(text) {
-  return error({text});
+  return error({ text });
 }
 
-export { pluginError };
+function pluginNotice(text) {
+  return notice({ text });
+}
+export { pluginError, pluginNotice };

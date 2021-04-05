@@ -31,9 +31,9 @@ const teamInfo = [
     'team-position-second': '',
     'team-firstName': 'Vadim',
     'team-secondName': 'Matsko',
-    'team-github': '#',
-    'team-linkedin': '#',
-    'team-telegram': '#',
+    'team-github': 'https://github.com/VadimM-FullStack',
+    'team-linkedin': 'https://www.linkedin.com/in/vadim-matsko-1357b2b9/',
+    'team-telegram': 'https://t.me/mvadim3101',
   },
   {
     'team-img':
