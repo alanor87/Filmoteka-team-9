@@ -2,7 +2,7 @@ import '@pnotify/core/dist/BrightTheme.css';
 
 const { error, notice } = require('@pnotify/core');
 const { defaults } = require('@pnotify/core');
-defaults.closer = false;
+defaults.closer = true;
 defaults.sticker = false;
 defaults.delay = 2000;
 defaults.shadow = true;
