@@ -2,11 +2,11 @@ import '@pnotify/core/dist/BrightTheme.css';
 
 const { error, notice } = require('@pnotify/core');
 const { defaults } = require('@pnotify/core');
-defaults.closer = false;
+
 defaults.sticker = false;
-defaults.delay = 2000;
+defaults.icon = false;
+defaults.delay = 1000;
 defaults.shadow = true;
-defaults.delay = 2000;
 
 function pluginError(text) {
   return error({text});
