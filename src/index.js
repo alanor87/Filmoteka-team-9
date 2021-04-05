@@ -100,7 +100,7 @@ function loadLibrary() {
       movies.slice(
         (Api.page - 1) * Api.moviesPerPage,
         Api.page * Api.moviesPerPage,
-      ),
+      )
     )
     .then(movies => movies.map(movie => Api.fetchMovieByID(movie)))
     .then(movies => Promise.all(movies))
@@ -149,7 +149,8 @@ function modalListenersOn() {
   document
     .querySelector('.modal-close-btn')
     .addEventListener('click', closeModalMovie);
-  // window.addEventListener('keydown', escCloseModal);
+  window.addEventListener('keydown', escCloseModal);
+  refs.movieInfoModal.addEventListener('ckick', clickModalMovie);
 }
 
 function closeModalMovie() {
@@ -163,7 +164,22 @@ function closeModalMovie() {
   document
     .querySelector('.modal-close-btn')
     .removeEventListener('click', closeModalMovie);
+  window.removeEventListener('keydown', escCloseModal);
+  refs.movieInfoModal.removeEventListener('ckick', clickModalMovie);
   refs.movieInfoModal.innerHTML = '';
+}
+
+function escCloseModal(event) {
+  if (event.code === 'Escape') {
+    closeModalMovie();
+  }
+}
+
+function clickModalMovie(event) {
+  event.preventDefault();
+  if (event.target === event.currentTarget) {
+    closeModalMovie();
+  }
 }
 
 function goToPage(number) {

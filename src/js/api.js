@@ -22,7 +22,7 @@ export default class ApiService {
   #delta = 2;
 
   constructor(selectControl) {
-    this.moviesPerPage = 1;
+    this.moviesPerPage = 18;
     this.totalPages = 0;
     this.page = 1;
     this.searchQuery = '';
@@ -119,6 +119,13 @@ export default class ApiService {
 
   addWatchedMovies(event) {
     const movieId = event.target.dataset.movieId;
+    document
+      .querySelector('[data-add-queue]')
+      .classList.remove('btn-active__details');
+    document
+      .querySelector('[data-add-watched]')
+      .classList.add('btn-active__details');
+
     if (!watchedFromLocalStorage.includes(movieId)) {
       watchedFromLocalStorage.push(movieId);
       localStorage.setItem('watched', JSON.stringify(watchedFromLocalStorage));
@@ -130,6 +137,12 @@ export default class ApiService {
 
   addQueueMovies(event) {
     const movieId = event.target.dataset.movieId;
+    document
+      .querySelector('[data-add-watched]')
+      .classList.remove('btn-active__details');
+    document
+      .querySelector('[data-add-queue]')
+      .classList.add('btn-active__details');
     if (!queueFromLocalStorage.includes(movieId)) {
       queueFromLocalStorage.push(movieId);
       localStorage.setItem('queue', JSON.stringify(queueFromLocalStorage));
