@@ -122,16 +122,18 @@ export default class ApiService {
     document
       .querySelector('[data-add-queue]')
       .classList.remove('btn-active__details');
-    document
-      .querySelector('[data-add-watched]')
-      .classList.add('btn-active__details');
-
     if (!watchedFromLocalStorage.includes(movieId)) {
+      document
+        .querySelector('[data-add-watched]')
+        .classList.add('btn-active__details');
       watchedFromLocalStorage.push(movieId);
       localStorage.setItem('watched', JSON.stringify(watchedFromLocalStorage));
       pluginNotice('Added to watched list');
       return;
     }
+    document
+      .querySelector('[data-add-watched]')
+      .classList.remove('btn-active__details');
     pluginError('Already in the list!');
   }
 
@@ -140,15 +142,18 @@ export default class ApiService {
     document
       .querySelector('[data-add-watched]')
       .classList.remove('btn-active__details');
-    document
-      .querySelector('[data-add-queue]')
-      .classList.add('btn-active__details');
     if (!queueFromLocalStorage.includes(movieId)) {
+      document
+        .querySelector('[data-add-queue]')
+        .classList.add('btn-active__details');
       queueFromLocalStorage.push(movieId);
       localStorage.setItem('queue', JSON.stringify(queueFromLocalStorage));
       pluginNotice('Added to queue list');
       return;
     }
+    document
+      .querySelector('[data-add-queue]')
+      .classList.remove('btn-active__details');
     pluginError('Already in the list!');
   }
 
@@ -233,10 +238,16 @@ export default class ApiService {
     if (currentPage.classList.contains('library-page')) {
       const page = getLibraryPage();
       if (page === LibraryPage.WATCHED) {
-        this.pagination(this.page, Math.ceil(this.getWatchedMovies().length / this.moviesPerPage));
+        this.pagination(
+          this.page,
+          Math.ceil(this.getWatchedMovies().length / this.moviesPerPage),
+        );
       }
       if (page === LibraryPage.QUEUE) {
-        this.pagination(this.page, Math.ceil(this.getQueuedMovies().length / this.moviesPerPage));
+        this.pagination(
+          this.page,
+          Math.ceil(this.getQueuedMovies().length / this.moviesPerPage),
+        );
       }
     }
   }

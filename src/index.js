@@ -100,7 +100,7 @@ function loadLibrary() {
       movies.slice(
         (Api.page - 1) * Api.moviesPerPage,
         Api.page * Api.moviesPerPage,
-      )
+      ),
     )
     .then(movies => movies.map(movie => Api.fetchMovieByID(movie)))
     .then(movies => Promise.all(movies))
@@ -150,7 +150,7 @@ function modalListenersOn() {
     .querySelector('.modal-close-btn')
     .addEventListener('click', closeModalMovie);
   window.addEventListener('keydown', escCloseModal);
-  refs.movieInfoModal.addEventListener('ckick', clickModalMovie);
+  refs.movieInfoModal.addEventListener('click', clickModalMovie);
 }
 
 function closeModalMovie() {
@@ -165,7 +165,7 @@ function closeModalMovie() {
     .querySelector('.modal-close-btn')
     .removeEventListener('click', closeModalMovie);
   window.removeEventListener('keydown', escCloseModal);
-  refs.movieInfoModal.removeEventListener('ckick', clickModalMovie);
+  refs.movieInfoModal.removeEventListener('click', clickModalMovie);
   refs.movieInfoModal.innerHTML = '';
 }
 
@@ -181,6 +181,7 @@ function clickModalMovie(event) {
     closeModalMovie();
   }
 }
+// End of Modal Movie window
 
 function goToPage(number) {
   const currentPage = document.getElementsByTagName('html')[0];
@@ -229,7 +230,6 @@ function clamp(number, min, max) {
 
 refs.moviesCardsGallery.addEventListener('click', openModalMovie);
 window.addEventListener('load', loadPage);
-// End of Modal Movie window
 
 refs.btnPrevPagination.addEventListener('click', function () {
   goToPage(Api.page - 1);
