@@ -16,11 +16,14 @@ import { spinner } from './spinner';
 import 'lazysizes';
 import 'lazysizes/plugins/parent-fit/ls.parent-fit';
 import { pluginError } from './pluginOn';
+import { LibraryPage, getLibraryPage, setLibraryPage } from './library-page';
 
 export default class ApiService {
   #delta = 2;
+
   constructor(selectControl) {
-    this.totalPagas = 0;
+    this.moviesPerPage = 18;
+    this.totalPages = 0;
     this.page = 1;
     this.searchQuery = '';
     this.selectControl = selectControl;
@@ -41,8 +44,8 @@ export default class ApiService {
     )
       .then(responce => responce.json())
       .then(movies => {
-        this.totalPagas = movies.total_pages;
-        this.testfoo();
+        this.totalPages = movies.total_pages;
+        this.addPaginationOnPage();
         return movies;
       });
   }
@@ -51,22 +54,24 @@ export default class ApiService {
     return fetch(`${BASE_URL_TRENDING}?api_key=${API_KEY}&page=${this.page}`)
       .then(response => response.json())
       .then(movies => {
-        this.totalPagas = movies.total_pages;
-        this.testfoo();
+        this.totalPages = movies.total_pages;
+        this.addPaginationOnPage();
         return movies;
       });
   }
 
-  fetchWatchedMoviesList() {
-    if (watchedFromLocalStorage.length !== 0)
-      return Promise.resolve(watchedFromLocalStorage);
+  fetchMoviesList(list) {
+    if (list.length !== 0)
+      return Promise.resolve(list).then(this.addPaginationOnPage());
     return Promise.reject('List is empty');
   }
 
+  fetchWatchedMoviesList() {
+    return this.fetchMoviesList(watchedFromLocalStorage);
+  }
+
   fetchQueueMoviesList() {
-    if (queueFromLocalStorage.length !== 0)
-      return Promise.resolve(queueFromLocalStorage);
-    return Promise.reject('List is empty');
+    return this.fetchMoviesList(queueFromLocalStorage);
   }
 
   changeGenresList(ids) {
@@ -134,6 +139,7 @@ export default class ApiService {
 
   renderMovieCards(moviesArray) {
     const currentPage = document.getElementsByTagName('html')[0];
+    console.log(currentPage.classList);
     spinner.close();
     if (currentPage.classList.contains('main-page')) {
       refs.moviesCardsGallery.insertAdjacentHTML(
@@ -201,15 +207,37 @@ export default class ApiService {
     return `${POSTER_URL}${imageName}`;
   }
 
-  testfoo() {
+  addPaginationOnPage() {
     if (this.selectControl === undefined) {
       return;
     }
-    this.pagination(this.page, this.totalPagas);
+    const currentPage = document.getElementsByTagName('html')[0];
+    if (currentPage.classList.contains('main-page')) {
+      this.pagination(this.page, this.totalPages);
+    }
+    if (currentPage.classList.contains('library-page')) {
+      const page = getLibraryPage();
+      if (page === LibraryPage.WATCHED) {
+        this.pagination(
+          this.page,
+          Math.ceil(this.getWatchedMovies().length / this.moviesPerPage),
+        );
+      }
+      if (page === LibraryPage.QUEUE) {
+        this.pagination(
+          this.page,
+          Math.ceil(this.getQueuedMovies().length / this.moviesPerPage),
+        );
+      }
+    }
   }
 
-  incrementPage() {
-    this.page += 1;
+  getWatchedMovies() {
+    return watchedFromLocalStorage;
+  }
+
+  getQueuedMovies() {
+    return queueFromLocalStorage;
   }
 
   resetPage() {
@@ -230,7 +258,7 @@ export default class ApiService {
 
     if (current + this.#delta < last - 1) code += this.addButtonInput();
 
-    code += this.addButtonWithIndex(last);
+    if (last !== 1) code += this.addButtonWithIndex(last);
 
     this.selectControl.innerHTML = code;
   }
@@ -242,20 +270,5 @@ export default class ApiService {
   addButtonInput() {
     return ` <li class="pagination-controls__item"><input class="pagination-controls__input" type="number" placeholder="..." maxlength="4"/></li>`;
   }
-
-  goToPrevPage() {
-    if (this.page === 1) {
-      return;
-    }
-    this.page -= 1;
-  }
-
-  goToNextPage() {
-    if (this.page === this.totalPagas) {
-      return;
-    }
-    this.page += 1;
-  }
-
   // конец сборная солянки
 }
