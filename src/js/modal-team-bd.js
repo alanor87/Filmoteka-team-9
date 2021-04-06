@@ -55,9 +55,9 @@ const teamInfo = [
     'team-position-second': '',
     'team-firstName': 'Anton',
     'team-secondName': 'Vovk',
-    'team-github': '#',
-    'team-linkedin': '#',
-    'team-telegram': '#',
+    'team-github': 'https://github.com/Anton-Vovk',
+    'team-linkedin': 'https://www.linkedin.com/in/anton-vovk-599990121/',
+    'team-telegram': 'https://t.me/Mr_VovkAnton',
   },
   {
     'team-img':
@@ -67,9 +67,9 @@ const teamInfo = [
     'team-position-second': '',
     'team-firstName': 'Ivanna',
     'team-secondName': 'Kyrij',
-    'team-github': '#',
+    'team-github': 'https://github.com/ivanna777',
     'team-linkedin': '#',
-    'team-telegram': '#',
+    'team-telegram': 'https://t.me/ivanna_kirij',
   },
   {
     'team-img':
