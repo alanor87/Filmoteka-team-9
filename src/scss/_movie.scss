@@ -1,0 +1,15 @@
+@import './movie-list';
+@import './movie-card';
+
+.movie {
+  &__section {
+    @media screen and (max-width: $breakpoint-tablet) {
+      padding-bottom: 40px;
+      padding-top: 40px;
+    }
+    @media screen and (min-width: $breakpoint-tablet) {
+      padding-bottom: 60px;
+      padding-top: 60px;
+    }
+  }
+}

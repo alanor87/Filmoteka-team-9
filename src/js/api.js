@@ -6,7 +6,9 @@ const POSTER_URL = 'https://themoviedb.org/t/p/w220_and_h330_face';
 const GENRE_MOVIE_LIST = 'https://api.themoviedb.org/3/genre/movie/list';
 const watchedFromLocalStorage = [];
 const queueFromLocalStorage = [];
-
+const screenWidth = window.screen.width;
+console.log(screenWidth);
+console.log(typeof screenWidth);
 import movieCard from '../templates/movieCard.hbs';
 import movieCardLibrary from '../templates/movieCardLibrary.hbs';
 import modalMovieCard from '../templates/modal-movie-card.hbs';
@@ -254,25 +256,60 @@ export default class ApiService {
 
   // сборная солянки
   pagination(current, last) {
-    let code = this.addButtonWithIndex(1);
+    if (window.matchMedia('(min-width: 768px)').matches) {
+      let code = this.addButtonWithIndex(1);
 
-    if (current - this.#delta > 2) code += this.addButtonInput();
+      if (current - this.#delta > 2) code += this.addButtonInput();
 
-    for (let i = current - this.#delta; i <= current + this.#delta; i++) {
-      if (i > 1 && i < last) {
-        code += this.addButtonWithIndex(i);
+      for (let i = current - this.#delta; i <= current + this.#delta; i++) {
+        if (i > 1 && i < last) {
+          code += this.addButtonWithIndex(i);
+        }
       }
+
+      if (current + this.#delta < last - 1) code += this.addButtonInput();
+
+      if (last !== 1 && last !== 0) code += this.addButtonWithIndex(last);
+      this.selectControl.innerHTML = code;
+    } else {
+      let code = [];
+
+      for (let i = current - this.#delta; i <= current + this.#delta; i++) {
+        if (i > 0 && i < last + 1) {
+          code += this.addButtonWithIndex(i);
+        }
+      }
+      this.selectControl.innerHTML = code;
     }
 
-    if (current + this.#delta < last - 1) code += this.addButtonInput();
-
-    if (last !== 1) code += this.addButtonWithIndex(last);
-
-    this.selectControl.innerHTML = code;
+    this.identificationByID();
+    this.addClassBtn();
+  }
+  restartPagination() {
+    // this.selectControl.innerHTML = '';
+    this.pagination(this.page, this.totalPages);
   }
 
+  addClassBtn() {
+    const buttons = document.getElementsByClassName(
+      'js-pagination-controls__btn',
+    );
+    const array = Array.from(buttons);
+
+    const qazwsx = array.find(
+      item => parseInt(item.id.match(/\d+/)) === this.page,
+    );
+    qazwsx.classList.add('active');
+  }
+
+  identificationByID() {
+    console.log('api');
+    let currentPageID = `'pagination_${this.page}'`;
+    const buttons = document.getElementById(currentPageID);
+    console.log(buttons);
+  }
   addButtonWithIndex(index) {
-    return ` <li class="pagination-controls__item"><button id='pagination_${index}' class='pagination-controls__btn' type='button' >${index}</button></li>`;
+    return ` <li id='pagination1_${index}' class="pagination-controls__item"><button id='pagination_${index}' class='pagination-controls__btn js-pagination-controls__btn' type='button' >${index}</button></li>`;
   }
 
   addButtonInput() {
