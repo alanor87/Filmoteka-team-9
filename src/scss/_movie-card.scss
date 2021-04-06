@@ -12,6 +12,10 @@
     cursor: pointer;
   }
 
+  &__name {
+    text-transform: uppercase;
+  }
+  
   &__name,
   &__description {
     font-weight: 500;

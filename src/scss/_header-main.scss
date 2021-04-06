@@ -43,96 +43,7 @@
         url(./images/Rectangle-desktop@2x.jpg);
     }
   }
-
-  .header-wrapper {
-    padding-bottom: 37px;
-  }
 }
-
-// -------Cтили повторялись с header-library--------
-
-// .logo-wrapper {
-//   display: flex;
-// }
-// .logo {
-//   @media screen and (min-width: $breakpoint-tablet) {
-//     font-weight: 500;
-//     font-size: 30px;
-//     line-height: 1.167;
-//     color: var(--text-color-light);
-//     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-//     align-items: center;
-//     text-align: center;
-//   }
-// }
-// .logo-title {
-//   font-family: Roboto;
-//   font-style: normal;
-//   font-weight: 500;
-//   font-size: 30px;
-//   line-height: 1.16;
-//   color: var(--text-color-light);
-//   margin-left: 12px;
-// }
-// .hidden-in-mobile {
-//   @media screen and (max-width: 767px) {
-//     display: none;
-//   }
-// }
-
-// .nav {
-//   display: flex;
-//   align-items: center;
-// }
-
-// .nav-list-item {
-//   font-weight: 500;
-//   font-size: 12px;
-//   line-height: 1.16;
-//   align-items: center;
-//   text-align: center;
-//   text-transform: uppercase;
-//   color: var(--text-color-light);
-//   display: inline-flex;
-
-//   &:first-child {
-//     margin-right: 40px;
-//   }
-// }
-// .nav-list-link {
-//   color: var(--text-color-light);
-// }
-
-// .active {
-//   position: relative;
-
-//   @media screen and (max-width: 767px) {
-//     padding-bottom: 3px;
-//   }
-
-//   &::after {
-//     position: absolute;
-//     content: '';
-//     left: 50%;
-//     bottom: 0;
-//     display: inline-block;
-//     width: 70px;
-//     height: 3px;
-//     background-color: var(--color-accent);
-//     border-radius: 2px;
-//     @media screen and (max-width: 767px) {
-//       transform: translateX(-50%);
-//     }
-
-//     @media screen and (min-width: $breakpoint-tablet) {
-//       width: 100%;
-//       left: 0;
-//       bottom: -3px;
-//     }
-//   }
-// }
-
-/*------------------ search input styles-----------------------------------*/
 
 .search-wrapper {
   display: flex;
@@ -186,6 +97,8 @@
   }
   .search-button {
     position: absolute;
+    right: 0;
+    bottom: 5px;
     width: 20px;
     height: 20px;
     border: none;
@@ -193,16 +106,12 @@
     background-color: transparent;
   }
   .search-button-icon {
-    position: absolute;
-    right: 20px;
-    bottom: 1px;
     stroke: var(--text-color-light);
 
     &:hover,
     &:focus,
     &:active {
       stroke: var(--color-accent);
-      cursor: pointer;
     }
   }
 }
@@ -220,6 +129,7 @@
 }
 
 .search-form {
+  position: relative;
   @media screen and (min-width: $breakpoint-tablet) {
     margin: 0 auto;
   }

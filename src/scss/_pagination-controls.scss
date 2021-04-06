@@ -1,7 +1,6 @@
 .pagination {
   &__list {
     display: flex;
-    list-style-type: none;
     align-items: center;
     justify-content: center;
     text-align: center;
@@ -42,7 +41,6 @@
 .pagination-controls {
   &__list {
     display: flex;
-    list-style-type: none;
   }
   &__btn {
     border: none;

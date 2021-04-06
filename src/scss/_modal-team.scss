@@ -63,8 +63,6 @@
   text-align: center;
 }
 .modalTeam__list {
-  list-style: none;
-
   @media screen and (min-width: $breakpoint-tablet) {
     display: flex;
     flex-wrap: wrap;

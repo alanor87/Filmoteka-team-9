@@ -30,9 +30,9 @@
 }
 
 .movie-image-wrapper {
-  padding-bottom: 30px;
+  margin-bottom: 30px;
   @media screen and (min-width: $breakpoint-tablet) {
-    padding: 0;
+    margin: 0;
   }
 }
 

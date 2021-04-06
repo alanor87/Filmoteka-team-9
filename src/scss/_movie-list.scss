@@ -7,7 +7,6 @@
   }
 }
 .movie__list {
-  list-style: none;
   padding: 0;
 
   @media screen and (min-width: $breakpoint-tablet) {
@@ -18,9 +17,15 @@
   }
 }
 .movie__item {
+  cursor: pointer;
+  transition: transform 250ms linear;
   box-sizing: border-box;
+  &:hover,
+  &:focus {
+    transform: scale(1.05);
+  }
+
   @media screen and (max-width: 767px) {
-    //$breakpoint-tablet-1px
     width: 280px;
     &:not(:last-child) {
       margin-bottom: 20px;
@@ -34,14 +39,4 @@
   @media screen and (min-width: $breakpoint-desktop) {
     width: 274px;
   }
-}
-
-.movie__item:hover,
-.movie__item:focus {
-  transform: scale(1.1);
-}
-.movie__item {
-  cursor: pointer;
-  transform: scale(1);
-  transition: transform 250ms linear;
 }
