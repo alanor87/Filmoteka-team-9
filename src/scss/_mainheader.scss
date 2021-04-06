@@ -43,9 +43,10 @@
         url(./images/Rectangle-desktop@2x.jpg);
     }
   }
- // .header-wrapper {
-  //  margin-bottom: 37px;
-  //}
+
+  .header-wrapper {
+    padding-bottom: 37px;
+  }
 }
 
 // -------Cтили повторялись с header-library--------
@@ -135,6 +136,7 @@
 
 .search-wrapper {
   display: flex;
+  margin-bottom: 22px;
   // text-align: center;
 
   .search {
@@ -167,8 +169,7 @@
 
     &:hover,
     &:focus {
-
-border-bottom: 0.5px solid var(--color-accent);
+      border-bottom: 0.5px solid var(--color-accent);
     }
 
     transition-property: border-bottom;
@@ -205,6 +206,19 @@ border-bottom: 0.5px solid var(--color-accent);
     }
   }
 }
+.warning-notification {
+  max-width: 280px;
+  margin: 0 auto;
+  text-transform: none;
+  font-size: 14px;
+  line-height: 1.17;
+  font-weight: 400;
+  color: var(--text-color-warrning);
+  @media screen and (min-width: $breakpoint-tablet) {
+    min-width: 450px;
+  }
+}
+
 .search-form {
   @media screen and (min-width: $breakpoint-tablet) {
     margin: 0 auto;
