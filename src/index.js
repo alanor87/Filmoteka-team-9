@@ -5,7 +5,8 @@ import './js/modal-team';
 import { LibraryPage, getLibraryPage, setLibraryPage } from './js/library-page';
 import refs from './js/refs';
 import ApiService from './js/api';
-// import './js/pagination.js';
+import './js/jquery';
+import './js/jquery-canvas-sparkles.js';
 
 const debounce = require('lodash.debounce');
 import { pluginError } from './js/pluginOn';
@@ -253,3 +254,12 @@ meadia.addEventListener('change', ({ matches }) => {
   debounce(paginationByInput, 1000)
 });
 
+$(refs.modalTeam).sparkle({
+  color: "rainbow",
+  count: 100,
+  overlap: 0,
+  speed: 3,
+  minSize: 4,
+  maxSize: 9,
+  direction: "down"
+});

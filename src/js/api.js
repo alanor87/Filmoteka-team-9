@@ -90,7 +90,7 @@ export default class ApiService {
     }
     return newArr.length > 2
       ? newArr.slice(0, 2).join(', ') + ', OTHER'
-      : newArr.join(',');
+      : newArr.join(', ');
   }
   //Запрос базы жанров  - на будущее
   fetchGenresMovieList() {
