@@ -103,9 +103,9 @@ const teamInfo = [
     'team-position-second': '',
     'team-firstName': 'Alex',
     'team-secondName': 'Polischuk',
-    'team-github': '#',
+    'team-github': 'https://github.com/KSK86-Kim',
     'team-linkedin': '#',
-    'team-telegram': '#',
+    'team-telegram': 'https://t.me/KSK86_KIM',
   },
 ];
 

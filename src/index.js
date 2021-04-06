@@ -5,6 +5,7 @@ import './js/modal-team';
 import { LibraryPage, getLibraryPage, setLibraryPage } from './js/library-page';
 import refs from './js/refs';
 import ApiService from './js/api';
+// import './js/pagination.js';
 
 const debounce = require('lodash.debounce');
 import { pluginError } from './js/pluginOn';
@@ -12,7 +13,7 @@ import './js/theme-switch';
 import { spinner } from './js/spinner';
 
 const Api = new ApiService(refs.paginationControls);
-const TIME_OUT = 1000;
+const meadia = matchMedia('(min-width: 680px)');
 
 //Функция проверки текущей страницы
 function loadPage() {
@@ -100,7 +101,7 @@ function loadLibrary() {
       movies.slice(
         (Api.page - 1) * Api.moviesPerPage,
         Api.page * Api.moviesPerPage,
-      )
+      ),
     )
     .then(movies => movies.map(movie => Api.fetchMovieByID(movie)))
     .then(movies => Promise.all(movies))
@@ -241,5 +242,13 @@ refs.paginationControls.addEventListener('click', paginationByBtn);
 
 refs.paginationControls.addEventListener(
   'click',
-  debounce(paginationByInput, 1000),
+  debounce(paginationByInput, 800),
 );
+
+meadia.addEventListener('change', ({ matches }) => {
+  const currentPage = document.getElementsByTagName('html')[0];
+  if (currentPage.classList.contains('main-page')) {
+    console.log('Всё фигня давай заново');
+    Api.restartPagination();
+  }
+});
