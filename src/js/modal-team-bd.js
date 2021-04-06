@@ -79,9 +79,9 @@ const teamInfo = [
     'team-position-second': '',
     'team-firstName': 'Tania',
     'team-secondName': 'Shastun',
-    'team-github': '#',
+    'team-github': 'https://github.com/TaniaShastun',
     'team-linkedin': '#',
-    'team-telegram': '#',
+    'team-telegram': 'https://t.me/@redvelvet202',
   },
   {
     'team-img':
