@@ -276,7 +276,7 @@ export default class ApiService {
 
       if (current + this.#delta < last - 1) code += this.addButtonInput();
 
-      if (last !== 1) code += this.addButtonWithIndex(last);
+      if (last !== 1 && last !== 0) code += this.addButtonWithIndex(last);
       this.selectControl.innerHTML = code;
     } else {
       let code = [];
