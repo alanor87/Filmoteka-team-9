@@ -23,7 +23,7 @@ function loadPage() {
   Api.resetPage();
   if (currentPage.classList.contains('main-page')) {
     fetchPopularMoviesList();
-    refs.searchInput.addEventListener('input', debounce(onSearch, 500));
+    refs.searchButton.addEventListener('click', onSearch);
   }
   if (currentPage.classList.contains('library-page')) {
     refs.loadWatchedBtn.addEventListener('click', loadWatched);
@@ -55,9 +55,11 @@ function onSearchApi() {
 }
 
 function onSearch(event) {
+  event.preventDefault();
   spinner.show();
   Api.resetPage();
-  Api.searchQuery = event.target.value;
+  console.log(refs.searchInput.value);
+  Api.searchQuery = refs.searchInput.value;
   console.log('Api.searchQuery:', Api.searchQuery); //что ищем???
   if (!Api.searchQuery) {
     return fetchPopularMoviesList();

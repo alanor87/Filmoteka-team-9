@@ -1,5 +1,6 @@
 const refs = {
   searchInput: document.querySelector('.search-input'),
+  searchButton: document.querySelector('.search-button'),
   moviesCardsGallery: document.querySelector('.movie__list'),
   movieInfoModal: document.querySelector('.modal-movie'),
   openModalTeamBtn: document.querySelector('.js-openModalTeam'),
