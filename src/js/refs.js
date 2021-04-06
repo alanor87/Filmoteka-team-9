@@ -3,7 +3,7 @@ const refs = {
   moviesCardsGallery: document.querySelector('.movie__list'),
   movieInfoModal: document.querySelector('.modal-movie'),
   openModalTeamBtn: document.querySelector('.js-openModalTeam'),
-  modalTeamOverlay: document.querySelector('.js-modalTeam__overlay'),
+  modalOverlay: document.querySelector('.js-modalOverlay'),
   closeModalTeamBtn: document.querySelector('.js-closeModalTeam'),
   loadQueueBtn: document.querySelector('[data-load-queue]'),
   loadWatchedBtn: document.querySelector('[data-load-watched]'),

@@ -36,6 +36,7 @@ function loadPage() {
 //Функция запроса популярных фильмов и отрисовка галлереи карточек - запускается при загрузке главной страницы
 function fetchPopularMoviesList() {
   clear();
+  refs.warningNotificationRef.textContent = '';
   Api.fetchPopularMoviesList()
     .then(movies => movieAdaptedandRender(movies))
     .catch(pluginError);
@@ -47,7 +48,8 @@ function onSearchApi() {
   Api.fetchSearchMoviesList(Api.searchQuery).then(movies => {
     movieAdaptedandRender(movies);
     if (!movies.total_results) {
-      return pluginError('Please enter CORRECT query');
+      refs.warningNotificationRef.textContent =
+        'Search result not successful. Enter the correct movie name and try again';
     }
   });
 }
@@ -151,7 +153,7 @@ function modalListenersOn() {
     .querySelector('.modal-close-btn')
     .addEventListener('click', closeModalMovie);
   window.addEventListener('keydown', escCloseModal);
-  refs.movieInfoModal.addEventListener('ckick', clickModalMovie);
+  refs.movieInfoModal.addEventListener('click', clickModalMovie);
 }
 
 function closeModalMovie() {
@@ -166,7 +168,7 @@ function closeModalMovie() {
     .querySelector('.modal-close-btn')
     .removeEventListener('click', closeModalMovie);
   window.removeEventListener('keydown', escCloseModal);
-  refs.movieInfoModal.removeEventListener('ckick', clickModalMovie);
+  refs.movieInfoModal.removeEventListener('click', clickModalMovie);
   refs.movieInfoModal.innerHTML = '';
 }
 
@@ -182,6 +184,7 @@ function clickModalMovie(event) {
     closeModalMovie();
   }
 }
+// End of Modal Movie window
 
 function goToPage(number) {
   const currentPage = document.getElementsByTagName('html')[0];
@@ -230,7 +233,6 @@ function clamp(number, min, max) {
 
 refs.moviesCardsGallery.addEventListener('click', openModalMovie);
 window.addEventListener('load', loadPage);
-// End of Modal Movie window
 
 refs.btnPrevPagination.addEventListener('click', function () {
   goToPage(Api.page - 1);
@@ -242,8 +244,6 @@ refs.paginationControls.addEventListener('click', paginationByBtn);
 
 refs.paginationControls.addEventListener(
   'click',
-  debounce(paginationByInput, 800),
-);
 
 meadia.addEventListener('change', ({ matches }) => {
   const currentPage = document.getElementsByTagName('html')[0];
@@ -252,3 +252,5 @@ meadia.addEventListener('change', ({ matches }) => {
     Api.restartPagination();
   }
 });
+  debounce(paginationByInput, 1000),
+);

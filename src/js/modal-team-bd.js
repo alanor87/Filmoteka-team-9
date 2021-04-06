@@ -92,7 +92,7 @@ const teamInfo = [
     'team-firstName': 'Tetiana',
     'team-secondName': 'Bigunets',
     'team-github': 'https://github.com/BigunetsT?tab=projects',
-    'team-linkedin': '#',
+    'team-linkedin': 'https://www.linkedin.com/in/tetiana-bigunets-92828120b',
     'team-telegram': 'https://t.me/Tetyana_Bigunets',
   },
   {

@@ -1,26 +1,22 @@
 import refs from './refs';
 import modalTeam from '../templates/modalTeam.hbs';
 import teamInfo from './modal-team-bd';
+import onOverlayModalClick from './modal-overlay';
 
 refs.openModalTeamBtn.addEventListener('click', onOpenModalTeam);
 refs.closeModalTeamBtn.addEventListener('click', onCloseModalTeam);
-refs.modalTeamOverlay.addEventListener('click', onOverlayModalTeamClick);
 
 function onOpenModalTeam() {
-  refs.modalTeamOverlay.classList.add('show');
+  refs.modalOverlay.classList.add('show');
   renderModalTeam();
   window.addEventListener('keydown', onPressEscape);
+  refs.modalOverlay.addEventListener('click', onOverlayModalClick);
 }
 function onCloseModalTeam() {
-  refs.modalTeamOverlay.classList.remove('show');
+  refs.modalOverlay.classList.remove('show');
   window.addEventListener('keydown', onPressEscape);
   clearModalTeam();
-}
-function onOverlayModalTeamClick(event) {
-  event.preventDefault();
-  if (event.target === event.currentTarget) {
-    onCloseModalTeam();
-  }
+  refs.modalOverlay.removeEventListener('click', onOverlayModalClick);
 }
 
 function onPressEscape(event) {
