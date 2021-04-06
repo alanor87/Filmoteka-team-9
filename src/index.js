@@ -242,15 +242,12 @@ refs.btnNextPagination.addEventListener('click', function () {
 });
 refs.paginationControls.addEventListener('click', paginationByBtn);
 
-refs.paginationControls.addEventListener(
-  'click',
-
 meadia.addEventListener('change', ({ matches }) => {
   const currentPage = document.getElementsByTagName('html')[0];
   if (currentPage.classList.contains('main-page')) {
     console.log('Всё фигня давай заново');
     Api.restartPagination();
   }
+  debounce(paginationByInput, 1000)
 });
-  debounce(paginationByInput, 1000),
-);
+
