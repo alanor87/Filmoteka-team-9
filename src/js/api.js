@@ -214,6 +214,7 @@ export default class ApiService {
   }
 
   generatePosterPath(imageName) {
+    if (!imageName) return './images/no-picture.jpg';
     return `${POSTER_URL}${imageName}`;
   }
 

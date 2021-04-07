@@ -35,7 +35,8 @@
 
   // body.dark-theme &__description,
 
-  &__rating {
+  &__rating,
+  &__votes {
     display: inline-block;
     padding: 1px 10px;
 
@@ -46,5 +47,10 @@
     color: var(--text-color-light);
     background: var(--color-accent);
     border-radius: 5px;
+  }
+
+  &__votes {
+        color: var(--text-color-dark);
+    background: var(--bg-color-secondary);
   }
 }
