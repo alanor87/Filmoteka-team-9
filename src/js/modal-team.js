@@ -2,6 +2,7 @@ import refs from './refs';
 import modalTeam from '../templates/modalTeam.hbs';
 import teamInfo from './modal-team-bd';
 import onOverlayModalClick from './modal-overlay';
+import { pluginError } from './pluginOn';
 
 refs.openModalTeamBtn.addEventListener('click', onOpenModalTeam);
 refs.closeModalTeamBtn.addEventListener('click', onCloseModalTeam);
@@ -33,6 +34,8 @@ refs.modalTeam.addEventListener('click', event => {
       if (!myWindow) {
         myWindow = window.open(location, '', 'scrollbars=1');
       }
+    } else {
+      pluginError('No information');
     }
   }
 
@@ -42,6 +45,8 @@ refs.modalTeam.addEventListener('click', event => {
       if (!myWindow) {
         myWindow = window.open(location, '', 'scrollbars=1');
       }
+    } else {
+      pluginError('No information');
     }
   }
 });
