@@ -84,15 +84,17 @@
   color: var(--text-color-movie-info);
 }
 
-.info-field-value {
-  width: 50%;
+.info-field-value {  
   color: var(--text-color-dark);
+  width: 50%;
   &-title {
     text-transform: uppercase;
+  color: var(--text-color-dark);
   }
   &-genre {
     display: flex;
     flex-direction: column;
+  color: var(--text-color-dark);
   }
 }
 
