@@ -1,3 +1,4 @@
+import './images/no-picture.jpg';
 import './main.scss';
 import './js/back-to-top';
 import './js/firebase-login';
