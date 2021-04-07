@@ -218,30 +218,6 @@ export default class ApiService {
     return `${POSTER_URL}${imageName}`;
   }
 
-  addPaginationOnPage() {
-    if (this.selectControl === undefined) {
-      return;
-    }
-    const currentPage = document.getElementsByTagName('html')[0];
-    if (currentPage.classList.contains('main-page')) {
-      this.pagination(this.page, this.totalPages);
-    }
-    if (currentPage.classList.contains('library-page')) {
-      const page = getLibraryPage();
-      if (page === LibraryPage.WATCHED) {
-        this.pagination(
-          this.page,
-          Math.ceil(this.getWatchedMovies().length / this.moviesPerPage),
-        );
-      }
-      if (page === LibraryPage.QUEUE) {
-        this.pagination(
-          this.page,
-          Math.ceil(this.getQueuedMovies().length / this.moviesPerPage),
-        );
-      }
-    }
-  }
 
   getWatchedMovies() {
     return watchedFromLocalStorage;
@@ -286,6 +262,32 @@ export default class ApiService {
     this.identificationByID();
     this.addClassBtn();
   }
+
+  addPaginationOnPage() {
+    if (this.selectControl === undefined) {
+      return;
+    }
+    const currentPage = document.getElementsByTagName('html')[0];
+    if (currentPage.classList.contains('main-page')) {
+      this.pagination(this.page, this.totalPages);
+    }
+    if (currentPage.classList.contains('library-page')) {
+      const page = getLibraryPage();
+      if (page === LibraryPage.WATCHED) {
+        this.pagination(
+          this.page,
+          Math.ceil(this.getWatchedMovies().length / this.moviesPerPage),
+        );
+      }
+      if (page === LibraryPage.QUEUE) {
+        this.pagination(
+          this.page,
+          Math.ceil(this.getQueuedMovies().length / this.moviesPerPage),
+        );
+      }
+    }
+  }
+
   restartPagination() {
     // this.selectControl.innerHTML = '';
     this.pagination(this.page, this.totalPages);
@@ -309,6 +311,7 @@ export default class ApiService {
     const buttons = document.getElementById(currentPageID);
     console.log(buttons);
   }
+  
   addButtonWithIndex(index) {
     return ` <li id='pagination1_${index}' class="pagination-controls__item"><button id='pagination_${index}' class='pagination-controls__btn js-pagination-controls__btn' type='button' >${index}</button></li>`;
   }
