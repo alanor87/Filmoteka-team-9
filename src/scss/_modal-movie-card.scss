@@ -97,7 +97,12 @@
   color: var(--text-color-dark);
   }
 }
-
+.movie-card__voteСount {
+  display: inline-block;
+  padding: 1px 10px;
+  border-radius: 5px;
+  background-color: var(--bg-color-secondary);
+}
 .movie-about {
   font-size: 12px;
   line-height: 1.33;
