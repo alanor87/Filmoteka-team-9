@@ -6,9 +6,6 @@ const POSTER_URL = 'https://themoviedb.org/t/p/w500';
 const GENRE_MOVIE_LIST = 'https://api.themoviedb.org/3/genre/movie/list';
 const watchedFromLocalStorage = [];
 const queueFromLocalStorage = [];
-const screenWidth = window.screen.width;
-console.log(screenWidth);
-console.log(typeof screenWidth);
 import movieCard from '../templates/movieCard.hbs';
 import movieCardLibrary from '../templates/movieCardLibrary.hbs';
 import modalMovieCard from '../templates/modal-movie-card.hbs';
@@ -104,7 +101,6 @@ export default class ApiService {
     if (localStorage['watched']) {
       const watchedString = localStorage.getItem('watched');
       watchedFromLocalStorage.push(...JSON.parse(watchedString));
-      console.log(watchedFromLocalStorage.length);
     } else {
       localStorage.setItem('watched', JSON.stringify([]));
     }
@@ -149,7 +145,6 @@ export default class ApiService {
 
   renderMovieCards(moviesArray) {
     const currentPage = document.getElementsByTagName('html')[0];
-    console.log(currentPage.classList);
     spinner.close();
     if (currentPage.classList.contains('main-page')) {
       refs.moviesCardsGallery.insertAdjacentHTML(
@@ -193,7 +188,6 @@ export default class ApiService {
             .slice(2)
             .map(genre => genre.name)
             .join(', ') + ', OTHER';
-        console.log(newGenres);
       } else {
         newGenres = genres.map(genre => genre.name).join(', ');
       }
@@ -306,10 +300,8 @@ export default class ApiService {
   }
 
   identificationByID() {
-    console.log('api');
     let currentPageID = `'pagination_${this.page}'`;
     const buttons = document.getElementById(currentPageID);
-    console.log(buttons);
   }
   
   addButtonWithIndex(index) {

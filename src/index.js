@@ -31,7 +31,6 @@ function loadPage() {
     refs.loadWatchedBtn.addEventListener('click', loadWatched);
     refs.loadQueueBtn.addEventListener('click', loadQueue);
     loadLibrary();
-    console.log('Library'); //по умолчанию, отрисовываются просмотренные фильмы
   }
 }
 
@@ -60,9 +59,7 @@ function onSearch(event) {
   event.preventDefault();
   spinner.show();
   Api.resetPage();
-  console.log(refs.searchInput.value);
   Api.searchQuery = refs.searchInput.value;
-  console.log('Api.searchQuery:', Api.searchQuery); //что ищем???
   if (!Api.searchQuery) {
     return fetchPopularMoviesList();
   }
@@ -188,6 +185,10 @@ function clickModalMovie(event) {
     closeModalMovie();
   }
 }
+
+function toggleTitles() {
+  refs.modalTitles.classList.toggle('is-hidden');
+}
 // End of Modal Movie window
 
 function goToPage(number) {
@@ -237,7 +238,6 @@ function clamp(number, min, max) {
 
 refs.moviesCardsGallery.addEventListener('click', openModalMovie);
 window.addEventListener('load', loadPage);
-
 refs.btnPrevPagination.addEventListener('click', function () {
   goToPage(Api.page - 1);
 });
@@ -245,16 +245,15 @@ refs.btnNextPagination.addEventListener('click', function () {
   goToPage(Api.page + 1);
 });
 refs.paginationControls.addEventListener('click', paginationByBtn);
-
 meadia.addEventListener('change', ({ matches }) => {
   const currentPage = document.getElementsByTagName('html')[0];
   if (currentPage.classList.contains('main-page')) {
-    console.log('Всё фигня давай заново');
     Api.restartPagination();
   }
   debounce(paginationByInput, 1000)
 });
-
+refs.modalFooter.addEventListener('click', toggleTitles);
+refs.modalTitles.addEventListener('click', toggleTitles);
 $(refs.modalTeam).sparkle({
   color: "rainbow",
   count: 100,

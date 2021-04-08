@@ -14,5 +14,7 @@ const refs = {
   modalTeam: document.querySelector('.modalTeam'),
   modalTeamList: document.querySelector('.modalTeam__list'),
   warningNotificationRef: document.querySelector('.warning-notification'),
+  modalFooter: document.querySelector('.modalTeam__footer'),
+  modalTitles: document.querySelector('.star-wars-wrapper'),
 };
 export default refs;
