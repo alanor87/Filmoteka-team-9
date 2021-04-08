@@ -245,21 +245,26 @@ refs.btnNextPagination.addEventListener('click', function () {
   goToPage(Api.page + 1);
 });
 refs.paginationControls.addEventListener('click', paginationByBtn);
+
+refs.paginationControls.addEventListener(
+  'click',
+  debounce(paginationByInput, 1200),
+);
+
 meadia.addEventListener('change', ({ matches }) => {
   const currentPage = document.getElementsByTagName('html')[0];
   if (currentPage.classList.contains('main-page')) {
     Api.restartPagination();
   }
-  debounce(paginationByInput, 1000)
 });
 refs.modalFooter.addEventListener('click', toggleTitles);
 refs.modalTitles.addEventListener('click', toggleTitles);
 $(refs.modalTeam).sparkle({
-  color: "rainbow",
+  color: 'rainbow',
   count: 100,
   overlap: 0,
   speed: 3,
   minSize: 4,
   maxSize: 9,
-  direction: "down"
+  direction: 'down',
 });
