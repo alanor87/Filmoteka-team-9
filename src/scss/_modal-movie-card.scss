@@ -84,17 +84,19 @@
   color: var(--text-color-movie-info);
 }
 
-.info-field-value {  
+.info-field-value {
   color: var(--text-color-dark);
   width: 50%;
   &-title {
+    width: 50%;
     text-transform: uppercase;
-  color: var(--text-color-dark);
+    color: var(--text-color-dark);
   }
   &-genre {
+    width: 50%;
     display: flex;
     flex-direction: column;
-  color: var(--text-color-dark);
+    color: var(--text-color-dark);
   }
 }
 .movie-card__voteСount {
@@ -209,4 +211,3 @@
   line-height: 16px;
   margin-right: 10px;
 }
-
