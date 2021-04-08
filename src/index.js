@@ -239,9 +239,15 @@ function clamp(number, min, max) {
 refs.moviesCardsGallery.addEventListener('click', openModalMovie);
 window.addEventListener('load', loadPage);
 refs.btnPrevPagination.addEventListener('click', function () {
+  if (Api.page === 1) {
+    return;
+  }
   goToPage(Api.page - 1);
 });
 refs.btnNextPagination.addEventListener('click', function () {
+  if (Api.page === Api.totalPages) {
+    return;
+  }
   goToPage(Api.page + 1);
 });
 refs.paginationControls.addEventListener('click', paginationByBtn);
