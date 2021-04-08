@@ -212,7 +212,6 @@ export default class ApiService {
     return `${POSTER_URL}${imageName}`;
   }
 
-
   getWatchedMovies() {
     return watchedFromLocalStorage;
   }
@@ -303,7 +302,7 @@ export default class ApiService {
     let currentPageID = `'pagination_${this.page}'`;
     const buttons = document.getElementById(currentPageID);
   }
-  
+
   addButtonWithIndex(index) {
     return ` <li id='pagination1_${index}' class="pagination-controls__item"><button id='pagination_${index}' class='pagination-controls__btn js-pagination-controls__btn' type='button' >${index}</button></li>`;
   }
