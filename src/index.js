@@ -247,8 +247,8 @@ refs.btnNextPagination.addEventListener('click', function () {
 refs.paginationControls.addEventListener('click', paginationByBtn);
 
 refs.paginationControls.addEventListener(
-  'click',
-  debounce(paginationByInput, 1200),
+  'input',
+  debounce(paginationByInput, 1000),
 );
 
 meadia.addEventListener('change', ({ matches }) => {
